@@ -13,40 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Handwritten">
-      <UniqueIdentifier>{8f790dec-35ae-460f-a97d-b871dd64f8e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Lab">
-      <UniqueIdentifier>{8cfbd117-a7a1-4d2d-a796-daf6256bdad2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Miscellaneous\getopt.c">
+    <ClCompile Include="..\..\..\Miscellaneous\getopt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lab1.cpp">
-      <Filter>Source Files\Lab</Filter>
-    </ClCompile>
-    <ClCompile Include="palindrome.cpp">
-      <Filter>Source Files\Handwritten</Filter>
+    <ClCompile Include="Debugging.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="sorting.h">
-      <Filter>Source Files\Lab</Filter>
-    </ClInclude>
-    <ClInclude Include="palindrome.h">
-      <Filter>Source Files\Handwritten</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Miscellaneous\Makefile">
-      <Filter>Source Files\Lab</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="test.txt">
-      <Filter>Source Files\Lab</Filter>
+    <Text Include="..\Files\test.txt">
+      <Filter>Source Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Files\sorting.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

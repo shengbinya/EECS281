@@ -18,6 +18,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Miscellaneous\getopt.c" />
+    <ClCompile Include="..\Files\lab1.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Files\sorting.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Files\test.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -138,21 +148,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Miscellaneous\getopt.c" />
-    <ClCompile Include="lab1.cpp" />
-    <ClCompile Include="palindrome.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="palindrome.h" />
-    <ClInclude Include="sorting.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="test.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Miscellaneous\Makefile" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

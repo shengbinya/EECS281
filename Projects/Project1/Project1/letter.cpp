@@ -13,9 +13,6 @@ class letterMan{
 
 private:
 
-    vector<string> dictionary;
-    int size = 0;
-
     //Output Variables
     bool output = false;
     char outputFormat = '\0';
@@ -30,6 +27,9 @@ public:
 
     //Read and Process Command Line Arguments
     void get_options(int argc, char** argv);
+
+    vector<string> dictionary;
+    string::size_type size = 0;
 
 };
 
@@ -137,6 +137,116 @@ void letterMan::get_options(int argc, char** argv) {
     }
 }
 
+string reverseString(string in) {
+    string reversed = "";
+    string::size_type size = in.size();
+    for (string::size_type i = 0; i < size; ++i) {
+        reversed += in[size - 1 - i];
+    }
+    return reversed;
+}
+
+void letterMan::read_data() {
+
+    char type = '\0';
+    cin >> type;
+
+    if (type == 'S') {
+        char temp1 = '\0';
+        cin >> temp1;
+        const char* ptr = &temp1;
+        size = atoi(ptr);
+
+        dictionary.reserve(size);
+        dictionary.resize(size);
+
+        cin.ignore();
+        string temp = "";
+
+        for (string::size_type i = 0; i < size; ++i) {
+            
+            getline(cin, temp);
+
+            if ("//" == temp.substr(0, 2)) {
+                i--;
+            }
+
+            else {
+                dictionary[i] = temp;
+            }
+        }
+    }
+
+    else {
+        char temp1 = '\0';
+        cin >> temp1;
+        const char* ptr = &temp1;
+        size = atoi(ptr);
+
+        dictionary.reserve(size);
+
+        cin.ignore();
+        string temp = "";
+
+        string reversal = "&";
+        string insert = "[]";
+        string swap = "!";
+        string twice = "?";
+        const string chars = "&[]!?";
+
+        for (string::size_type i = 0; i <= size; ++i) {
+
+            getline(cin, temp);
+
+            if ("//" == temp.substr(0, 2)) {
+                i--;
+            }
+            
+            else {
+                string::size_type index = temp.find_first_of(chars);
+                if (index != std::string::npos) {
+
+                    if (temp[index] == '&') {
+                        dictionary.push_back(temp.substr(0, index));
+                        dictionary.push_back(reverseString(temp.substr(0,index)));
+                    }
+
+                    else if (temp[index] == '[') {
+                        string::size_type endIndex = temp.find(']');
+                        
+                        for (string::size_type i = index+1; i < endIndex; ++i) {
+                            dictionary.push_back(temp.substr(0, index)
+                                + temp[i] + temp.substr(endIndex + 1, temp.size()));
+                        }
+
+                    }
+
+                    else if (temp[index] == '!') {
+                        string::size_type size = temp.size();
+                        dictionary.push_back(temp.substr(0,index) + 
+                             temp.substr(index + 1, size));
+                        dictionary.push_back(reverseString(temp.substr(0, index))
+                            + temp.substr(index + 1, size));
+                    }
+
+                    else if (temp[index] == '?') {
+                        string::size_type size = temp.size();
+                        dictionary.push_back(temp.substr(0, index) + 
+                            temp.substr(index + 1, size));
+                        dictionary.push_back(temp.substr(0, index) + temp[index-1]
+                            + temp.substr(index + 1, size));
+                    }
+
+                }
+
+                else {
+                    dictionary.push_back(temp);
+                }
+
+            }
+        }
+    }
+}
 //Need to check dictionary for start and end word
 
 int main(int argc, char** argv) {
@@ -146,6 +256,10 @@ int main(int argc, char** argv) {
     man.get_options(argc, argv);
 
     man.read_data();
+
+    for (auto i : man.dictionary) {
+        cout << i << '\n';
+    }
 
     return 0;
 }

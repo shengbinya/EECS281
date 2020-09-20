@@ -34,5 +34,8 @@
     <Text Include="Samples-Windows\spec-simple.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="Samples-Windows\larger-complex.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

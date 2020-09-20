@@ -6,8 +6,15 @@
 #include <getopt.h>
 #include <string>    
 #include <deque>
+#include <cmath>
 
 using namespace std;
+
+struct word{
+    string wordIn = "";
+    string modification = "";
+    int discoveredBy = -1;
+};
 
 class letterMan{
 
@@ -16,20 +23,45 @@ private:
     //Output Variables
     bool output = false;
     char outputFormat = '\0';
-    
+    bool q = false;
+    bool s = false;
+    bool changeCheck = false;
+    bool swapCheck = false;
+    bool lengthCheck = false;
+    string modification = "";
+
     //Start and End Varaibles
     string startWord = "";
     string endWord = "";
 
 public:
+
+    //Variables
+    vector<string> dictionary;
+    string::size_type size = 0;
+
+    vector<word> discard;
+    int sizeD = 0;
+    
+    deque<word> queue;
+    int sizeQ = 0;
+    
+    word currentWord;
+
     //Reads in input from txt file
     void read_data();
 
     //Read and Process Command Line Arguments
     void get_options(int argc, char** argv);
 
-    vector<string> dictionary;
-    string::size_type size = 0;
+    //Finds the path that Letterman should take
+    bool find_path();
+
+    //Compares a word to see if it can be marked as discovered
+    bool compare(string current, string reviewed);
+
+    //Writes data to cout
+    void write_data();
 
 };
 
@@ -40,9 +72,6 @@ void letterMan::get_options(int argc, char** argv) {
     opterr = false;
 
     int sqTally = 0;
-    bool changeCheck = false;
-    bool swapCheck = false;
-    bool lengthCheck = false;
 
     // use getopt to find command line options
     struct option longOpts[] = { { "stack", no_argument, nullptr, 's' },
@@ -60,10 +89,12 @@ void letterMan::get_options(int argc, char** argv) {
         switch (option) {
         case 's':
             sqTally++;
+            s = true;
             break;
 
         case 'q':
             sqTally++;
+            q = true;
             break;
 
         case 'c':
@@ -247,6 +278,211 @@ void letterMan::read_data() {
         }
     }
 }
+
+bool letterMan::compare(string current, string reviewed) {
+    
+    string::size_type currentSize = current.size();
+    string::size_type reviewedSize = reviewed.size();
+    
+    //Check if differ by two letters
+    if (reviewedSize - currentSize > 1)
+        return false;
+
+    //Check if differ by length when we can't change length
+    if (currentSize != reviewedSize && !lengthCheck)
+        return false;
+
+    //Check if can obtain word by adding or subtracting a letter
+    if (currentSize != reviewedSize && lengthCheck) {
+        
+        string::size_type i = 0;
+        string::size_type j = 0;
+        string::size_type index = 300;
+
+        while (i < currentSize) {
+            if (current[i] != reviewed[j]) {
+                if (current[i + 1] == reviewed[j]) {
+                    if (index == 300) {
+                        index = i;
+                        modification = "d," + to_string(index);
+                    }
+                    ++i;
+                }
+                else if (current[i] == reviewed[j + 1]) {
+                    if (index == 300) {
+                        index = i;
+                        modification = "i," + to_string(index) + reviewed[j];
+                    }
+                    ++j;
+                }
+                else
+                    return false;
+            }
+
+            ++i;
+            ++j;
+        }
+        if (index != 300)
+            return true;
+    }
+
+    //Check if can obtain word by changing one letter
+    if (currentSize == reviewedSize && changeCheck) {
+        
+        string::size_type index = 300;
+        
+        for (string::size_type i = 0; i < currentSize; ++i) {
+            if (current[i] != reviewed[i]) {
+                if (index != 300)
+                    return false;
+                else
+                    index = i;
+            }
+                
+        }
+        if (index != 300){
+            modification = "c," + to_string(index) + "," + reviewed[index];
+            return true;
+        }  
+       
+    }
+    
+    //Check if can obtain word by swapping two letter
+    if (currentSize == reviewedSize && swapCheck) {
+        
+        string::size_type index = 300;
+
+        for (string::size_type i = 0; i < currentSize - 1; ++i) {
+            if (current.substr(i, i + 2) == reverseString(reviewed.substr(i, i + 2))) {
+
+                if (index != 300)
+                    return false;
+                else
+                    index = i;
+
+            }
+                
+        }
+        if (index != 300) {
+            modification = "s," + to_string(index);
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool letterMan::find_path() {
+   
+
+    //Do I really need this?
+    word start;
+    start.wordIn = startWord;
+    queue.push_back(start);
+    sizeQ++;
+    queue.pop_front();
+    sizeQ--;
+
+    currentWord.wordIn = startWord;
+
+    //Discover Start Word
+    for (string::size_type i = 0; i < size; ++i) {
+        if (dictionary.at(i) == startWord) {
+            dictionary.at(i).insert(0, "#");
+            break;
+        }
+    }
+
+    do {
+
+        //After discovering all words for a particular word
+        if (sizeQ > 0) {
+
+            //Add to discard
+            discard.push_back(currentWord);
+            sizeD++;
+
+            if (q) {
+
+                //Grab and remove top of queue
+                currentWord = queue.at(0);
+                queue.pop_front();
+                sizeQ--;
+
+            }
+
+        }
+
+        for (string::size_type i = 0; i < size; ++i) {
+            //Check if word has been discovered already
+            cerr << i << "\n";
+            cerr << "Considered: " << dictionary.size() << "\n";
+            if (dictionary.at(i).at(0) == '#') {}
+
+            else {
+                if (compare(currentWord.wordIn, dictionary.at(i))) {
+                    
+                    //Create word object
+                    word temp;
+                    temp.modification = modification;
+                    temp.wordIn = dictionary.at(i);
+                    temp.discoveredBy = sizeD;
+
+                    //End Case
+                    if (endWord == dictionary.at(i)) {
+                        
+                        discard.push_back(currentWord);
+                        discard.push_back(temp);
+                        sizeD += 2;
+                        return true;
+                    
+                    }
+
+                    //If a queue push it to the back
+                    if (q) {
+                        queue.push_back(temp);
+                        sizeQ++;
+                    }
+                    
+                    //Add character to denote as discovered
+                    dictionary.at(i).insert(0, "#");
+                }
+            }
+        }
+            
+     
+    } while (sizeQ > 0);
+    return false;
+}
+
+void letterMan::write_data() {
+    
+    currentWord = discard.at(sizeD-1);
+    vector<word> solution;
+
+    while (currentWord.discoveredBy != -1) {
+        
+        solution.push_back(currentWord);
+        currentWord = discard.at(currentWord.discoveredBy);
+
+    }
+    
+    solution.push_back(currentWord);
+    int sizeS = static_cast<int>(solution.size());
+    
+    cout << "Words in Morph: " << to_string(sizeS) << "\n";
+    cout << discard.at(sizeS - 1).wordIn << "\n";
+    
+    for (int i = sizeS - 2; i >= 0; --i) {
+        
+        if (outputFormat == 'W')
+            cout << discard.at(i).wordIn << "\n";
+        else
+            cout << discard.at(i).modification << "\n";
+
+    }
+}
+
 //Need to check dictionary for start and end word
 
 int main(int argc, char** argv) {
@@ -256,10 +492,11 @@ int main(int argc, char** argv) {
     man.get_options(argc, argv);
 
     man.read_data();
-
-    for (auto i : man.dictionary) {
-        cout << i << '\n';
-    }
+    cerr << "Data Read\n";
+    if (man.find_path())
+        man.write_data();
+    else
+        cout << "No solution, " << to_string(man.sizeD + 1) << " words discovered.\n";
 
     return 0;
 }

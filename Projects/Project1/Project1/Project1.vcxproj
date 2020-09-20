@@ -146,6 +146,7 @@
     <None Include="Makefile" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Samples-Windows\larger-complex.txt" />
     <Text Include="Samples-Windows\spec-complex.txt" />
     <Text Include="Samples-Windows\spec-simple.txt" />
   </ItemGroup>

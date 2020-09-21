@@ -7,16 +7,17 @@
 #include <string>    
 #include <deque>
 #include <cmath>
+#include <regex>
 
 using namespace std;
 
-struct word{
+struct word {
     string wordIn = "";
     string modification = "";
     int discoveredBy = -1;
 };
 
-class letterMan{
+class letterMan {
 
 private:
 
@@ -38,7 +39,7 @@ public:
 
     //Variables
     vector<string> dictionary;
-    string::size_type size = 0;
+    std::size_t size = 0;
 
     vector<word> discard;
     int sizeD = 0;
@@ -115,7 +116,7 @@ void letterMan::get_options(int argc, char** argv) {
             break;
 
         case 'b':
-            startWord = optarg;
+            startWord = optarg ;
             break;
 
         case 'e':
@@ -170,8 +171,8 @@ void letterMan::get_options(int argc, char** argv) {
 
 string reverseString(string in) {
     string reversed = "";
-    string::size_type size = in.size();
-    for (string::size_type i = 0; i < size; ++i) {
+    std::size_t size = in.size();
+    for (std::size_t i = 0; i < size; ++i) {
         reversed += in[size - 1 - i];
     }
     return reversed;
@@ -192,18 +193,28 @@ void letterMan::read_data() {
         dictionary.resize(size);
 
         cin.ignore();
+
         string temp = "";
 
-        for (string::size_type i = 0; i < size; ++i) {
+        for (std::size_t i = 0; i < size; ++i) {
             
             getline(cin, temp);
-
+         
             if ("//" == temp.substr(0, 2)) {
-                i--;
+                --i;
             }
 
-            else {
-                dictionary[i] = temp;
+            else if (temp.size() == 0) {
+                --i;
+            }
+
+            else{
+              
+                //Check for carriage returns after reading in
+                if (int(temp.at(temp.size() - 1)) ==  13)
+                    dictionary[i] = temp.substr(0, temp.size() - 1);
+                else
+                    dictionary[i] = temp;
             }
         }
     }
@@ -225,16 +236,19 @@ void letterMan::read_data() {
         string twice = "?";
         const string chars = "&[]!?";
 
-        for (string::size_type i = 0; i <= size; ++i) {
+        for (std::size_t j = 0; j < size; ++j) {
 
             getline(cin, temp);
 
-            if ("//" == temp.substr(0, 2)) {
-                i--;
+            if ("//" == temp.substr(0, 2) || temp.empty()) {
+                size++;
             }
             
             else {
-                string::size_type index = temp.find_first_of(chars);
+                if (int(temp.at(temp.size() - 1)) == 13)
+                    temp = temp.substr(0, temp.size() - 1);
+
+                std::size_t index = temp.find_first_of(chars);
                 if (index != std::string::npos) {
 
                     if (temp[index] == '&') {
@@ -243,9 +257,9 @@ void letterMan::read_data() {
                     }
 
                     else if (temp[index] == '[') {
-                        string::size_type endIndex = temp.find(']');
+                        std::size_t endIndex = temp.find(']');
                         
-                        for (string::size_type i = index+1; i < endIndex; ++i) {
+                        for (std::size_t i = index+1; i < endIndex; ++i) {
                             dictionary.push_back(temp.substr(0, index)
                                 + temp[i] + temp.substr(endIndex + 1, temp.size()));
                         }
@@ -253,7 +267,7 @@ void letterMan::read_data() {
                     }
 
                     else if (temp[index] == '!') {
-                        string::size_type size = temp.size();
+                        std::size_t size = temp.size();
                         dictionary.push_back(temp.substr(0,index) + 
                              temp.substr(index + 1, size));
                         dictionary.push_back(reverseString(temp.substr(0, index))
@@ -261,28 +275,29 @@ void letterMan::read_data() {
                     }
 
                     else if (temp[index] == '?') {
-                        string::size_type size = temp.size();
+                        std::size_t size = temp.size();
                         dictionary.push_back(temp.substr(0, index) + 
                             temp.substr(index + 1, size));
                         dictionary.push_back(temp.substr(0, index) + temp[index-1]
                             + temp.substr(index + 1, size));
                     }
 
-                }
+                
 
                 else {
                     dictionary.push_back(temp);
                 }
-
+                }
             }
         }
+        size = dictionary.size();
     }
 }
 
 bool letterMan::compare(string current, string reviewed) {
     
-    string::size_type currentSize = current.size();
-    string::size_type reviewedSize = reviewed.size();
+    std::size_t currentSize = current.size();
+    std::size_t reviewedSize = reviewed.size();
     
     //Check if differ by two letters
     if (reviewedSize - currentSize > 1)
@@ -295,9 +310,9 @@ bool letterMan::compare(string current, string reviewed) {
     //Check if can obtain word by adding or subtracting a letter
     if (currentSize != reviewedSize && lengthCheck) {
         
-        string::size_type i = 0;
-        string::size_type j = 0;
-        string::size_type index = 300;
+        std::size_t i = 0;
+        std::size_t j = 0;
+        std::size_t index = 300;
 
         while (i < currentSize) {
             if (current[i] != reviewed[j]) {
@@ -329,9 +344,9 @@ bool letterMan::compare(string current, string reviewed) {
     //Check if can obtain word by changing one letter
     if (currentSize == reviewedSize && changeCheck) {
         
-        string::size_type index = 300;
+        std::size_t index = 300;
         
-        for (string::size_type i = 0; i < currentSize; ++i) {
+        for (std::size_t i = 0; i < currentSize; ++i) {
             if (current[i] != reviewed[i]) {
                 if (index != 300)
                     return false;
@@ -350,9 +365,9 @@ bool letterMan::compare(string current, string reviewed) {
     //Check if can obtain word by swapping two letter
     if (currentSize == reviewedSize && swapCheck) {
         
-        string::size_type index = 300;
+        std::size_t index = 300;
 
-        for (string::size_type i = 0; i < currentSize - 1; ++i) {
+        for (std::size_t i = 0; i < currentSize - 1; ++i) {
             if (current.substr(i, i + 2) == reverseString(reviewed.substr(i, i + 2))) {
 
                 if (index != 300)
@@ -374,19 +389,12 @@ bool letterMan::compare(string current, string reviewed) {
 
 bool letterMan::find_path() {
    
-
-    //Do I really need this?
-    word start;
-    start.wordIn = startWord;
-    queue.push_back(start);
-    sizeQ++;
-    queue.pop_front();
-    sizeQ--;
-
     currentWord.wordIn = startWord;
 
+
     //Discover Start Word
-    for (string::size_type i = 0; i < size; ++i) {
+    for (std::size_t i = 0; i < size; ++i) {
+
         if (dictionary.at(i) == startWord) {
             dictionary.at(i).insert(0, "#");
             break;
@@ -402,21 +410,16 @@ bool letterMan::find_path() {
             discard.push_back(currentWord);
             sizeD++;
 
-            if (q) {
-
                 //Grab and remove top of queue
                 currentWord = queue.at(0);
                 queue.pop_front();
                 sizeQ--;
 
-            }
-
         }
 
-        for (string::size_type i = 0; i < size; ++i) {
+        for (std::size_t i = 0; i < size; ++i) {
             //Check if word has been discovered already
-            cerr << i << "\n";
-            cerr << "Considered: " << dictionary.size() << "\n";
+
             if (dictionary.at(i).at(0) == '#') {}
 
             else {
@@ -441,7 +444,11 @@ bool letterMan::find_path() {
                     //If a queue push it to the back
                     if (q) {
                         queue.push_back(temp);
-                        sizeQ++;
+                        ++sizeQ;
+                    }
+                    else {
+                        queue.push_front(temp);
+                        ++sizeQ;
                     }
                     
                     //Add character to denote as discovered
@@ -471,14 +478,14 @@ void letterMan::write_data() {
     int sizeS = static_cast<int>(solution.size());
     
     cout << "Words in Morph: " << to_string(sizeS) << "\n";
-    cout << discard.at(sizeS - 1).wordIn << "\n";
+    cout << solution.at(sizeS - 1).wordIn << "\n";
     
     for (int i = sizeS - 2; i >= 0; --i) {
         
         if (outputFormat == 'W')
-            cout << discard.at(i).wordIn << "\n";
+            cout << solution.at(i).wordIn << "\n";
         else
-            cout << discard.at(i).modification << "\n";
+            cout << solution.at(i).modification << "\n";
 
     }
 }
@@ -492,7 +499,7 @@ int main(int argc, char** argv) {
     man.get_options(argc, argv);
 
     man.read_data();
-    cerr << "Data Read\n";
+    
     if (man.find_path())
         man.write_data();
     else

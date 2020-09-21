@@ -149,6 +149,7 @@
     <Text Include="Samples-Windows\larger-complex.txt" />
     <Text Include="Samples-Windows\spec-complex.txt" />
     <Text Include="Samples-Windows\spec-simple.txt" />
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

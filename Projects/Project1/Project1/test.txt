@@ -1,0 +1,19 @@
+C
+14
+//This generates the dictionary:
+//chip, chop, junk, star, tsar, ship, shop, 
+//shot, stop, pots, let, leet
+ch[io]p
+tttattt
+ttatt
+ghtaf!
+ghtf!a
+ghf!ta
+gh!fta
+hgfta
+junk
+st!ar
+sh[io]p
+shot
+stop&
+le?t

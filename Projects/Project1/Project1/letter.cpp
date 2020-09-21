@@ -7,7 +7,6 @@
 #include <string>    
 #include <deque>
 #include <cmath>
-#include <regex>
 
 using namespace std;
 
@@ -220,10 +219,10 @@ void letterMan::read_data() {
     }
 
     else {
-        char temp1 = '\0';
+        string temp1 = "";
         cin >> temp1;
-        const char* ptr = &temp1;
-        size = atoi(ptr);
+        const char* temp2 = { temp1.c_str() };
+        size = atoi(temp2);
 
         dictionary.reserve(size);
 
@@ -253,13 +252,13 @@ void letterMan::read_data() {
 
                     if (temp[index] == '&') {
                         dictionary.push_back(temp.substr(0, index));
-                        dictionary.push_back(reverseString(temp.substr(0,index)));
+                        dictionary.push_back(reverseString(temp.substr(0, index)));
                     }
 
                     else if (temp[index] == '[') {
                         std::size_t endIndex = temp.find(']');
-                        
-                        for (std::size_t i = index+1; i < endIndex; ++i) {
+
+                        for (std::size_t i = index + 1; i < endIndex; ++i) {
                             dictionary.push_back(temp.substr(0, index)
                                 + temp[i] + temp.substr(endIndex + 1, temp.size()));
                         }
@@ -268,26 +267,26 @@ void letterMan::read_data() {
 
                     else if (temp[index] == '!') {
                         std::size_t size = temp.size();
-                        dictionary.push_back(temp.substr(0,index) + 
-                             temp.substr(index + 1, size));
+                        dictionary.push_back(temp.substr(0, index) +
+                            temp.substr(index + 1, size));
                         dictionary.push_back(reverseString(temp.substr(0, index))
                             + temp.substr(index + 1, size));
                     }
 
                     else if (temp[index] == '?') {
                         std::size_t size = temp.size();
-                        dictionary.push_back(temp.substr(0, index) + 
+                        dictionary.push_back(temp.substr(0, index) +
                             temp.substr(index + 1, size));
-                        dictionary.push_back(temp.substr(0, index) + temp[index-1]
+                        dictionary.push_back(temp.substr(0, index) + temp[index - 1]
                             + temp.substr(index + 1, size));
                     }
 
-                
+                }
 
                 else {
                     dictionary.push_back(temp);
                 }
-                }
+                
             }
         }
         size = dictionary.size();
@@ -367,15 +366,28 @@ bool letterMan::compare(string current, string reviewed) {
         
         std::size_t index = 300;
 
-        for (std::size_t i = 0; i < currentSize - 1; ++i) {
-            if (current.substr(i, i + 2) == reverseString(reviewed.substr(i, i + 2))) {
+        for (std::size_t i = 0; i < currentSize; ++i) {
+            if (current[i] == reviewed[i]) {}
 
-                if (index != 300)
-                    return false;
+            else if (i < currentSize - 1) {
+
+                if (current.substr(i, 2) == reverseString(reviewed.substr(i, 2))) {
+
+                    if (index != 300)
+                        return false;
+                    else {
+                        index = i;
+                        ++i;
+                    }
+
+                }
+
                 else
-                    index = i;
-
+                    return false;
             }
+
+            else
+                return false;
                 
         }
         if (index != 300) {
@@ -477,7 +489,7 @@ void letterMan::write_data() {
     solution.push_back(currentWord);
     int sizeS = static_cast<int>(solution.size());
     
-    cout << "Words in Morph: " << to_string(sizeS) << "\n";
+    cout << "Words in morph: " << to_string(sizeS) << "\n";
     cout << solution.at(sizeS - 1).wordIn << "\n";
     
     for (int i = sizeS - 2; i >= 0; --i) {

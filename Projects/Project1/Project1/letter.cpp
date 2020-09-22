@@ -618,7 +618,7 @@ bool letterMan::find_path() {
         for (std::size_t i = 0; i < size; ++i) {
             //Check if word has been discovered already
 
-            if (dictionary.at(i).at(0) == '#') {}
+            if (dictionary[i].empty()) {}
 
             else {
                 if (compare(currentWord.wordIn, dictionary.at(i))) {
@@ -651,7 +651,7 @@ bool letterMan::find_path() {
                     }
                     
                     //Add character to denote as discovered
-                    dictionary.at(i).insert(0, "#");
+                    dictionary[i] = "";
                 }
             }
         }

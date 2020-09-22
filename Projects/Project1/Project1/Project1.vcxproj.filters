@@ -43,9 +43,6 @@
     <Text Include="test-1-ghtaf-hgfta-spw.txt">
       <Filter>Source Files</Filter>
     </Text>
-    <Text Include="test-3-sky-sun-qlpcw.txt">
-      <Filter>Source Files</Filter>
-    </Text>
     <Text Include="test-4-abab-mama-slm.txt">
       <Filter>Source Files</Filter>
     </Text>
@@ -53,6 +50,9 @@
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="test-6-ttattta-tar-slpm.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="test-3-sky-trcil-qlpcw.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

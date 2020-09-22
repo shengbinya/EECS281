@@ -32,6 +32,8 @@ private:
     bool swapCheck = false;
     bool lengthCheck = false;
     string modification = "";
+    
+
 
     //Start and End Varaibles
     string startWord = "";
@@ -41,6 +43,8 @@ private:
 
 public:
     string sortedStart = "";
+    bool startExist = false;
+    bool endExist = false;
 
     //Variables
     vector<string> dictionary;
@@ -72,6 +76,8 @@ public:
     bool checkLetters(string);
 
     bool checkWord(string &);
+
+    bool checkEnds(string temp);
 };
 
 void letterMan::get_options(int argc, char** argv) {
@@ -135,6 +141,7 @@ void letterMan::get_options(int argc, char** argv) {
                 begin = false;
                 break;
             }
+            break;
 
         case 'e':
             endWord = optarg;
@@ -145,6 +152,7 @@ void letterMan::get_options(int argc, char** argv) {
                 end = false;
                 break;
             }
+            break;
 
 
         case 'h':
@@ -171,7 +179,17 @@ void letterMan::get_options(int argc, char** argv) {
         cerr << "More or less than one -s or -q on command line.\n";
         exit(1);
     }
-        
+       
+    if (!begin) {
+        cerr << "No begin word specified.\n";
+        exit(1);
+    }
+
+    if (!end) {
+        cerr << "No end word specified.\n";
+        exit(1);
+    }
+
     if (!changeCheck && !swapCheck && !lengthCheck) {
         cerr << "No -c, -l, -s on command line.\n";
         exit(1);
@@ -192,14 +210,10 @@ void letterMan::get_options(int argc, char** argv) {
         exit(1);
     }
 
-    if (!begin) {
-        cerr << "No begin word specified.\n";
-        exit(1);
-    }
-
-    if (!end) {
-        cerr << "No end word specified.\n";
-        exit(1);
+    if (startWord == endWord) {
+        cerr << "Words in morph: 1\n";
+        cerr << startWord << "\n";
+        exit(0);
     }
 }
 
@@ -240,6 +254,16 @@ bool letterMan::checkWord(string &temp) {
     return true;
 }
 
+bool letterMan::checkEnds(string temp) {
+    if (temp == startWord) {
+        startExist = true;
+        return true;
+    }
+    else if (temp == endWord)
+        endExist = true;
+    return false;
+}
+
 void letterMan::read_data() {
 
     char type = '\0';
@@ -275,9 +299,10 @@ void letterMan::read_data() {
                 if (int(temp.at(temp.size() - 1)) ==  13)
                     temp = temp.substr(0, temp.size() - 1);
                 if (checkWord(temp)) {
-                    dictionary.push_back(temp);
+                    if (!checkEnds(temp)) {
+                        dictionary.push_back(temp);
+                    }
                 }
-                
             }
         }
     }
@@ -317,8 +342,13 @@ void letterMan::read_data() {
                     if (temp[index] == '&') {
                         string temp1 = temp.substr(0, index);
                         if (checkWord(temp1)) {
-                            dictionary.push_back(temp1);
-                            dictionary.push_back(reverseString(temp1));
+                            if (!checkEnds(temp1)) {
+                                dictionary.push_back(temp1);
+                            }
+                            string t = reverseString(temp1);
+                            if (!checkEnds(t)) {
+                                dictionary.push_back(t);
+                            }
                         }
                         
                     }
@@ -328,8 +358,11 @@ void letterMan::read_data() {
 
                         for (std::size_t i = index + 1; i < endIndex; ++i) {
                             string temp1 = temp.substr(0, index) + temp[i] + temp.substr(endIndex + 1, temp.size()-endIndex-1);
-                            if(checkWord(temp1))
-                                dictionary.push_back(temp1);
+                            if (checkWord(temp1)) {
+                                if (!checkEnds(temp1)) {
+                                    dictionary.push_back(temp1);
+                                }
+                            }
                         }
 
                     }
@@ -338,9 +371,14 @@ void letterMan::read_data() {
                         std::size_t size = temp.size();
                         string temp1 = temp.substr(0, index) + temp.substr(index + 1, size-index-1);
                         if (checkWord(temp1)) {
-                            dictionary.push_back(temp1);
-                            dictionary.push_back(temp.substr(0,index-2) + reverseString(temp.substr(index-2, 2))
-                                + temp.substr(index + 1, size-index-1));
+                            if (!checkEnds(temp1)) {
+                                dictionary.push_back(temp1);
+                            }
+                            string t = temp.substr(0, index - 2) + reverseString(temp.substr(index - 2, 2))
+                                + temp.substr(index + 1, size - index - 1);
+                            if (!checkEnds(t)) {
+                                dictionary.push_back(t);
+                            }
                         }
   
                     }
@@ -350,18 +388,25 @@ void letterMan::read_data() {
                         string temp1 = temp.substr(0, index) + temp.substr(index + 1, size - index - 1);
                         string temp2 = temp.substr(0, index) + temp[index - 1] + temp.substr(index + 1, size - index - 1);
                         if (checkWord(temp1)) {
-                            dictionary.push_back(temp1);
+                            if (!checkEnds(temp1)) {
+                                dictionary.push_back(temp1);
+                            }
                         }
                         if (checkWord(temp2)) {
-                            dictionary.push_back(temp2);
+                            if (!checkEnds(temp2)) {
+                                dictionary.push_back(temp2);
+                            }
                         }
                     }
 
                 }
 
                 else {
-                    if (checkWord(temp))
-                        dictionary.push_back(temp);
+                    if (checkWord(temp)) {
+                        if (!checkEnds(temp)) {
+                            dictionary.push_back(temp);
+                        }
+                    }
                 }
                 
             }
@@ -552,16 +597,6 @@ bool letterMan::find_path() {
    
     currentWord.wordIn = startWord;
 
-
-    //Discover Start Word
-    for (std::size_t i = 0; i < size; ++i) {
-
-        if (dictionary.at(i) == startWord) {
-            dictionary.at(i).insert(0, "#");
-            break;
-        }
-    }
-
     do {
 
         //After discovering all words for a particular word
@@ -663,6 +698,16 @@ int main(int argc, char** argv) {
 
     man.get_options(argc, argv);
     man.read_data();
+    
+    if (!man.startExist) {
+        cout << "Start word not found in dictionary\n";
+        exit(1);
+    }
+    if (!man.endExist) {
+        cout << "End word not found in dictionary\n";
+        exit(1);
+    }
+    
     /*
     
     auto stop1 = std::chrono::high_resolution_clock::now();

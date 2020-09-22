@@ -344,131 +344,182 @@ void letterMan::read_data() {
     }
 }
 
+
 bool letterMan::compare(string current, string reviewed) {
-    
+
     std::size_t currentSize = current.size();
     std::size_t reviewedSize = reviewed.size();
-    
+
     //Check if differ by two letters
     if (reviewedSize > currentSize && reviewedSize - currentSize > 1)
         return false;
 
-    if (currentSize > reviewedSize && currentSize - reviewedSize > 1)
+    else if (currentSize > reviewedSize && currentSize - reviewedSize > 1)
         return false;
 
-    //Check if differ by length when we can't change length
-    if (currentSize != reviewedSize && !lengthCheck)
-        return false;
+    //If length is the same try change and swap
+    else if (currentSize == reviewedSize) {
+        if (changeCheck && swapCheck) {
+            bool changed = false;
+            bool swapped = false;
 
-    //Check if can obtain word by adding or subtracting a letter
-    if (currentSize != reviewedSize && lengthCheck) {
-        
-        std::size_t i = 0;
-        std::size_t j = 0;
-        std::size_t index = std::string::npos;
-
-        while (i <= currentSize) {
-            
-            //If everything including last letter is the same 
-            if (i == currentSize && currentSize < reviewedSize) {
-                if (index == std::string::npos) {
-                    modification = "i," + to_string(i) + "," + reviewed[j];                  
-                }
-                return true;
-            }
-
-            //If first word larger
-            else if (j == reviewedSize && currentSize > reviewedSize) {
-                if (index == std::string::npos) {
-                    modification = "d," + to_string(i + 1);
-                }
-                return true;
-            }
-
-            else if (current[i] != reviewed[j]) {
-                if (current[i + 1] == reviewed[j]) {
-                    if (index == std::string::npos) {
-                        index = i;
-                        modification = "d," + to_string(index);
+            for (size_t i = 0; i < currentSize; ++i) {
+                //If two letters are different
+                if (current[i] != reviewed[i]) {
+                    //If not at the end
+                    if (i != currentSize - 1) {
+                        //Check if already been swapped or changed
+                        if (!swapped && !changed) {
+                            //If swap works
+                            if (current[i] == reviewed[i + 1] && current[i + 1] == reviewed[i]) {
+                                swapped = true;
+                                modification = "s," + to_string(i);
+                                ++i;
+                            }
+                            //If swap doesn't work we change
+                            else {
+                                changed = true;
+                                modification = "c," + to_string(i) + "," + reviewed[i];
+                            }
+                        }
+                        else
+                            return false;
                     }
-                    ++i;
-                }
-                else if (current[i] == reviewed[j + 1]) {
-                    if (index == std::string::npos) {
-                        index = i;
-                        modification = "i," + to_string(index) + ","+ reviewed[j];
-                    }
-                    ++j;
-                }
-                else
-                    return false;
-            }
-            
-            ++i;
-            ++j;
-        }
-        if (index != std::string::npos)
-            return true;
-    }
-
-    //Check if can obtain word by changing one letter
-    if (currentSize == reviewedSize && changeCheck) {
-        
-        bool valid = true;
-        std::size_t index = std::string::npos;
-        
-        for (std::size_t i = 0; i < currentSize; ++i) {
-            if (current[i] != reviewed[i]) {
-                if (index != std::string::npos)
-                    valid = false;
-                else
-                    index = i;
-            }
-                
-        }
-        if (index != std::string::npos && valid){
-            modification = "c," + to_string(index) + "," + reviewed[index];
-            return true;
-        }  
-       
-    }
-    
-    //Check if can obtain word by swapping two letter
-    if (currentSize == reviewedSize && swapCheck) {
-        
-        std::size_t index = std::string::npos;
-
-        for (std::size_t i = 0; i < currentSize; ++i) {
-            if (current[i] == reviewed[i]) {}
-
-            else if (i < currentSize - 1) {
-
-                if (current.substr(i, 2) == reverseString(reviewed.substr(i, 2))) {
-
-                    if (index != std::string::npos)
-                        return false;
+                    //Change
                     else {
-                        index = i;
-                        ++i;
+                        //Check if already been swapped or changed
+                        if (!swapped && !changed) {
+                            changed = true;
+                            modification = "c," + to_string(i) + "," + reviewed[i];
+                        }
+                        else {
+                            return false;
+                        }
                     }
-
                 }
-
-                else
-                    return false;
             }
-
-            else
-                return false;
-                
-        }
-        if (index != std::string::npos) {
-            modification = "s," + to_string(index);
             return true;
         }
+        else if (changeCheck) {
+            
+            bool changed = false;
+           
+            for (size_t i = 0; i < currentSize; ++i) {
+                //If two letters are different
+                if (current[i] != reviewed[i]) {
+                    //Check if already been changed
+                    if (!changed) {
+                        changed = true;
+                        modification = "c," + to_string(i) + "," + reviewed[i];
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        else {
+
+            bool swapped = false;
+            
+            for (size_t i = 0; i < currentSize; ++i) {
+                //If two letters are different
+                if (current[i] != reviewed[i]) {
+                    //Check if already been swapped or changed
+                    if (!swapped) {
+                        //If not at the end
+                        if (i != currentSize - 1) {
+                            //If swap works
+                            if (current[i] == reviewed[i + 1] && current[i + 1] == reviewed[i]) {
+                                swapped = true;
+                                modification = "s," + to_string(i);
+                                ++i;
+                            }
+                            else
+                                return false;
+                        }
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
+                }
+            }
+            return true;
+            
+        }
     }
-    
-    return false;
+
+    //If length is different by one run lengthcheck
+    else {
+
+        bool lengthed = false;
+        
+        //If Current word is larger than reviewed = deletion
+        if (currentSize - reviewedSize == 1) {
+            size_t j = 0;
+            for (size_t i = 0; i < reviewedSize; ++i) {
+                //Is there a difference
+                if (current[i] != reviewed[j]) {
+                    //Has there already been an addition
+                    if (!lengthed) {
+                        lengthed = true;
+                        modification = "d," + to_string(i);
+                        ++i;
+                        //Check incremented i to make sure everything is good
+                        if (current[i] != reviewed[j])
+                            return false;
+                    }
+                    else
+                        return false;   
+                }
+                ++j;
+            }
+            //Made it all the way to the end with no changes
+            if (!lengthed) {
+                modification = "d," + to_string(currentSize - 1);
+                return true;
+            }
+            //We changed something and want to make sure the last letters match
+            else if (current[currentSize - 1] != reviewed[reviewedSize - 1])
+                return false;
+            else
+                return true;
+        }
+        //Reviewed word is larger than current = insertion
+        else {
+            size_t j = 0;
+            for (size_t i = 0; i < currentSize; ++i) {
+                //Is there a difference
+                if (current[i] != reviewed[j]) {
+                    //Has there already been an addition
+                    if (!lengthed) {
+                        lengthed = true;
+                        modification = "i," + to_string(i) + "," + reviewed[j];
+                        ++j;
+                        //Check incremnted j to make sure everything is good
+                        if (current[i] != reviewed[j])
+                            return false;
+                    }
+                    else
+                        return false;
+                }
+                ++j;
+            }
+            //Made it all the way to the end with no changes
+            if (!lengthed) {
+                modification = "d," + to_string(currentSize - 1);
+                return true;
+            }
+            //We changed something and want to make sure the last letters match
+            else if (current[currentSize - 1] != reviewed[reviewedSize - 1])
+                return false;
+            else
+                return true;
+        }
+    }
+    return true;
 }
 
 bool letterMan::find_path() {
@@ -495,8 +546,9 @@ bool letterMan::find_path() {
             sizeD++;
 
                 //Grab and remove top of queue
- 
+            
             currentWord = queue.at(0);
+            cerr << "Removed: " << currentWord.wordIn << "\n";
             queue.pop_front();
             sizeQ--;
 
@@ -532,6 +584,7 @@ bool letterMan::find_path() {
                         ++sizeQ;
                     }
                     else {
+                        cerr << "Added: " << temp.wordIn << "\n";
                         queue.push_front(temp);
                         ++sizeQ;
                     }
@@ -584,9 +637,11 @@ int main(int argc, char** argv) {
     man.get_options(argc, argv);
 
     man.read_data();
+    cerr << "Dictionary: \n";
     for (size_t i = 0; i < man.dictionary.size(); i++) {
         cerr << man.dictionary.at(i) << "\n";
     }
+    cerr << "\n\n";
     if (man.find_path())
         man.write_data();
     else

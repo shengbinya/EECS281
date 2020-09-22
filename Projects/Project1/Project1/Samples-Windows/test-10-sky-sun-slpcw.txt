@@ -1,0 +1,23 @@
+S
+20
+// Used for Appendix A example
+skip
+trail
+rain
+ruin
+run
+sail
+she
+shy
+ski
+sky
+slap
+slip
+soap
+soil
+soul
+soup
+sue
+sun
+tail
+train

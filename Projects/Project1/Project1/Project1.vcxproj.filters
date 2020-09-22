@@ -52,5 +52,8 @@
     <Text Include="test-5-atrk-mnop-qlw.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="test-6-ttattta-tar-slpm.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

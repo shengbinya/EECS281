@@ -7,6 +7,7 @@
 #include <string>    
 #include <deque>
 #include <cmath>
+#include <chrono>
 
 using namespace std;
 
@@ -22,6 +23,8 @@ private:
 
     //Output Variables
     bool output = false;
+    bool begin = true;
+    bool end = true;
     char outputFormat = '\0';
     bool q = false;
     bool s = false;
@@ -121,15 +124,28 @@ void letterMan::get_options(int argc, char** argv) {
             break;
 
         case 'b':
-            startWord = optarg ;
-            startLen = startWord.size();
-            sortedStart = startWord;
-            sort(sortedStart.begin(), sortedStart.end());
-            break;
+            startWord = optarg;
+            if (startWord.substr(0, 1) != "-") {
+                startLen = startWord.size();
+                sortedStart = startWord;
+                sort(sortedStart.begin(), sortedStart.end());
+                break;
+            }
+            else {
+                begin = false;
+                break;
+            }
 
         case 'e':
             endWord = optarg;
-            break;
+            if (endWord.substr(0, 1) != "-") {
+                break;
+            }
+            else {
+                end = false;
+                break;
+            }
+
 
         case 'h':
             std::cerr << "This program reads in a dictionary from a file.\n"
@@ -173,6 +189,16 @@ void letterMan::get_options(int argc, char** argv) {
 
     if (startWord.size() != endWord.size() && !lengthCheck) {
         cerr << "Cannot modify length. Impossible case.\n";
+        exit(1);
+    }
+
+    if (!begin) {
+        cerr << "No begin word specified.\n";
+        exit(1);
+    }
+
+    if (!end) {
+        cerr << "No end word specified.\n";
         exit(1);
     }
 }
@@ -509,7 +535,7 @@ bool letterMan::compare(string current, string reviewed) {
             }
             //Made it all the way to the end with no changes
             if (!lengthed) {
-                modification = "d," + to_string(currentSize - 1);
+                modification = "i," + to_string(currentSize) + "," +reviewed[j];
                 return true;
             }
             //We changed something and want to make sure the last letters match
@@ -548,7 +574,7 @@ bool letterMan::find_path() {
                 //Grab and remove top of queue
             
             currentWord = queue.at(0);
-            cerr << "Removed: " << currentWord.wordIn << "\n";
+            //cout << "Removed: " << currentWord.wordIn << "\n";
             queue.pop_front();
             sizeQ--;
 
@@ -584,7 +610,7 @@ bool letterMan::find_path() {
                         ++sizeQ;
                     }
                     else {
-                        cerr << "Added: " << temp.wordIn << "\n";
+                        //cout << "Added: " << temp.wordIn << "\n";
                         queue.push_front(temp);
                         ++sizeQ;
                     }
@@ -631,21 +657,51 @@ void letterMan::write_data() {
 //Need to check dictionary for start and end word
 
 int main(int argc, char** argv) {
-
+    std::ios_base::sync_with_stdio(false);
+    //auto start = std::chrono::high_resolution_clock::now();
     letterMan man;
 
     man.get_options(argc, argv);
-
     man.read_data();
-    cerr << "Dictionary: \n";
+    /*
+    
+    auto stop1 = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop1 - start);
+    cerr << "Read_data took: " << duration.count() << "\n";
+    
+    cout << "Dictionary: \n";
     for (size_t i = 0; i < man.dictionary.size(); i++) {
-        cerr << man.dictionary.at(i) << "\n";
+        cout << man.dictionary.at(i) << "\n";
     }
-    cerr << "\n\n";
-    if (man.find_path())
+    cout << "\n\n";
+    */
+    if (man.find_path()) {
+        /*
+        auto stop2 = std::chrono::high_resolution_clock::now();
+        duration = std::chrono::duration_cast<std::chrono::microseconds>(stop2 - stop1);
+        cerr << "Find_path tood: " << duration.count() << "\n";
+        */
         man.write_data();
-    else
+        /*
+        auto stop3 = std::chrono::high_resolution_clock::now();
+         duration = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - stop2);
+        cerr << "write_data took: " << duration.count() << "\n";
+        */
+    }
+        
+    else {
+        /*
+        auto stop2 = std::chrono::high_resolution_clock::now();
+        duration = std::chrono::duration_cast<std::chrono::microseconds>(stop2 - stop1);
+        cerr << "no solution took:" << duration.count() << "\n";
+        */
         cout << "No solution, " << to_string(man.sizeD + 1) << " words discovered.\n";
+    }
+    /*
+    auto stop3 = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - start);
+    cerr << duration.count() << "\n";
+    */
 
     return 0;
 }

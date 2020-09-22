@@ -32,7 +32,9 @@ private:
 
     //Start and End Varaibles
     string startWord = "";
+    size_t startLen = 0;
     string endWord = "";
+    string sortedStart = "";
 
 public:
 
@@ -116,6 +118,9 @@ void letterMan::get_options(int argc, char** argv) {
 
         case 'b':
             startWord = optarg ;
+            startLen = startWord.size();
+            sortedStart = startWord;
+            sort(sortedStart.begin(), sortedStart.end());
             break;
 
         case 'e':
@@ -177,16 +182,20 @@ string reverseString(string in) {
     return reversed;
 }
 
+bool checkLetters(string in, string check) {
+    
+}
+
 void letterMan::read_data() {
 
     char type = '\0';
     cin >> type;
 
     if (type == 'S') {
-        char temp1 = '\0';
+        string temp1 = "";
         cin >> temp1;
-        const char* ptr = &temp1;
-        size = atoi(ptr);
+        const char* temp2 = { temp1.c_str() };
+        size = atoi(temp2);
 
         dictionary.reserve(size);
         dictionary.resize(size);
@@ -211,9 +220,16 @@ void letterMan::read_data() {
               
                 //Check for carriage returns after reading in
                 if (int(temp.at(temp.size() - 1)) ==  13)
-                    dictionary[i] = temp.substr(0, temp.size() - 1);
-                else
-                    dictionary[i] = temp;
+                    temp = temp.substr(0, temp.size() - 1);
+                //Check if word even needs adding to the dictionary
+                if (!lengthCheck) {
+                    
+                    if (startLen != temp.size()) {}
+
+                    else if (!changeCheck) {
+                        checkLetters(startWord, temp);
+                    }
+                }
             }
         }
     }
@@ -299,7 +315,10 @@ bool letterMan::compare(string current, string reviewed) {
     std::size_t reviewedSize = reviewed.size();
     
     //Check if differ by two letters
-    if (reviewedSize - currentSize > 1)
+    if (reviewedSize > currentSize && reviewedSize - currentSize > 1)
+        return false;
+
+    if (currentSize > reviewedSize && currentSize - reviewedSize > 1)
         return false;
 
     //Check if differ by length when we can't change length
@@ -311,50 +330,68 @@ bool letterMan::compare(string current, string reviewed) {
         
         std::size_t i = 0;
         std::size_t j = 0;
-        std::size_t index = 300;
+        std::size_t index = std::string::npos;
 
-        while (i < currentSize) {
-            if (current[i] != reviewed[j]) {
+        while (i <= currentSize) {
+            
+            //If everything including last letter is the same 
+            if (i == currentSize && currentSize < reviewedSize) {
+                if (index == std::string::npos) {
+                    modification = "i," + to_string(i) + "," + reviewed[j];                  
+                }
+                return true;
+            }
+
+            //If first word larger
+            else if (j == reviewedSize && currentSize > reviewedSize) {
+                if (index == std::string::npos) {
+                    modification = "d," + to_string(i + 1);
+                }
+                return true;
+            }
+
+            else if (current[i] != reviewed[j]) {
                 if (current[i + 1] == reviewed[j]) {
-                    if (index == 300) {
+                    if (index == std::string::npos) {
                         index = i;
                         modification = "d," + to_string(index);
                     }
                     ++i;
                 }
                 else if (current[i] == reviewed[j + 1]) {
-                    if (index == 300) {
+                    if (index == std::string::npos) {
                         index = i;
-                        modification = "i," + to_string(index) + reviewed[j];
+                        modification = "i," + to_string(index) + ","+ reviewed[j];
                     }
                     ++j;
                 }
                 else
                     return false;
             }
-
+            
             ++i;
             ++j;
         }
-        if (index != 300)
+        if (index != std::string::npos)
             return true;
     }
 
     //Check if can obtain word by changing one letter
     if (currentSize == reviewedSize && changeCheck) {
         
-        std::size_t index = 300;
+        bool valid = true;
+        std::size_t index = std::string::npos;
         
         for (std::size_t i = 0; i < currentSize; ++i) {
             if (current[i] != reviewed[i]) {
-                if (index != 300)
-                    return false;
+                if (index != std::string::npos)
+                    valid = false;
                 else
                     index = i;
             }
                 
         }
-        if (index != 300){
+        if (index != std::string::npos && valid){
             modification = "c," + to_string(index) + "," + reviewed[index];
             return true;
         }  
@@ -364,7 +401,7 @@ bool letterMan::compare(string current, string reviewed) {
     //Check if can obtain word by swapping two letter
     if (currentSize == reviewedSize && swapCheck) {
         
-        std::size_t index = 300;
+        std::size_t index = std::string::npos;
 
         for (std::size_t i = 0; i < currentSize; ++i) {
             if (current[i] == reviewed[i]) {}
@@ -373,7 +410,7 @@ bool letterMan::compare(string current, string reviewed) {
 
                 if (current.substr(i, 2) == reverseString(reviewed.substr(i, 2))) {
 
-                    if (index != 300)
+                    if (index != std::string::npos)
                         return false;
                     else {
                         index = i;
@@ -390,7 +427,7 @@ bool letterMan::compare(string current, string reviewed) {
                 return false;
                 
         }
-        if (index != 300) {
+        if (index != std::string::npos) {
             modification = "s," + to_string(index);
             return true;
         }
@@ -423,9 +460,10 @@ bool letterMan::find_path() {
             sizeD++;
 
                 //Grab and remove top of queue
-                currentWord = queue.at(0);
-                queue.pop_front();
-                sizeQ--;
+ 
+            currentWord = queue.at(0);
+            queue.pop_front();
+            sizeQ--;
 
         }
 

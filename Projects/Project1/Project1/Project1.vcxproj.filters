@@ -37,7 +37,13 @@
     <Text Include="Samples-Windows\larger-complex.txt">
       <Filter>Source Files</Filter>
     </Text>
-    <Text Include="test.txt">
+    <Text Include="test-2-tttatt-mattam-qlm.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="test-1-ghtaf-hgfta-spw.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="test-3-sky-sun-qlpcw.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

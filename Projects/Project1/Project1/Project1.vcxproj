@@ -149,7 +149,9 @@
     <Text Include="Samples-Windows\larger-complex.txt" />
     <Text Include="Samples-Windows\spec-complex.txt" />
     <Text Include="Samples-Windows\spec-simple.txt" />
-    <Text Include="test.txt" />
+    <Text Include="test-1-ghtaf-hgfta-spw.txt" />
+    <Text Include="test-2-tttatt-mattam-qlm.txt" />
+    <Text Include="test-3-sky-sun-qlpcw.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -283,9 +283,9 @@ void letterMan::read_data() {
 
         for (std::size_t i = 0; i < size; ++i) {
             
-            getline(cin, temp);
-         
-            if ("//" == temp.substr(0, 2)) {
+            cin >> temp;
+            if (temp.substr(0, 2) == "//") {
+                getline(cin, temp);
                 --i;
             }
 
@@ -295,9 +295,6 @@ void letterMan::read_data() {
 
             else{
               
-                //Check for carriage returns after reading in
-                if (int(temp.at(temp.size() - 1)) ==  13)
-                    temp = temp.substr(0, temp.size() - 1);
                 if (checkWord(temp)) {
                     if (!checkEnds(temp)) {
                         dictionary.push_back(temp);
@@ -326,15 +323,14 @@ void letterMan::read_data() {
 
         for (std::size_t j = 0; j < size; ++j) {
 
-            getline(cin, temp);
-
-            if ("//" == temp.substr(0, 2) || temp.empty()) {
-                size++;
+            cin >> temp;
+            if (temp.substr(0, 2) == "//") {
+                getline(cin, temp);
+                --j;
             }
+
             
             else {
-                if (int(temp.at(temp.size() - 1)) == 13)
-                    temp = temp.substr(0, temp.size() - 1);
 
                 std::size_t index = temp.find_first_of(chars);
                 if (index != std::string::npos) {
@@ -651,7 +647,7 @@ bool letterMan::find_path() {
                     }
                     
                     //Add character to denote as discovered
-                    dictionary[i] = "";
+                    dictionary[i] = std::string();
                 }
             }
         }

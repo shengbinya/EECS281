@@ -46,5 +46,11 @@
     <Text Include="test-3-sky-sun-qlpcw.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="test-4-abab-mama-slm.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="test-5-atrk-mnop-qlw.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -34,9 +34,10 @@ private:
     string startWord = "";
     size_t startLen = 0;
     string endWord = "";
-    string sortedStart = "";
+    
 
 public:
+    string sortedStart = "";
 
     //Variables
     vector<string> dictionary;
@@ -65,6 +66,9 @@ public:
     //Writes data to cout
     void write_data();
 
+    bool checkLetters(string);
+
+    bool checkWord(string &);
 };
 
 void letterMan::get_options(int argc, char** argv) {
@@ -182,8 +186,32 @@ string reverseString(string in) {
     return reversed;
 }
 
-bool checkLetters(string in, string check) {
-    
+bool letterMan::checkLetters(string check) {
+    sort(check.begin(), check.end());
+    return sortedStart == check;    
+}
+
+bool letterMan::checkWord(string &temp) {
+    //Check if word even needs adding to the dictionary
+    if (!lengthCheck) {
+
+        if (startLen != temp.size()) {
+            return false;
+        }
+
+        else if (!changeCheck) {
+            if (checkLetters(temp))
+                return true;
+            else
+                return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    return true;
 }
 
 void letterMan::read_data() {
@@ -198,7 +226,6 @@ void letterMan::read_data() {
         size = atoi(temp2);
 
         dictionary.reserve(size);
-        dictionary.resize(size);
 
         cin.ignore();
 
@@ -221,15 +248,10 @@ void letterMan::read_data() {
                 //Check for carriage returns after reading in
                 if (int(temp.at(temp.size() - 1)) ==  13)
                     temp = temp.substr(0, temp.size() - 1);
-                //Check if word even needs adding to the dictionary
-                if (!lengthCheck) {
-                    
-                    if (startLen != temp.size()) {}
-
-                    else if (!changeCheck) {
-                        checkLetters(startWord, temp);
-                    }
+                if (checkWord(temp)) {
+                    dictionary.push_back(temp);
                 }
+                
             }
         }
     }
@@ -267,40 +289,53 @@ void letterMan::read_data() {
                 if (index != std::string::npos) {
 
                     if (temp[index] == '&') {
-                        dictionary.push_back(temp.substr(0, index));
-                        dictionary.push_back(reverseString(temp.substr(0, index)));
+                        string temp1 = temp.substr(0, index);
+                        if (checkWord(temp1)) {
+                            dictionary.push_back(temp1);
+                            dictionary.push_back(reverseString(temp1));
+                        }
+                        
                     }
 
                     else if (temp[index] == '[') {
                         std::size_t endIndex = temp.find(']');
 
                         for (std::size_t i = index + 1; i < endIndex; ++i) {
-                            dictionary.push_back(temp.substr(0, index)
-                                + temp[i] + temp.substr(endIndex + 1, temp.size()));
+                            string temp1 = temp.substr(0, index) + temp[i] + temp.substr(endIndex + 1, temp.size()-endIndex-1);
+                            if(checkWord(temp1))
+                                dictionary.push_back(temp1);
                         }
 
                     }
 
                     else if (temp[index] == '!') {
                         std::size_t size = temp.size();
-                        dictionary.push_back(temp.substr(0, index) +
-                            temp.substr(index + 1, size));
-                        dictionary.push_back(reverseString(temp.substr(0, index))
-                            + temp.substr(index + 1, size));
+                        string temp1 = temp.substr(0, index) + temp.substr(index + 1, size-index-1);
+                        if (checkWord(temp1)) {
+                            dictionary.push_back(temp1);
+                            dictionary.push_back(temp.substr(0,index-2) + reverseString(temp.substr(index-2, 2))
+                                + temp.substr(index + 1, size-index-1));
+                        }
+  
                     }
 
                     else if (temp[index] == '?') {
                         std::size_t size = temp.size();
-                        dictionary.push_back(temp.substr(0, index) +
-                            temp.substr(index + 1, size));
-                        dictionary.push_back(temp.substr(0, index) + temp[index - 1]
-                            + temp.substr(index + 1, size));
+                        string temp1 = temp.substr(0, index) + temp.substr(index + 1, size - index - 1);
+                        string temp2 = temp.substr(0, index) + temp[index - 1] + temp.substr(index + 1, size - index - 1);
+                        if (checkWord(temp1)) {
+                            dictionary.push_back(temp1);
+                        }
+                        if (checkWord(temp2)) {
+                            dictionary.push_back(temp2);
+                        }
                     }
 
                 }
 
                 else {
-                    dictionary.push_back(temp);
+                    if (checkWord(temp))
+                        dictionary.push_back(temp);
                 }
                 
             }
@@ -549,7 +584,9 @@ int main(int argc, char** argv) {
     man.get_options(argc, argv);
 
     man.read_data();
-    
+    for (size_t i = 0; i < man.dictionary.size(); i++) {
+        cerr << man.dictionary.at(i) << "\n";
+    }
     if (man.find_path())
         man.write_data();
     else

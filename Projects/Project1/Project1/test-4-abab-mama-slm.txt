@@ -1,6 +1,7 @@
 S
 14
 //Tests insert
+mama
 abab
 ababa
 ababab
@@ -14,4 +15,3 @@ bmabmaba
 bmamaba
 mabmab
 mamab
-mama

@@ -68,16 +68,16 @@ public:
     bool find_path();
 
     //Compares a word to see if it can be marked as discovered
-    bool compare(string current, string reviewed);
+    bool compare(const string & current, const string & reviewed);
 
     //Writes data to cout
     void write_data();
 
     bool checkLetters(string);
 
-    bool checkWord(string &);
+    bool checkWord(const string &);
 
-    bool checkEnds(string temp);
+    bool checkEnds(const string & temp);
 };
 
 void letterMan::get_options(int argc, char** argv) {
@@ -217,13 +217,12 @@ void letterMan::get_options(int argc, char** argv) {
     }
 }
 
-string reverseString(string in) {
+void reverseString(string &in) {
     string reversed = "";
     std::size_t size = in.size();
     for (std::size_t i = 0; i < size; ++i) {
         reversed += in[size - 1 - i];
     }
-    return reversed;
 }
 
 bool letterMan::checkLetters(string check) {
@@ -231,7 +230,7 @@ bool letterMan::checkLetters(string check) {
     return sortedStart == check;    
 }
 
-bool letterMan::checkWord(string &temp) {
+bool letterMan::checkWord(const string &temp) {
     //Check if word even needs adding to the dictionary
     if (!lengthCheck) {
 
@@ -254,7 +253,7 @@ bool letterMan::checkWord(string &temp) {
     return true;
 }
 
-bool letterMan::checkEnds(string temp) {
+bool letterMan::checkEnds(const string &temp) {
     if (temp == startWord) {
         startExist = true;
         return true;
@@ -276,6 +275,7 @@ void letterMan::read_data() {
         size = atoi(temp2);
 
         dictionary.reserve(size);
+        discard.reserve(size / 4);
 
         cin.ignore();
 
@@ -311,6 +311,7 @@ void letterMan::read_data() {
         size = atoi(temp2);
 
         dictionary.reserve(size);
+        discard.reserve(size / 4);
 
         cin.ignore();
         string temp = "";
@@ -341,9 +342,9 @@ void letterMan::read_data() {
                             if (!checkEnds(temp1)) {
                                 dictionary.push_back(temp1);
                             }
-                            string t = reverseString(temp1);
-                            if (!checkEnds(t)) {
-                                dictionary.push_back(t);
+                            reverseString(temp1);
+                            if (!checkEnds(temp1)) {
+                                dictionary.push_back(temp1);
                             }
                         }
                         
@@ -370,10 +371,10 @@ void letterMan::read_data() {
                             if (!checkEnds(temp1)) {
                                 dictionary.push_back(temp1);
                             }
-                            string t = temp.substr(0, index - 2) + reverseString(temp.substr(index - 2, 2))
-                                + temp.substr(index + 1, size - index - 1);
-                            if (!checkEnds(t)) {
-                                dictionary.push_back(t);
+                            temp1[index - 2] = temp[index - 1];
+                            temp1[index - 1] = temp[index - 2];
+                            if (!checkEnds(temp1)) {
+                                dictionary.push_back(temp1);
                             }
                         }
   
@@ -412,7 +413,7 @@ void letterMan::read_data() {
 }
 
 
-bool letterMan::compare(string current, string reviewed) {
+bool letterMan::compare(const string & current, const string & reviewed) {
 
     std::size_t currentSize = current.size();
     std::size_t reviewedSize = reviewed.size();
@@ -689,7 +690,7 @@ void letterMan::write_data() {
 
 int main(int argc, char** argv) {
     std::ios_base::sync_with_stdio(false);
-    //auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
     letterMan man;
 
     man.get_options(argc, argv);
@@ -704,45 +705,48 @@ int main(int argc, char** argv) {
         exit(1);
     }
     
-    /*
+    
     
     auto stop1 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop1 - start);
     cerr << "Read_data took: " << duration.count() << "\n";
     
+    /*
     cout << "Dictionary: \n";
     for (size_t i = 0; i < man.dictionary.size(); i++) {
         cout << man.dictionary.at(i) << "\n";
     }
+    
     cout << "\n\n";
     */
+    
     if (man.find_path()) {
-        /*
+        
         auto stop2 = std::chrono::high_resolution_clock::now();
         duration = std::chrono::duration_cast<std::chrono::microseconds>(stop2 - stop1);
         cerr << "Find_path tood: " << duration.count() << "\n";
-        */
+        
         man.write_data();
-        /*
+        
         auto stop3 = std::chrono::high_resolution_clock::now();
          duration = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - stop2);
         cerr << "write_data took: " << duration.count() << "\n";
-        */
+        
     }
         
     else {
-        /*
+        
         auto stop2 = std::chrono::high_resolution_clock::now();
         duration = std::chrono::duration_cast<std::chrono::microseconds>(stop2 - stop1);
         cerr << "no solution took:" << duration.count() << "\n";
-        */
+        
         cout << "No solution, " << to_string(man.sizeD + 1) << " words discovered.\n";
     }
-    /*
+    
     auto stop3 = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - start);
     cerr << duration.count() << "\n";
-    */
+    
 
     return 0;
 }

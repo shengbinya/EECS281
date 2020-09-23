@@ -211,8 +211,8 @@ void letterMan::get_options(int argc, char** argv) {
     }
 
     if (startWord == endWord) {
-        cerr << "Words in morph: 1\n";
-        cerr << startWord << "\n";
+        cout << "Words in morph: 1\n";
+        cout << startWord << "\n";
         exit(0);
     }
 }

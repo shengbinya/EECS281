@@ -1,12 +1,13 @@
 C
 17
 //Tests stack length and swap
-ttattta
+ttattta 
 [tr]tattt
 trtattt
 trattt
 tratt
 tartt
+//This is to throw people off
 atrtt
 trtt
 trt
@@ -18,5 +19,6 @@ tanr
 tmr
 tamr
 tar
+//This also throws some people off
 
 

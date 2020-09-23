@@ -13,7 +13,6 @@ using namespace std;
 
 struct word {
     string wordIn = "";
-    string modification = "";
     int discoveredBy = -1;
 };
 
@@ -31,7 +30,6 @@ private:
     bool changeCheck = false;
     bool swapCheck = false;
     bool lengthCheck = false;
-    string modification = "";
     
 
 
@@ -78,6 +76,8 @@ public:
     bool checkWord(const string &);
 
     bool checkEnds(const string & temp);
+
+    string diff(const string&, const string &);
 };
 
 void letterMan::get_options(int argc, char** argv) {
@@ -274,8 +274,8 @@ void letterMan::read_data() {
         const char* temp2 = { temp1.c_str() };
         size = atoi(temp2);
 
-        dictionary.reserve(size);
-        discard.reserve(size / 4);
+        dictionary.reserve(size-1);
+        discard.reserve(size / 8);
 
         cin.ignore();
 
@@ -302,6 +302,7 @@ void letterMan::read_data() {
                 }
             }
         }
+        --size;
     }
 
     else {
@@ -441,13 +442,11 @@ bool letterMan::compare(const string & current, const string & reviewed) {
                             //If swap works
                             if (current[i] == reviewed[i + 1] && current[i + 1] == reviewed[i]) {
                                 swapped = true;
-                                modification = "s," + to_string(i);
                                 ++i;
                             }
                             //If swap doesn't work we change
                             else {
                                 changed = true;
-                                modification = "c," + to_string(i) + "," + reviewed[i];
                             }
                         }
                         else
@@ -458,7 +457,6 @@ bool letterMan::compare(const string & current, const string & reviewed) {
                         //Check if already been swapped or changed
                         if (!swapped && !changed) {
                             changed = true;
-                            modification = "c," + to_string(i) + "," + reviewed[i];
                         }
                         else {
                             return false;
@@ -469,16 +467,15 @@ bool letterMan::compare(const string & current, const string & reviewed) {
             return true;
         }
         else if (changeCheck) {
-            
+
             bool changed = false;
-           
+
             for (size_t i = 0; i < currentSize; ++i) {
                 //If two letters are different
                 if (current[i] != reviewed[i]) {
                     //Check if already been changed
                     if (!changed) {
                         changed = true;
-                        modification = "c," + to_string(i) + "," + reviewed[i];
                     }
                     else {
                         return false;
@@ -487,10 +484,10 @@ bool letterMan::compare(const string & current, const string & reviewed) {
             }
             return true;
         }
-        else {
+        else if (swapCheck) {
 
             bool swapped = false;
-            
+
             for (size_t i = 0; i < currentSize; ++i) {
                 //If two letters are different
                 if (current[i] != reviewed[i]) {
@@ -501,7 +498,6 @@ bool letterMan::compare(const string & current, const string & reviewed) {
                             //If swap works
                             if (current[i] == reviewed[i + 1] && current[i + 1] == reviewed[i]) {
                                 swapped = true;
-                                modification = "s," + to_string(i);
                                 ++i;
                             }
                             else
@@ -515,59 +511,29 @@ bool letterMan::compare(const string & current, const string & reviewed) {
                 }
             }
             return true;
-            
+
         }
+        else
+            return false;
     }
 
     //If length is different by one run lengthcheck
     else {
-
-        bool lengthed = false;
         
-        //If Current word is larger than reviewed = deletion
-        if (currentSize - reviewedSize == 1) {
-            size_t j = 0;
-            for (size_t i = 0; i < reviewedSize; ++i) {
-                //Is there a difference
-                if (current[i] != reviewed[j]) {
-                    //Has there already been an addition
-                    if (!lengthed) {
-                        lengthed = true;
-                        modification = "d," + to_string(i);
-                        ++i;
-                        //Check incremented i to make sure everything is good
-                        if (current[i] != reviewed[j])
-                            return false;
-                    }
-                    else
-                        return false;   
-                }
-                ++j;
-            }
-            //Made it all the way to the end with no changes
-            if (!lengthed) {
-                modification = "d," + to_string(currentSize - 1);
-                return true;
-            }
-            //We changed something and want to make sure the last letters match
-            else if (current[currentSize - 1] != reviewed[reviewedSize - 1])
-                return false;
-            else
-                return true;
-        }
-        //Reviewed word is larger than current = insertion
-        else {
-            size_t j = 0;
+        bool lengthed = false;
+
+        if (currentSize > reviewedSize) {
+            //Check for differences
+            int j = 0;
             for (size_t i = 0; i < currentSize; ++i) {
-                //Is there a difference
                 if (current[i] != reviewed[j]) {
-                    //Has there already been an addition
+                    //Check if already changed
                     if (!lengthed) {
-                        lengthed = true;
-                        modification = "i," + to_string(i) + "," + reviewed[j];
-                        ++j;
-                        //Check incremnted j to make sure everything is good
-                        if (current[i] != reviewed[j])
+                        if (current[i + 1] == reviewed[j]) {
+                            lengthed = true;
+                            ++i;
+                        }
+                        else
                             return false;
                     }
                     else
@@ -575,16 +541,28 @@ bool letterMan::compare(const string & current, const string & reviewed) {
                 }
                 ++j;
             }
-            //Made it all the way to the end with no changes
-            if (!lengthed) {
-                modification = "i," + to_string(currentSize) + "," +reviewed[j];
-                return true;
+            return true;
+        }
+        else {
+            //Check for differences
+            int j = 0;
+            for (size_t i = 0; i < reviewedSize; ++i) {
+                if (current[j] != reviewed[i]) {
+                    //Check if already changed
+                    if (!lengthed) {
+                        if (current[j] == reviewed[i + 1]) {
+                            lengthed = true;
+                            ++i;
+                        }
+                        else
+                            return false;
+                    }
+                    else
+                        return false;
+                }
+                j++;
             }
-            //We changed something and want to make sure the last letters match
-            else if (current[currentSize - 1] != reviewed[reviewedSize - 1])
-                return false;
-            else
-                return true;
+            return true;
         }
     }
     return true;
@@ -601,14 +579,14 @@ bool letterMan::find_path() {
 
             //Add to discard
             discard.push_back(currentWord);
-            sizeD++;
+            ++sizeD;
 
                 //Grab and remove top of queue
             
             currentWord = queue.at(0);
             //cout << "Removed: " << currentWord.wordIn << "\n";
             queue.pop_front();
-            sizeQ--;
+            --sizeQ;
 
         }
 
@@ -622,7 +600,6 @@ bool letterMan::find_path() {
                     
                     //Create word object
                     word temp;
-                    temp.modification = modification;
                     temp.wordIn = dictionary.at(i);
                     temp.discoveredBy = sizeD;
 
@@ -638,6 +615,7 @@ bool letterMan::find_path() {
 
                     //If a queue push it to the back
                     if (q) {
+                        //cout << "Added: " << temp.wordIn << "\n";
                         queue.push_back(temp);
                         ++sizeQ;
                     }
@@ -658,30 +636,78 @@ bool letterMan::find_path() {
     return false;
 }
 
+string letterMan::diff(const string& current, const string& reviewed) {
+    size_t currentSize = current.size();
+    size_t reviewedSize = reviewed.size();
+    
+    if (currentSize == reviewedSize) {
+        for (size_t i = 0; i < currentSize; ++i) {
+            if (current[i] != reviewed[i]) {
+                if (i == currentSize - 1)
+                    return "c," + to_string(i) + "," + current[i];
+                else {
+                    if (current[i + 1] != reviewed[i + 1])
+                        return "s," + to_string(i);
+                    else
+                        return "c," + to_string(i) + "," + current[i];
+                }
+            }
+        }
+    }
+    else {
+        if (currentSize > reviewedSize) {
+            for (size_t i = 0; i < reviewedSize; ++i) {
+                if (current[i] != reviewed[i])
+                    return "i," + to_string(i) + "," + current[i];
+            }  
+            return "i," + to_string(currentSize - 1) + "," + current[currentSize - 1];
+        }
+        else {
+            for (size_t i = 0; i < currentSize; ++i) {
+                if (current[i] != reviewed[i]) {
+                    return "d," + to_string(i);
+                }
+            }
+            return "d," + to_string(reviewedSize-1);
+        }
+    }
+    return string();
+    
+}
+
 void letterMan::write_data() {
     
     currentWord = discard.at(sizeD-1);
-    vector<word> solution;
+    vector<string> solution;
 
-    while (currentWord.discoveredBy != -1) {
-        
-        solution.push_back(currentWord);
-        currentWord = discard.at(currentWord.discoveredBy);
+    if (outputFormat == 'W') {
+        while (currentWord.discoveredBy != -1) {
 
+            solution.push_back(currentWord.wordIn);
+            currentWord = discard.at(currentWord.discoveredBy);
+
+        }
+    }
+    else {
+        while (currentWord.discoveredBy != -1) {
+
+            solution.push_back(diff(currentWord.wordIn, discard.at(currentWord.discoveredBy).wordIn));
+            currentWord = discard.at(currentWord.discoveredBy);
+        }
     }
     
-    solution.push_back(currentWord);
+    solution.push_back(currentWord.wordIn);
     int sizeS = static_cast<int>(solution.size());
     
     cout << "Words in morph: " << to_string(sizeS) << "\n";
-    cout << solution.at(sizeS - 1).wordIn << "\n";
+    cout << solution.at(sizeS - 1) << "\n";
     
     for (int i = sizeS - 2; i >= 0; --i) {
         
         if (outputFormat == 'W')
-            cout << solution.at(i).wordIn << "\n";
+            cout << solution.at(i) << "\n";
         else
-            cout << solution.at(i).modification << "\n";
+            cout << solution.at(i) << "\n";
 
     }
 }
@@ -690,7 +716,7 @@ void letterMan::write_data() {
 
 int main(int argc, char** argv) {
     std::ios_base::sync_with_stdio(false);
-    auto start = std::chrono::high_resolution_clock::now();
+   // auto start = std::chrono::high_resolution_clock::now();
     letterMan man;
 
     man.get_options(argc, argv);
@@ -705,12 +731,12 @@ int main(int argc, char** argv) {
         exit(1);
     }
     
-    
+    /*
     
     auto stop1 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop1 - start);
     cerr << "Read_data took: " << duration.count() << "\n";
-    
+    */
     /*
     cout << "Dictionary: \n";
     for (size_t i = 0; i < man.dictionary.size(); i++) {
@@ -721,32 +747,32 @@ int main(int argc, char** argv) {
     */
     
     if (man.find_path()) {
-        
+      /*
         auto stop2 = std::chrono::high_resolution_clock::now();
         duration = std::chrono::duration_cast<std::chrono::microseconds>(stop2 - stop1);
         cerr << "Find_path tood: " << duration.count() << "\n";
-        
+        */
         man.write_data();
-        
+        /*
         auto stop3 = std::chrono::high_resolution_clock::now();
          duration = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - stop2);
         cerr << "write_data took: " << duration.count() << "\n";
-        
+        */
     }
         
     else {
-        
+        /*
         auto stop2 = std::chrono::high_resolution_clock::now();
         duration = std::chrono::duration_cast<std::chrono::microseconds>(stop2 - stop1);
         cerr << "no solution took:" << duration.count() << "\n";
-        
+        */
         cout << "No solution, " << to_string(man.sizeD + 1) << " words discovered.\n";
     }
-    
+    /*
     auto stop3 = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop3 - start);
     cerr << duration.count() << "\n";
-    
+    */
 
     return 0;
 }

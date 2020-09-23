@@ -55,5 +55,8 @@
     <Text Include="test-3-sky-trcil-qlpcw.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="test-9-stail-tar-qlm.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

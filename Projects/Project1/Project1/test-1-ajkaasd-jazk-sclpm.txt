@@ -1,0 +1,7 @@
+C
+4
+//Tests Swap function
+ajk[abcdefz]asd
+ajkzsd
+aj!kzs
+jakz!

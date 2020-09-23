@@ -155,6 +155,7 @@
     <Text Include="test-4-abab-mama-slm.txt" />
     <Text Include="test-5-atrk-mnop-qlw.txt" />
     <Text Include="test-6-ttattta-tar-slpm.txt" />
+    <Text Include="test-9-stail-tar-qlm.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

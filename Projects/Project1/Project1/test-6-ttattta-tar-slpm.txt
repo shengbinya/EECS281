@@ -1,6 +1,7 @@
 C
-17
+19
 //Tests stack length and swap
+t[mn]rt
 ttattta 
 [tr]tattt
 trtattt
@@ -11,7 +12,6 @@ tartt
 atrtt
 trtt
 trt
-t[mn]rt
 tnr
 tnrr
 tanrr

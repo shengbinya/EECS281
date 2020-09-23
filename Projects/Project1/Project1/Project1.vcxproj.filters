@@ -37,12 +37,6 @@
     <Text Include="Samples-Windows\larger-complex.txt">
       <Filter>Source Files</Filter>
     </Text>
-    <Text Include="test-2-tttatt-mattam-qlm.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-    <Text Include="test-1-ghtaf-hgfta-spw.txt">
-      <Filter>Source Files</Filter>
-    </Text>
     <Text Include="test-4-abab-mama-slm.txt">
       <Filter>Source Files</Filter>
     </Text>

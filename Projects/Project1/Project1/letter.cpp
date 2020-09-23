@@ -223,6 +223,7 @@ void reverseString(string &in) {
     for (std::size_t i = 0; i < size; ++i) {
         reversed += in[size - 1 - i];
     }
+    in = reversed;
 }
 
 bool letterMan::checkLetters(string check) {
@@ -275,7 +276,6 @@ void letterMan::read_data() {
         size = atoi(temp2);
 
         dictionary.reserve(size-1);
-        discard.reserve(size / 8);
 
         cin.ignore();
 
@@ -344,6 +344,7 @@ void letterMan::read_data() {
                                 dictionary.push_back(temp1);
                             }
                             reverseString(temp1);
+                            
                             if (!checkEnds(temp1)) {
                                 dictionary.push_back(temp1);
                             }
@@ -680,19 +681,19 @@ void letterMan::write_data() {
     currentWord = discard.at(sizeD-1);
     vector<string> solution;
 
-    if (outputFormat == 'W') {
+    if (outputFormat == 'M') {
         while (currentWord.discoveredBy != -1) {
 
-            solution.push_back(currentWord.wordIn);
+            solution.push_back(diff(currentWord.wordIn, discard.at(currentWord.discoveredBy).wordIn));
             currentWord = discard.at(currentWord.discoveredBy);
-
         }
     }
     else {
         while (currentWord.discoveredBy != -1) {
 
-            solution.push_back(diff(currentWord.wordIn, discard.at(currentWord.discoveredBy).wordIn));
+            solution.push_back(currentWord.wordIn);
             currentWord = discard.at(currentWord.discoveredBy);
+
         }
     }
     

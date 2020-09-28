@@ -1,0 +1,15 @@
+12
+S
+//Tests stack length and swap
+ttattta
+ttattt
+trtattt
+rttattt
+trtattt
+trattt
+tratt
+ratt
+artt
+art
+atr
+tar

@@ -1,10 +1,7 @@
-﻿#include <vector>
-int *get_some_ints() {
-	std::vector<int> ints = { 1,2,3,4,5};
-	return ints.data();
-}
+﻿#include <iostream>
+void print_an_integer(int x) { std::cout << x; }
 int main() {
-	int* some_ints = get_some_ints();
-	delete[] some_ints;
-	return 0;
+	size_t x;
+	std::cin >> x;
+	print_an_integer(x);
 }

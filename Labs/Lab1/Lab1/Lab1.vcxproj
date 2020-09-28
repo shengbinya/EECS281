@@ -20,13 +20,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Miscellaneous\getopt.c" />
-    <ClCompile Include="Debugging.cpp" />
+    <ClCompile Include="..\Files\lab1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Files\test.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Files\sorting.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Files\Makefile" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

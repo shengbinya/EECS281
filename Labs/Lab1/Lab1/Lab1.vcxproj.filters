@@ -18,7 +18,7 @@
     <ClCompile Include="..\..\..\Miscellaneous\getopt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Debugging.cpp">
+    <ClCompile Include="..\Files\lab1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -31,5 +31,10 @@
     <ClInclude Include="..\Files\sorting.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Files\Makefile">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

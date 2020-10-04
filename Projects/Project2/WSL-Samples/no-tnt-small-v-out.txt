@@ -1,0 +1,9 @@
+Cleared: 69 at [5,5]
+Cleared: 34 at [5,4]
+Cleared: 1 at [5,3]
+Cleared: 26 at [4,3]
+Cleared: 15 at [4,2]
+Cleared: 24 at [3,3]
+Cleared: 26 at [4,1]
+Cleared: 23 at [4,0]
+Cleared 8 tiles containing 218 rubble and escaped.

@@ -1,0 +1,17 @@
+TNT explosion at [3,3]!
+TNT explosion at [2,3]!
+TNT explosion at [2,4]!
+Cleared by TNT: 1 at [4,3]
+Cleared by TNT: 2 at [3,2]
+Cleared by TNT: 3 at [1,4]
+Cleared by TNT: 6 at [3,4]
+Cleared by TNT: 6 at [2,5]
+Cleared by TNT: 8 at [2,2]
+Cleared by TNT: 9 at [1,3]
+TNT explosion at [1,2]!
+Cleared by TNT: 7 at [1,1]
+Cleared by TNT: 7 at [0,2]
+TNT explosion at [0,1]!
+TNT explosion at [0,0]!
+Cleared by TNT: 4 at [1,0]
+Cleared 10 tiles containing 53 rubble and escaped.

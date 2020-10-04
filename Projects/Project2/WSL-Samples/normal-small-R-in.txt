@@ -1,0 +1,6 @@
+R
+Size: 7
+Start: 3 3
+Seed: 43
+Max_Rubble: 10
+TNT: 4

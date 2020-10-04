@@ -1,0 +1,6 @@
+R
+Size: 5
+Start: 1 2
+Seed: 0
+Max_Rubble: 10
+TNT: 5

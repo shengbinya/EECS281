@@ -1,0 +1,9 @@
+Median difficulty of clearing rubble is: 69.00
+Median difficulty of clearing rubble is: 51.50
+Median difficulty of clearing rubble is: 34.00
+Median difficulty of clearing rubble is: 30.00
+Median difficulty of clearing rubble is: 26.00
+Median difficulty of clearing rubble is: 25.00
+Median difficulty of clearing rubble is: 26.00
+Median difficulty of clearing rubble is: 25.00
+Cleared 8 tiles containing 218 rubble and escaped.

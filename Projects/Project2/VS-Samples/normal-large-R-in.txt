@@ -1,0 +1,6 @@
+R
+Size: 1000
+Start: 500 500
+Seed: 42
+Max_Rubble: 50
+TNT: 10

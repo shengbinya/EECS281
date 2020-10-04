@@ -1,0 +1,51 @@
+Cleared: 6 at [1,2]
+Median difficulty of clearing rubble is: 6.00
+Cleared: 1 at [2,2]
+Median difficulty of clearing rubble is: 3.50
+TNT explosion at [3,2]!
+TNT explosion at [3,3]!
+Cleared by TNT: 7 at [4,3]
+Median difficulty of clearing rubble is: 6.00
+Cleared by TNT: 9 at [4,2]
+Median difficulty of clearing rubble is: 6.50
+Cleared by TNT: 9 at [2,3]
+Median difficulty of clearing rubble is: 7.00
+Cleared by TNT: 9 at [3,4]
+Median difficulty of clearing rubble is: 8.00
+Cleared 6 tiles containing 41 rubble and escaped.
+First tiles cleared:
+6 at [1,2]
+1 at [2,2]
+TNT at [3,2]
+TNT at [3,3]
+7 at [4,3]
+9 at [4,2]
+9 at [2,3]
+9 at [3,4]
+Last tiles cleared:
+9 at [3,4]
+9 at [2,3]
+9 at [4,2]
+7 at [4,3]
+TNT at [3,3]
+TNT at [3,2]
+1 at [2,2]
+6 at [1,2]
+Easiest tiles cleared:
+TNT at [3,2]
+TNT at [3,3]
+1 at [2,2]
+6 at [1,2]
+7 at [4,3]
+9 at [4,2]
+9 at [2,3]
+9 at [3,4]
+Hardest tiles cleared:
+9 at [3,4]
+9 at [2,3]
+9 at [4,2]
+7 at [4,3]
+6 at [1,2]
+1 at [2,2]
+TNT at [3,3]
+TNT at [3,2]

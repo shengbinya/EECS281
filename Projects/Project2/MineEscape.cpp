@@ -5,6 +5,7 @@
 #include <getopt.h>
 #include <deque>
 #include <queue>
+#include "P2random.h"
 
 using namespace std;
 
@@ -12,19 +13,24 @@ class mine {
 private:
     //Underlying Data Structures
 	vector<vector<int>> mine;
-    
+
+    //Initial Variables
+    pair<unsigned int, unsigned int> start = { 0,0 };
+
     //Command Line Args
     int firstCleared = -1;
     bool median = false;
     bool verbose = false;
     
 public:
+    //Grabs options from command line
+    void get_options(int argc, char** argv);
+
 	//Reads in input from file
-	//void readMine();
+	void readMine();
 
-	//Grabs options from command line
-	void get_options(int argc, char** argv);
-
+    //Write out mine in command line
+    void writeMine();
 };
 
 void mine::get_options(int argc, char** argv) {
@@ -71,8 +77,75 @@ void mine::get_options(int argc, char** argv) {
     }
 }
 
+void mine::readMine() {
+    //Read in common variables
+    string mode = "";
+    string in = "";
+    string dump = "";
+    cin >> mode;
+    cin >> dump;
+    cin >> in;
+    unsigned int size = stoi(in);
+    mine.resize(stoi(in), vector<int>(stoi(in)));
+    cin >> dump;
+    cin >> in;
+    start.first = stoi(in);
+    cin >> in;
+    start.second = stoi(in);
+
+    //Check if mode is correct
+    if (mode != "R" && mode != "M") {
+        cerr << "Invalid read in mode.\n";
+        exit(1);
+    }
+
+    //Check if start point is out of range
+    if (start.first >= mine.size() || start.second >= mine.size()) {
+        cerr << "Invalid start point.\n";
+        exit(1);
+    }
+
+    stringstream ss;
+    if (mode == "R") {
+        //Read in specifics
+        cin >> dump;
+        cin >> in;
+        int seed = stoi(in);
+        cin >> dump;
+        cin >> in;
+        unsigned int max_rubble = stoi(in);
+        cin >> dump;
+        cin >> in;
+        unsigned int tnt_chance = stoi(in);
+        P2random::PR_init(ss, size, seed, max_rubble, tnt_chance);
+    }
+
+    istream& inputStream = (mode == "M") ? cin : ss;
+
+    string intermediate;
+
+    for (unsigned int i = 0; i < mine.size(); ++i) {
+        for (unsigned int j = 0; j < mine.size(); ++j) {        
+            inputStream >> intermediate;
+            mine.at(j).at(i) = stoi(intermediate);
+        }
+    }
+
+}
+
+void mine::writeMine() {
+    for (unsigned int i = 0; i < mine.size(); ++i) {
+        for (unsigned int j = 0; j < mine.size(); ++j) {
+            cout << mine[j][i] << " ";
+        }
+        cout << "\n";
+    }
+}
+
 int main(int argc, char** argv) {
 	mine jellystone;
 	jellystone.get_options(argc, argv);
-    
+    jellystone.readMine();
+    jellystone.writeMine();
+
 }

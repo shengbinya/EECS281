@@ -14,4 +14,43 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PairingPQ.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SortedPQ.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnorderedFastPQ.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnorderedPQ.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryPQ.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eecs281PQ.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P2random.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MineEscape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P2random.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="getopt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

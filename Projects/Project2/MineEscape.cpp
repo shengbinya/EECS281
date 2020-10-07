@@ -9,10 +9,58 @@
 
 using namespace std;
 
+class tile {
+public:
+
+    tile() : rubble{ 0 }, row{ 0 }, col{ 0 }{}
+
+    tile(unsigned rubble_in, unsigned row_in, unsigned int col_in) :
+        rubble{ rubble_in }, row{ row_in }, col{ col_in }{}
+
+    bool operator()(const tile& a, const tile& b) {
+        if (a.rubble < b.rubble)
+            return true;
+        else if (a.rubble > b.rubble)
+            return false;
+        else if (a.col < b.col)
+            return true;
+        else if (a.col > b.col)
+            return false;
+        else if (a.row < b.col)
+            return true;
+        else
+            return false;
+    }
+
+    int rubble;
+    unsigned int row;
+    unsigned int col;
+
+};
+
 class mine {
+public: 
+
+    //Grabs options from command line
+    void get_options(int argc, char** argv);
+
+    //Reads in input from file
+    void readMine();
+
+    //Write out mine in command line
+    void writeMine();
+
+    void breakout();
+
+    void clear(const tile &);
+
+    void clearTNT();
+
 private:
+
     //Underlying Data Structures
-	vector<vector<int>> mine;
+	vector<vector<tile>> layout;
+    priority_queue<tile, vector<tile>> primaryQueue;
 
     //Initial Variables
     pair<unsigned int, unsigned int> start = { 0,0 };
@@ -22,15 +70,7 @@ private:
     bool median = false;
     bool verbose = false;
     
-public:
-    //Grabs options from command line
-    void get_options(int argc, char** argv);
 
-	//Reads in input from file
-	void readMine();
-
-    //Write out mine in command line
-    void writeMine();
 };
 
 void mine::get_options(int argc, char** argv) {
@@ -94,20 +134,20 @@ void mine::readMine() {
     cin >> in;
     //Read in size
     unsigned int size = stoi(in);
-    mine.resize(stoi(in), vector<int>(stoi(in)));
+    layout.resize(stoi(in), vector<tile>(stoi(in)));
     cin >> dump;
     cin >> in;
 
     start.first = stoi(in);
     //Check if start point is out of range
-    if (start.first >= mine.size()) {
+    if (start.first >= layout.size()) {
         cerr << "Invalid starting row\n";
         exit(1);
     }
 
     cin >> in;
     start.second = stoi(in);
-    if (start.second > mine.size()) {
+    if (start.second > layout.size()) {
         cerr << "Invalid starting column\n";
         exit(1);
     }
@@ -131,22 +171,45 @@ void mine::readMine() {
 
     string intermediate;
 
-    for (unsigned int i = 0; i < mine.size(); ++i) {
-        for (unsigned int j = 0; j < mine.size(); ++j) {        
+    for (unsigned int i = 0; i < layout.size(); ++i) {
+        for (unsigned int j = 0; j < layout.size(); ++j) {        
             inputStream >> intermediate;
-            mine.at(j).at(i) = stoi(intermediate);
+            layout[j][i].rubble = stoi(intermediate);
+            layout[j][i].row = j;
+            layout[j][i].col = i;
         }
     }
 
 }
 
 void mine::writeMine() {
-    for (unsigned int i = 0; i < mine.size(); ++i) {
-        for (unsigned int j = 0; j < mine.size(); ++j) {
-            cout << mine[j][i] << " ";
+    for (unsigned int i = 0; i < layout.size(); ++i) {
+        for (unsigned int j = 0; j < layout.size(); ++j) {
+            cout << layout[j][i].rubble << " ";
         }
         cout << "\n";
     }
+}
+
+void mine::clear(const tile &tile) {
+    //Check if edge has been reached
+    if (tile.row == layout.size() || tile.col == layout.size()) {
+
+    }
+
+    //Check if TNT
+    if (tile.rubble == -1)
+        clearTNT();
+    
+    //Discover 4 corners
+    else {
+        primaryQueue.push(layout[tile.row + 1][tile.col + 1]);
+    }
+}
+
+void mine::breakout() {
+    
+
 }
 
 int main(int argc, char** argv) {

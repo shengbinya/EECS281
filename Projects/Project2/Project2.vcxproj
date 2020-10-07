@@ -140,13 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="getopt.c" />
-    <ClCompile Include="MineEscape.cpp" />
-    <ClCompile Include="P2random.cpp" />
+    <ClCompile Include="testPQ.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryPQ.h" />
     <ClInclude Include="Eecs281PQ.h" />
-    <ClInclude Include="P2random.h" />
     <ClInclude Include="PairingPQ.h" />
     <ClInclude Include="SortedPQ.h" />
     <ClInclude Include="UnorderedFastPQ.h" />

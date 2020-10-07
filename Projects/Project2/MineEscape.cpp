@@ -82,26 +82,33 @@ void mine::readMine() {
     string mode = "";
     string in = "";
     string dump = "";
+    
     cin >> mode;
+    //Check if mode is correct
+    if (mode != "R" && mode != "M") {
+        cerr << "Invalid input mode\n";
+        exit(1);
+    }
+
     cin >> dump;
     cin >> in;
+    //Read in size
     unsigned int size = stoi(in);
     mine.resize(stoi(in), vector<int>(stoi(in)));
     cin >> dump;
     cin >> in;
-    start.first = stoi(in);
-    cin >> in;
-    start.second = stoi(in);
 
-    //Check if mode is correct
-    if (mode != "R" && mode != "M") {
-        cerr << "Invalid read in mode.\n";
+    start.first = stoi(in);
+    //Check if start point is out of range
+    if (start.first >= mine.size()) {
+        cerr << "Invalid starting row\n";
         exit(1);
     }
 
-    //Check if start point is out of range
-    if (start.first >= mine.size() || start.second >= mine.size()) {
-        cerr << "Invalid start point.\n";
+    cin >> in;
+    start.second = stoi(in);
+    if (start.second > mine.size()) {
+        cerr << "Invalid starting column\n";
         exit(1);
     }
 
@@ -147,5 +154,6 @@ int main(int argc, char** argv) {
 	jellystone.get_options(argc, argv);
     jellystone.readMine();
     jellystone.writeMine();
+
 
 }

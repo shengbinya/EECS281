@@ -43,6 +43,11 @@ struct IntPtrComp {
     }
 };
 
+struct IntLessComp {
+    bool operator() (const int a, const int b) const {
+        return a > b;
+    }
+};
 
 // TODO: Make sure that you're using this-compare() properly, and everywhere
 // that you should.  Complete this function by adding a functor that compares
@@ -50,19 +55,36 @@ struct IntPtrComp {
 // this function from main().
 void testHiddenData(const string &pqType) {
     struct HiddenData {
-        int data;
+        char data;
     };
     struct HiddenDataComp {
-        bool operator()(const HiddenData &/*a*/, const HiddenData &/*b*/) const {
-            // TODO: Finish this functor; when you do, uncomment the
-            // parameters in the line above
-            return false;
+        bool operator()(const HiddenData &a, const HiddenData &b) const {
+            return a.data > b.data;
         }
     };
 
     cout << "Testing " << pqType << " with hidden data" << endl;
 
-    // TODO: Add code here to actually test with the HiddenData type.
+    if (pqType == "Sorted") {
+        vector<HiddenData> data;
+        data.resize(15);
+        for (int i = 0; i < data.size(); ++i) {
+            char temp = 60+i;
+            HiddenData intermediate = { temp };
+            data[i] = intermediate;
+        }
+        SortedPQ<HiddenData, HiddenDataComp> * ptr;
+        ptr = new SortedPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+        assert(ptr->top().data == 60);
+        ptr->push(HiddenData{ 40 });
+        assert(ptr->top().data == 40);
+        ptr->pop();
+        ptr->pop();
+        assert(ptr->top().data == 61);
+        assert(ptr->size() == 14);
+    }
+
+    cout << "testHiddenData succeeded!\n";
 } // testHiddenData()
 
 
@@ -73,6 +95,8 @@ void testUpdatePrioritiesHelper(Eecs281PQ<int *, IntPtrComp> *pq) {
     data.reserve(100);
     data.push_back(1);
     data.push_back(5);
+    data.push_back(11);
+    data.push_back(100);
 
     // NOTE: If you add more data to the vector, don't push the pointers
     // until AFTER the vector stops changing size!  Think about why.
@@ -85,7 +109,7 @@ void testUpdatePrioritiesHelper(Eecs281PQ<int *, IntPtrComp> *pq) {
     // Change the first value (which is pointed to by the pq), and check it.
     data[0] = 10;
     pq->updatePriorities();
-    assert(*pq->top() == 10);
+    assert(*pq->top() == 100);
 } // testUpdatePrioritiesHelper()
 
 
@@ -96,17 +120,22 @@ void testUpdatePriorities(const string &pqType) {
     cout << "Testing updatePriorities() on " << pqType << endl;
 
     if (pqType == "Unordered") {
-        pq = new UnorderedPQ<int *, IntPtrComp>;
+        pq = new UnorderedPQ<int*, IntPtrComp>;
     } // if
-    // TODO: Add more types here inside 'else if' statements, like in main().
+    else if (pqType == "Sorted");
+    {
+        pq = new SortedPQ<int*, IntPtrComp>;
+        testUpdatePrioritiesHelper(pq);
+
+    }
 
     if (!pq) {
         cout << "Invalid pq pointer; did you forget to create it?" << endl;
         return;
     } // if
 
-    testUpdatePrioritiesHelper(pq);
-    delete pq;
+    cout << "testUpdatePriorities() succeeded!\n";
+   
 } // testUpdatePriorities()
 
 
@@ -127,8 +156,7 @@ void testPriorityQueue(Eecs281PQ<int> *pq, const string &pqType) {
     pq->pop();
     assert(pq->size() == 0);
     assert(pq->empty());
-
-    // TODO: Add more testing here!
+    
 
     cout << "testPriorityQueue() succeeded!" << endl;
 } // testPriorityQueue()
@@ -198,6 +226,7 @@ int main() {
    
     testPriorityQueue(pq, types[choice]);
     testUpdatePriorities(types[choice]);
+    testHiddenData(types[choice]);
 
     if (choice == 3) {
         vector<int> vec;

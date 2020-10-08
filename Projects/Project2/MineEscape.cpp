@@ -22,6 +22,7 @@ public:
     int rubble;
     unsigned int row;
     unsigned int col;
+    bool discovered = false;
 
 };
 
@@ -35,7 +36,7 @@ struct tileComp {
             return true;
         else if (a.col < b.col)
             return false;
-        else if (a.row > b.col)
+        else if (a.row > b.row)
             return true;
         else
             return false;
@@ -73,7 +74,7 @@ public:
 
     void breakout();
 
-    void discover(const tile &, priority_queue<tile, vector<tile>, tileComp> &);
+    void discover(const tile &);
 
     bool edge(const tile &);
 
@@ -84,6 +85,8 @@ public:
     void printMedian();
 
     void printStats();
+
+    void TNTClear(const tile& current);
 
 private:
 
@@ -104,10 +107,183 @@ private:
     bool m = false;
     bool v = false;
     tile finalEdge;
+    int triggered = false;
     
 
 };
 
+/* Helper Functions*/
+
+void mine::insert(int val) {
+    auto it = lower_bound(median.begin(), median.end(), val);
+    median.insert(it, val);
+}
+
+void mine::printMedian() {
+    cout << "Median difficulty of clearing rubble is: ";
+    cout << std::fixed << std::setprecision(2);
+    if (median.size() % 2 == 0)
+        if (median.size() != 1) {
+            double step = (median[median.size() / 2] + median[median.size() / 2 - 1]);
+            step = step / 2;
+            cout << step << "\n";
+        }
+        else
+            cout << double(median.at(0)) << "\n";
+    else
+        cout << double(median[median.size() / 2]) << "\n";
+}
+
+void mine::writeMine() {
+    for (unsigned int i = 0; i < layout.size(); ++i) {
+        for (unsigned int j = 0; j < layout.size(); ++j) {
+            cout << layout[i][j].rubble << " ";
+        }
+        cout << "\n";
+    }
+}
+
+void mine::printStats() {
+
+    cout << "First tiles cleared:\n";
+    for (int i = 0; i < firstCleared && i < int(discard.size()); i++) {
+        if (discard[i].rubble != -1)
+            cout << discard[i].rubble << " at [" << discard[i].row << "," << discard[i].col << "]\n";
+        else
+            cout << "TNT at [" << discard[i].row << "," << discard[i].col << "]\n";
+    }
+
+    cout << "Last tiles cleared:\n";
+    for (int i = int(discard.size()) - 1; i > int(discard.size()) - firstCleared && i > -1; --i) {
+        if (discard[i].rubble != -1)
+            cout << discard[i].rubble << " at [" << discard[i].row << "," << discard[i].col << "]\n";
+        else
+            cout << "TNT at [" << discard[i].row << "," << discard[i].col << "]\n";
+    }
+
+    priority_queue<tile, vector<tile>, tileComp> statsQueue(discard.begin(), discard.end());
+    cout << "Easiest tiles cleared:\n";
+    for (int i = 0; i < firstCleared && i < int(discard.size()); i++) {
+        if (statsQueue.top().rubble != -1)
+            cout << statsQueue.top().rubble << " at [" << statsQueue.top().row << "," << statsQueue.top().col << "]\n";
+        else
+            cout << "TNT at [" << statsQueue.top().row << "," << statsQueue.top().col << "]\n";
+        statsQueue.pop();
+    }
+
+    priority_queue<tile, vector<tile>, tileCompOp> statsQueueBack(discard.begin(), discard.end());
+    cout << "Hardest tiles cleared:\n";
+    for (int i = 0; i < firstCleared && i < int(discard.size()); i++) {
+        if (statsQueueBack.top().rubble != -1)
+            cout << statsQueueBack.top().rubble << " at [" << statsQueueBack.top().row << "," << statsQueueBack.top().col << "]\n";
+        else
+            cout << "TNT at [" << statsQueueBack.top().row << "," << statsQueueBack.top().col << "]\n";
+        statsQueueBack.pop();
+    }
+
+
+}
+
+bool mine::edge(const tile& current) {
+    if (current.col != 0 && current.row != 0 &&
+        current.col != layout.size() && current.row != layout.size())
+        return false;
+    return true;
+}
+
+void mine::setEdge(int row, int col) {
+    if (finalEdge.rubble != -3) return;
+    finalEdge.rubble = -4;
+    finalEdge.row = row;
+    finalEdge.col = col;
+}
+
+void mine::TNTClear(const tile& current) {
+    unsigned int row = current.row;
+    unsigned int col = current.col;
+
+    if (row != 0) {
+        tile* now = &layout[current.row - 1][current.col];
+            TNTQueue.push(*now);
+            now->discovered = true;
+            now->rubble = 0;
+    }
+    else
+        setEdge(row, col);
+    if (row != layout.size() - 1) {
+        tile* now = &layout[current.row + 1][current.col];
+            TNTQueue.push(*now);
+            now->discovered = true;
+            now->rubble = 0;
+    }
+    else
+        setEdge(row, col);
+    if (col != 0) {
+        tile* now = &layout[row][col - 1];
+            TNTQueue.push(*now);
+            now->discovered = true;
+            now->rubble = 0;
+    }
+    else
+        setEdge(row, col);
+    if (col != layout.size() - 1) {
+        tile* now = &layout[row][col + 1];
+            TNTQueue.push(*now);
+            now->discovered = true;
+            now->rubble = 0;
+    }
+    else
+        setEdge(row, col);
+}
+
+void mine::discover(const tile& current) {
+    unsigned int row = current.row;
+    unsigned int col = current.col;
+
+    if (row != 0) {
+        tile * now = &layout[current.row - 1][current.col];
+        if (!now->discovered) {
+            primaryQueue.push(*now);
+            now->discovered = true;
+        }
+            
+    }
+    else
+        setEdge(row, col);
+    if (row != layout.size() - 1) {
+        tile * now = &layout[current.row + 1][current.col];
+        if (!now->discovered) {
+            primaryQueue.push(*now);
+            now->discovered = true;
+        }
+            
+    }
+    else
+        setEdge(row, col);
+    if (col != 0) {
+        tile * now = &layout[row][col - 1];
+        if (!now->discovered) {
+            primaryQueue.push(*now);
+            now->discovered = true;
+        }
+            
+    }
+    else
+        setEdge(row, col);
+    if (col != layout.size() - 1) {
+        tile* now = &layout[row][col + 1];
+        if (!now->discovered) {
+            primaryQueue.push(*now);
+            now->discovered = true;
+        }
+            
+    }
+    else
+        setEdge(row, col);
+
+}
+
+/* Main Functions */
 void mine::get_options(int argc, char** argv) {
     int option_index = 0, option = 0;
 
@@ -217,121 +393,6 @@ void mine::readMine() {
 
 }
 
-void mine::insert(int val) {
-    auto it = lower_bound(median.begin(), median.end(), val);
-    median.insert(it, val);
-}
-
-void mine::printMedian() {
-    cout << "Median difficulty of clearing rubble is: ";
-    cout << std::fixed << std::setprecision(2);
-    if (median.size() % 2 == 0)
-        if (median.size() != 1) {
-            double step = (median[median.size() / 2] + median[median.size() / 2 - 1]);
-            step = step / 2;
-            cout << step << "\n";
-        }
-        else
-            cout << double(median.at(0)) << "\n";
-    else
-        cout << double(median[median.size() / 2]) << "\n";
-}
-
-void mine::writeMine() {
-    for (unsigned int i = 0; i < layout.size(); ++i) {
-        for (unsigned int j = 0; j < layout.size(); ++j) {
-            cout << layout[i][j].rubble << " ";
-        }
-        cout << "\n";
-    }
-}
-
-void mine::printStats() {
-    
-    cout << "First tiles cleared:\n";
-    for (int i = 0; i < firstCleared && i < int(discard.size()); i++) {
-        if (discard[i].rubble != -1)
-            cout << discard[i].rubble << " at [" << discard[i].row << "," << discard[i].col << "]\n";
-        else
-            cout << "TNT at [" << discard[i].row << "," << discard[i].col << "]\n";
-    }
-    
-    cout << "Last tiles cleared:\n";
-    for (int i = int(discard.size()) - 1; i > int(discard.size()) - firstCleared && i > -1; --i) {
-        if (discard[i].rubble != -1)
-            cout << discard[i].rubble << " at [" << discard[i].row << "," << discard[i].col << "]\n";
-        else
-            cout << "TNT at [" << discard[i].row << "," << discard[i].col << "]\n";
-    }
-
-    priority_queue<tile, vector<tile>, tileComp> statsQueue (discard.begin(), discard.end());
-    cout << "Easiest tiles cleared:\n";
-    for (int i = 0; i < firstCleared && i < int(discard.size()); i++) {
-        if (statsQueue.top().rubble != -1)
-            cout << statsQueue.top().rubble << " at [" << statsQueue.top().row << "," << statsQueue.top().col << "]\n";
-        else
-            cout << "TNT at [" << statsQueue.top().row << "," << statsQueue.top().col << "]\n";
-        statsQueue.pop();
-    }
-
-    priority_queue<tile, vector<tile>, tileCompOp> statsQueueBack(discard.begin(), discard.end());
-    cout << "Hardest tiles cleared:\n";
-    for (int i = 0; i < firstCleared && i < int(discard.size()); i++) {
-        if (statsQueueBack.top().rubble != -1)
-            cout << statsQueueBack.top().rubble << " at [" << statsQueueBack.top().row << "," << statsQueueBack.top().col << "]\n";
-        else
-            cout << "TNT at [" << statsQueueBack.top().row << "," << statsQueueBack.top().col << "]\n";
-        statsQueueBack.pop();
-    }
-
-    
-}
-
-bool mine::edge(const tile& current) {
-    if (current.col != 0 && current.row != 0 &&
-        current.col != layout.size() && current.row != layout.size())
-        return false;
-    return true;
-}
-
-void mine::setEdge(int row, int col) {
-    if (finalEdge.rubble != -3) return;
-    finalEdge.rubble = -4;
-    finalEdge.row = row;
-    finalEdge.col = col;
-}
-
-void mine::discover(const tile& current, priority_queue<tile, vector<tile>, tileComp>& pq) {
-    unsigned int row = current.row;
-    unsigned int col = current.col;
-
-    if (row != 0) {
-        if (layout[row - 1][col].rubble != 0)
-            pq.push(layout[current.row - 1][current.col]);
-    }
-    else
-        setEdge(row, col);
-    if (row != layout.size()-1) {
-        if (layout[row + 1][col].rubble != 0)
-            pq.push(layout[current.row + 1][current.col]);
-    }
-    else
-        setEdge(row, col);
-    if (col != 0) {
-        if (layout[row][col - 1].rubble != 0)
-            pq.push(layout[current.row][current.col - 1]);
-     }
-    else
-        setEdge(row, col);
-    if (col != layout.size()-1) {
-        if (layout[row][col + 1].rubble != 0)
-            pq.push(layout[current.row][current.col + 1]);
-    }
-    else
-        setEdge(row, col);
-
-}
-
 void mine::breakout() {
     
     //Initialize queue
@@ -346,39 +407,53 @@ void mine::breakout() {
         //Check if TNT
         if (current.rubble == -1) {
             
-            tile top = current;
-            TNTQueue.push(top);
+            //Check if already been exploded
+            if (layout[current.row][current.col].rubble == 0)
+                primaryQueue.pop();
 
-            //While TNT Queue is not Empty
-            while (!TNTQueue.empty()) {
-                top = TNTQueue.top();
+            else {
+                tile top = current;
+                TNTQueue.push(top);
+                primaryQueue.pop();
 
-                //Check if TNT
-                if (top.rubble == -1) {
-                    if(v)
-                        cout << "TNT explosion at [" << top.row << "," << top.col << "]!\n";
-                    if (firstCleared != -1)
-                        discard.push_back(top);
-                    discover(top, TNTQueue);
-                    layout[top.row][top.col].rubble = 0;
-                    TNTQueue.pop();
-                }
+                //While TNT Queue is not Empty
+                while (!TNTQueue.empty()) {
+                    top = TNTQueue.top();
 
-                //If not TNT Surroundings to Main Queue
-                else {
-                    if(v)
-                        cout << "Cleared by TNT: " << top.rubble << " at [" << top.row << "," << top.col << "]\n";
-                    if (m) {
-                        insert(top.rubble);
-                        printMedian();
+                    //Check if TNT
+                    if (top.rubble == -1) {
+                        if (v)
+                            std::cout << "TNT explosion at [" << top.row << "," << top.col << "]!\n";
+                        if (firstCleared != -1)
+                            discard.push_back(top);
+                        TNTQueue.pop();
+                        TNTClear(top);
+                        layout[top.row][top.col].rubble = 0;
+
                     }
-                    if (firstCleared != -1)
-                        discard.push_back(top);
-                    TNTQueue.pop();
-                    discover(top, primaryQueue);
-                    ++totalTiles;
-                    totalRubble += layout[top.row][top.col].rubble;
-                    layout[top.row][top.col].rubble = 0;
+
+                    //If not TNT Surroundings to Main Queue
+                    else {
+                        if (v) {
+                            if (top.rubble != 0) {
+                                std::cout << "Cleared by TNT: " << top.rubble << " at [" << top.row << "," << top.col << "]\n";
+                            }       
+                        }
+                        if (m) {
+                            insert(top.rubble);
+                            printMedian();
+                        }
+                        if (firstCleared != -1)
+                            discard.push_back(top);
+                        if (top.rubble != 0) {
+                            ++totalTiles;
+                            totalRubble += top.rubble;
+                        }
+                        TNTQueue.pop();
+                        discover(top);
+
+                    }
+
                 }
 
             }
@@ -387,7 +462,8 @@ void mine::breakout() {
         //If not TNT then just clear it
         else {
             if(v)
-                cout << "Cleared " << current.rubble << " at [" << current.row << "," << current.col << "]\n";
+                if(layout[current.row][current.col].rubble != 0)
+                std::cout << "Cleared: " << current.rubble << " at [" << current.row << "," << current.col << "]\n";
             if (m) {
                 insert(current.rubble);
                 printMedian();
@@ -395,13 +471,23 @@ void mine::breakout() {
             if (firstCleared != -1)
                 discard.push_back(current);
             primaryQueue.pop();
-            discover(current, primaryQueue);
-            ++totalTiles;
-            totalRubble += layout[current.row][current.col].rubble;
+            discover(current);
+            if (layout[current.row][current.col].rubble != 0) {
+                ++totalTiles;
+                totalRubble += layout[current.row][current.col].rubble;
+            }
             layout[current.row][current.col].rubble = 0;
         }
+
+        if (finalEdge.rubble != -3 && primaryQueue.top().rubble == -1 && !triggered) {
+            finalEdge.rubble = -3;
+            triggered = true;
+        }
+            
+            
     }
 
+    
     cout << "Cleared " << totalTiles << " tiles containing " << totalRubble << " rubble and escaped.\n";
     if (firstCleared != -1)
         printStats();

@@ -33,12 +33,18 @@
     <ClInclude Include="Eecs281PQ.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="P2random.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="getopt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="testPQ.cpp">
+    <ClCompile Include="MineEscape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P2random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

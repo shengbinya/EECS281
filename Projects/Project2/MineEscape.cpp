@@ -14,7 +14,7 @@ public:
 
     tile() : rubble{ 0 }, row{ 0 }, col{ 0 }{}
 
-    tile(unsigned rubble_in, unsigned row_in, unsigned int col_in) :
+    tile(int rubble_in, unsigned row_in, unsigned int col_in) :
         rubble{ rubble_in }, row{ row_in }, col{ col_in }{}
 
     bool operator()(const tile& a, const tile& b) {
@@ -52,15 +52,18 @@ public:
 
     void breakout();
 
-    void clear(const tile &);
+    void discover(const tile &, priority_queue<tile *, vector<tile *>> &);
 
-    void clearTNT();
+    bool edge(const tile &);
+
+    void setEdge(int row, int col);
 
 private:
 
     //Underlying Data Structures
 	vector<vector<tile>> layout;
-    priority_queue<tile, vector<tile>> primaryQueue;
+    priority_queue<tile *, vector<tile *>> primaryQueue;
+    priority_queue<tile *, vector<tile *>> TNTQueue;
 
     //Initial Variables
     pair<unsigned int, unsigned int> start = { 0,0 };
@@ -69,6 +72,7 @@ private:
     int firstCleared = -1;
     bool median = false;
     bool verbose = false;
+    tile finalEdge;
     
 
 };
@@ -174,9 +178,9 @@ void mine::readMine() {
     for (unsigned int i = 0; i < layout.size(); ++i) {
         for (unsigned int j = 0; j < layout.size(); ++j) {        
             inputStream >> intermediate;
-            layout[j][i].rubble = stoi(intermediate);
-            layout[j][i].row = j;
-            layout[j][i].col = i;
+            layout[i][j].rubble = stoi(intermediate);
+            layout[i][j].row = i;
+            layout[i][j].col = j;
         }
     }
 
@@ -185,30 +189,106 @@ void mine::readMine() {
 void mine::writeMine() {
     for (unsigned int i = 0; i < layout.size(); ++i) {
         for (unsigned int j = 0; j < layout.size(); ++j) {
-            cout << layout[j][i].rubble << " ";
+            cout << layout[i][j].rubble << " ";
         }
         cout << "\n";
     }
 }
 
-void mine::clear(const tile &tile) {
-    //Check if edge has been reached
-    if (tile.row == layout.size() || tile.col == layout.size()) {
 
-    }
+bool mine::edge(const tile& current) {
+    if (current.col != 0 && current.row != 0 &&
+        current.col != layout.size() && current.row != layout.size())
+        return false;
+    return true;
+}
 
-    //Check if TNT
-    if (tile.rubble == -1)
-        clearTNT();
-    
-    //Discover 4 corners
-    else {
-        primaryQueue.push(layout[tile.row + 1][tile.col + 1]);
+void mine::setEdge(int row, int col) {
+    if (finalEdge.rubble != -3) return;
+    finalEdge.rubble = -4;
+    finalEdge.row = row;
+    finalEdge.col = col;
+}
+
+void mine::discover(const tile& current, priority_queue<tile*, vector<tile*>>& pq) {
+    unsigned int row = current.row;
+    unsigned int col = current.col;
+
+    if (row != 0) {
+        if (layout[row - 1][col].rubble != -2)
+            pq.push(&layout[current.row - 1][current.col]);
     }
+    else
+        setEdge(row, col);
+    if (row != layout.size()) {
+        if (layout[row + 1][col].rubble != -2)
+            pq.push(&layout[current.row + 1][current.col]);
+    }
+    else
+        setEdge(row, col);
+    if (col != 0) {
+        if (layout[row][col - 1].rubble != -2)
+            pq.push(&layout[current.row][current.col - 1]);
+     }
+    else
+        setEdge(row, col);
+    if (col != layout.size()) {
+        if (layout[row][col + 1].rubble != -2)
+            pq.push(&layout[current.row][current.col + 1]);
+    }
+    else
+        setEdge(row, col);
+
 }
 
 void mine::breakout() {
     
+    //Initialize queue
+    primaryQueue.push(&layout[start.first][start.second]);
+    tile* current = primaryQueue.top();
+    finalEdge.rubble = -3;
+
+    //Loop through queue until edge is reached
+    while (finalEdge.rubble == -3) {
+        current = primaryQueue.top();
+
+        //Check if TNT
+        if (current->rubble == -1) {
+           
+            TNTQueue.push(current);
+            tile* top;
+
+            //While TNT Queue is not Empty
+            while (!TNTQueue.empty()) {
+                top = TNTQueue.top();
+
+                //Check if TNT
+                if (top->rubble == -1) {
+                    cout << "TNT explosion at [" << top->row << "," << top->col << "]!\n";
+                    TNTQueue.pop();
+                    discover(*TNTQueue.top(), TNTQueue);
+                    top->rubble = -2;
+                }
+
+                //If not TNT Surroundings to Main Queue
+                else {
+                    cout << "Cleared by TNT: " << top->rubble << " at [" << top->row << "," << top->col << "]\n";
+                    TNTQueue.pop();
+                    discover(*top, primaryQueue);
+                    top->rubble = -2;
+                }
+
+            }
+        }
+
+        //If not TNT then just clear it
+        else {
+            cout << "Cleared: " << current->rubble << " at [" << current->row << "," << current->col << "]\n";
+            primaryQueue.pop();
+            discover(*current, primaryQueue);
+            current->rubble = -2;
+        }
+    }
 
 }
 
@@ -217,6 +297,6 @@ int main(int argc, char** argv) {
 	jellystone.get_options(argc, argv);
     jellystone.readMine();
     jellystone.writeMine();
-
-
+    jellystone.breakout();
+    jellystone.writeMine();
 }

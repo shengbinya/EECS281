@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class tile {
+struct tile {
 public:
 
     tile() : rubble{ 0 }, row{ 0 }, col{ 0 }{}
@@ -17,25 +17,27 @@ public:
     tile(int rubble_in, unsigned row_in, unsigned int col_in) :
         rubble{ rubble_in }, row{ row_in }, col{ col_in }{}
 
-    bool operator()(const tile& a, const tile& b) {
-        if (a.rubble < b.rubble)
-            return true;
-        else if (a.rubble > b.rubble)
-            return false;
-        else if (a.col < b.col)
-            return true;
-        else if (a.col > b.col)
-            return false;
-        else if (a.row < b.col)
-            return true;
-        else
-            return false;
-    }
-
     int rubble;
     unsigned int row;
     unsigned int col;
 
+};
+
+struct tileComp {
+    bool operator()(const tile& a, const tile& b) {
+        if (a.rubble > b.rubble)
+            return true;
+        else if (a.rubble < b.rubble)
+            return false;
+        else if (a.col > b.col)
+            return true;
+        else if (a.col < b.col)
+            return false;
+        else if (a.row > b.col)
+            return true;
+        else
+            return false;
+    }
 };
 
 class mine {
@@ -52,7 +54,7 @@ public:
 
     void breakout();
 
-    void discover(const tile &, priority_queue<tile *, vector<tile *>> &);
+    void discover(const tile &, priority_queue<tile, vector<tile>, tileComp> &);
 
     bool edge(const tile &);
 
@@ -62,8 +64,8 @@ private:
 
     //Underlying Data Structures
 	vector<vector<tile>> layout;
-    priority_queue<tile *, vector<tile *>> primaryQueue;
-    priority_queue<tile *, vector<tile *>> TNTQueue;
+    priority_queue<tile, vector<tile>, tileComp> primaryQueue;
+    priority_queue<tile, vector<tile>, tileComp> TNTQueue;
 
     //Initial Variables
     pair<unsigned int, unsigned int> start = { 0,0 };
@@ -210,31 +212,31 @@ void mine::setEdge(int row, int col) {
     finalEdge.col = col;
 }
 
-void mine::discover(const tile& current, priority_queue<tile*, vector<tile*>>& pq) {
+void mine::discover(const tile& current, priority_queue<tile, vector<tile>, tileComp>& pq) {
     unsigned int row = current.row;
     unsigned int col = current.col;
 
     if (row != 0) {
         if (layout[row - 1][col].rubble != -2)
-            pq.push(&layout[current.row - 1][current.col]);
+            pq.push(layout[current.row - 1][current.col]);
     }
     else
         setEdge(row, col);
-    if (row != layout.size()) {
+    if (row != layout.size()-1) {
         if (layout[row + 1][col].rubble != -2)
-            pq.push(&layout[current.row + 1][current.col]);
+            pq.push(layout[current.row + 1][current.col]);
     }
     else
         setEdge(row, col);
     if (col != 0) {
         if (layout[row][col - 1].rubble != -2)
-            pq.push(&layout[current.row][current.col - 1]);
+            pq.push(layout[current.row][current.col - 1]);
      }
     else
         setEdge(row, col);
-    if (col != layout.size()) {
+    if (col != layout.size()-1) {
         if (layout[row][col + 1].rubble != -2)
-            pq.push(&layout[current.row][current.col + 1]);
+            pq.push(layout[current.row][current.col + 1]);
     }
     else
         setEdge(row, col);
@@ -244,8 +246,8 @@ void mine::discover(const tile& current, priority_queue<tile*, vector<tile*>>& p
 void mine::breakout() {
     
     //Initialize queue
-    primaryQueue.push(&layout[start.first][start.second]);
-    tile* current = primaryQueue.top();
+    primaryQueue.push(layout[start.first][start.second]);
+    tile current = primaryQueue.top();
     finalEdge.rubble = -3;
 
     //Loop through queue until edge is reached
@@ -253,29 +255,30 @@ void mine::breakout() {
         current = primaryQueue.top();
 
         //Check if TNT
-        if (current->rubble == -1) {
-           
-            TNTQueue.push(current);
-            tile* top;
+        if (current.rubble == -1) {
+            
+            tile top = current;
+            TNTQueue.push(top);
 
             //While TNT Queue is not Empty
             while (!TNTQueue.empty()) {
                 top = TNTQueue.top();
 
                 //Check if TNT
-                if (top->rubble == -1) {
-                    cout << "TNT explosion at [" << top->row << "," << top->col << "]!\n";
+                if (top.rubble == -1) {
+                    cout << "TNT explosion at [" << top.row << "," << top.col << "]!\n";
+                    discover(top, TNTQueue);
+                    layout[top.row][top.col].rubble = -2;
                     TNTQueue.pop();
-                    discover(*TNTQueue.top(), TNTQueue);
-                    top->rubble = -2;
                 }
 
                 //If not TNT Surroundings to Main Queue
                 else {
-                    cout << "Cleared by TNT: " << top->rubble << " at [" << top->row << "," << top->col << "]\n";
+                    if(top.rubble != 0)
+                        cout << "Cleared by TNT: " << top.rubble << " at [" << top.row << "," << top.col << "]\n";
                     TNTQueue.pop();
-                    discover(*top, primaryQueue);
-                    top->rubble = -2;
+                    discover(top, primaryQueue);
+                    layout[top.row][top.col].rubble = -2;
                 }
 
             }
@@ -283,10 +286,10 @@ void mine::breakout() {
 
         //If not TNT then just clear it
         else {
-            cout << "Cleared: " << current->rubble << " at [" << current->row << "," << current->col << "]\n";
+            cout << "Cleared " << current.rubble << " at [" << current.row << "," << current.col << "]\n";
             primaryQueue.pop();
-            discover(*current, primaryQueue);
-            current->rubble = -2;
+            discover(current, primaryQueue);
+            layout[current.row][current.col].rubble = -2;
         }
     }
 
@@ -296,7 +299,5 @@ int main(int argc, char** argv) {
 	mine jellystone;
 	jellystone.get_options(argc, argv);
     jellystone.readMine();
-    jellystone.writeMine();
     jellystone.breakout();
-    jellystone.writeMine();
 }

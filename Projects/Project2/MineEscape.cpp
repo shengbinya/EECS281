@@ -43,6 +43,23 @@ struct tileComp {
     }
 };
 
+struct tileCompOp {
+    bool operator()(const tile& a, const tile& b) {
+        if (a.rubble < b.rubble)
+            return true;
+        else if (a.rubble > b.rubble)
+            return false;
+        else if (a.col < b.col)
+            return true;
+        else if (a.col > b.col)
+            return false;
+        else if (a.row < b.row)
+            return true;
+        else
+            return false;
+    }
+};
+
 struct intCompLess {
     bool operator()(int a, int b) {
         return a > b;
@@ -65,11 +82,7 @@ public:
 
     void discover(const tile&);
 
-    bool edge(const tile&);
-
     void setEdge(int row, int col);
-
-    void insert(int);
 
     void printMedian();
 
@@ -85,8 +98,8 @@ private:
     vector<vector<tile>> gridMine;
     priority_queue<tile, vector<tile>, tileComp> primaryQueue;
     priority_queue<tile, vector<tile>, tileComp> TNTQueue;
-    priority_queue<int, vector<int>, intCompLess> leftPQ;
-    priority_queue<int, vector<int>> rightPQ;
+    priority_queue<int, vector<int>> leftPQ;
+    priority_queue<int, vector<int>,intCompLess> rightPQ;
     vector<tile> discard;
 
     //Initial Variables
@@ -110,30 +123,6 @@ private:
 //If something is "investigated" the discovered variable is true and the rubble value is 0
 
 /* Helper Functions*/
-
-void mine::insert(int val) {
-    auto it = lower_bound(median.begin(), median.end(), val);
-    median.insert(it, val);
-}
-
-void mine::printMedian() {
-    
-    cout << "Median difficulty of clearing rubble is: ";
-    cout << std::fixed << std::setprecision(2);
-    int size = leftPQ.size() + rightPQ.size();
-    
-    //If even average
-    if (size % 2 == 0 && size % 2 != 1)
-        if (size != 1) {
-            double step = leftPQ.top() + rightPQ.top();
-            step = step / 2;
-            cout << step << "\n";
-        }
-    
-    //If odd just return leftPQ value    
-    else
-        cout << double(leftPQ.top()) << "\n";
-}
 
 void mine::writeMine() {
     for (unsigned int i = 0; i < gridMine.size(); ++i) {
@@ -183,13 +172,6 @@ void mine::printStats() {
     }
 
 
-}
-
-bool mine::edge(const tile& current) {
-    if (current.col != 0 && current.row != 0 &&
-        current.col != gridMine.size() && current.row != gridMine.size())
-        return false;
-    return true;
 }
 
 void mine::setEdge(int row, int col) {
@@ -307,7 +289,7 @@ void mine::addMedian(int a) {
     if (leftPQ.size() == rightPQ.size()) {
         
         //If less than or equal to largest left side it belongs in left side
-        if (a <= leftPQ.top())
+        if (leftPQ.empty() || a <= rightPQ.top())
             leftPQ.push(a);
         
         //If greater than largest left it belongs in the right side
@@ -322,8 +304,22 @@ void mine::addMedian(int a) {
     //Push right
     else {
 
+        //If right side is empty make sure it is larger than largest left without using .top()
+        if (rightPQ.empty()) {
+            
+            if (leftPQ.top() <= a)
+                rightPQ.push(a);
+            else {
+                int temp = leftPQ.top();
+                leftPQ.pop();
+                leftPQ.push(a);
+                rightPQ.push(temp);
+            }
+
+        }
+
         //If greater than smallest value right side it belongs right side
-        if (a >= rightPQ.top())
+        else if (a >= leftPQ.top())
             rightPQ.push(a);
         
         //If smaller than smallest element in the right side it belongs in left side
@@ -335,6 +331,26 @@ void mine::addMedian(int a) {
         }
     }
 
+}
+
+void mine::printMedian() {
+
+    cout << "Median difficulty of clearing rubble is: ";
+    cout << std::fixed << std::setprecision(2);
+    int size = int(leftPQ.size() + rightPQ.size());
+
+    //If even average
+    if (size % 2 == 0 && (size % 2) != 1) {
+        if (size != 1) {
+            double step = leftPQ.top() + rightPQ.top();
+            step = step / 2;
+            cout << step << "\n";
+        }
+    }
+
+    //If odd just return leftPQ value    
+    else
+        cout << double(leftPQ.top()) << "\n";
 }
 
 /* Main Functions */
@@ -477,7 +493,8 @@ void mine::breakout() {
                             std::cout << "Cleared: " << investigated.rubble << " at [" << investigated.row << "," << investigated.col << "]\n";
                         }
                         if (m) {
-
+                            addMedian(investigated.rubble);
+                            printMedian();
                         }
 
                         totalTiles++;
@@ -529,8 +546,8 @@ void mine::breakout() {
                             if (v)
                                 std::cout << "Cleared by TNT: " << currentTNT.rubble << " at [" << currentTNT.row << "," << currentTNT.col << "]\n";
                             if (m) {
-                                
-                                   
+                                addMedian(currentTNT.rubble);
+                                printMedian();
                             }
                             totalTiles++;
                             totalRubble += currentTNT.rubble;

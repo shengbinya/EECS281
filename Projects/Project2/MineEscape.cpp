@@ -96,10 +96,13 @@ private:
 
     //Underlying Data Structures
     vector<vector<tile>> gridMine;
+    
     priority_queue<tile, vector<tile>, tileComp> primaryQueue;
     priority_queue<tile, vector<tile>, tileComp> TNTQueue;
+    
     priority_queue<int, vector<int>> leftPQ;
     priority_queue<int, vector<int>,intCompLess> rightPQ;
+    
     vector<tile> discard;
 
     //Initial Variables
@@ -112,7 +115,6 @@ private:
     bool m = false;
     bool v = false;
     tile finalEdge {-3, 0, 0};
-    int triggered = false;
     
 
 };
@@ -144,7 +146,7 @@ void mine::printStats() {
     }
 
     cout << "Last tiles cleared:\n";
-    for (int i = int(discard.size()) - 1; i > int(discard.size()) - firstCleared && i > -1; --i) {
+    for (int i = int(discard.size()) - 1; i > int(discard.size()) - firstCleared -1 && i > -1; --i) {
         if (discard[i].rubble != -1)
             cout << discard[i].rubble << " at [" << discard[i].row << "," << discard[i].col << "]\n";
         else
@@ -407,7 +409,7 @@ void mine::readMine() {
     cin >> mode;
     //Check if mode is correct
     if (mode != "R" && mode != "M") {
-        cout << "Invalid input mode\n";
+        cerr << "Invalid input mode\n";
         exit(1);
     }
 
@@ -422,14 +424,14 @@ void mine::readMine() {
     start.first = stoi(in);
     //Check if start point is out of range
     if (start.first >= gridMine.size()) {
-        cout << "Invalid starting row\n";
+        cerr << "Invalid starting row\n";
         exit(1);
     }
 
     cin >> in;
     start.second = stoi(in);
     if (start.second > gridMine.size()) {
-        cout << "Invalid starting column\n";
+        cerr << "Invalid starting column\n";
         exit(1);
     }
 
@@ -496,6 +498,8 @@ void mine::breakout() {
                             addMedian(investigated.rubble);
                             printMedian();
                         }
+                        if (firstCleared != -1)
+                            discard.push_back(investigated);
 
                         totalTiles++;
                         totalRubble += investigated.rubble;
@@ -529,12 +533,13 @@ void mine::breakout() {
                         gridMine[currentTNT.row][currentTNT.col].rubble = 0;
                         if (v)
                             std::cout << "TNT explosion at [" << currentTNT.row << "," << currentTNT.col << "]!\n";
-
+                        if (firstCleared != -1)
+                            discard.push_back(currentTNT);
                         //Add stuff around TNT to TNTQueue
                         blowUp(currentTNT);
-
-                        //Add cleared TNT to Primary Queue
-                        primaryQueue.push(gridMine[currentTNT.row][currentTNT.col]);
+                        
+                        //Discover the tile for the primary queue
+                        gridMine[currentTNT.row][currentTNT.col].discovered = 0;
 
                     }
 
@@ -549,16 +554,19 @@ void mine::breakout() {
                                 addMedian(currentTNT.rubble);
                                 printMedian();
                             }
+                            if (firstCleared != -1)
+                                discard.push_back(currentTNT);
+
                             totalTiles++;
                             totalRubble += currentTNT.rubble;
                         }
-                        if (currentTNT.row == 510 && currentTNT.col == 509) {
-                            int j = 0;
-                            j += j;
-                        }
-
-                        //Add Discovered TNT to queue to be investigated
-                        primaryQueue.push(gridMine[currentTNT.row][currentTNT.col]);
+                      
+                        //Discover tiles with 0 rubble for normal PQ
+                        if (currentTNT.rubble == 0)
+                            discover(currentTNT);
+                        //Add Discovered TNT to queue to be investigated 
+                        else
+                            primaryQueue.push(gridMine[currentTNT.row][currentTNT.col]);
 
                     }
                 }
@@ -568,6 +576,8 @@ void mine::breakout() {
     }
 
     std::cout << "Cleared " << totalTiles << " tiles containing " << totalRubble << " rubble and escaped.\n";
+    if (firstCleared != -1)
+        printStats();
 }
 
 

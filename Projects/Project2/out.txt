@@ -190,12 +190,12 @@ TNT explosion at [504,487]!
 Cleared by TNT: 26 at [503,487]
 Cleared by TNT: 35 at [505,487]
 Cleared by TNT: 48 at [504,486]
+TNT explosion at [505,488]!
+Cleared by TNT: 20 at [506,488]
+Cleared by TNT: 42 at [505,489]
 TNT explosion at [506,487]!
 Cleared by TNT: 11 at [507,487]
 Cleared by TNT: 12 at [506,486]
-Cleared by TNT: 20 at [506,488]
-TNT explosion at [505,488]!
-Cleared by TNT: 42 at [505,489]
 Cleared: 10 at [506,485]
 Cleared: 17 at [507,492]
 Cleared: 18 at [500,489]
@@ -411,9 +411,6 @@ TNT explosion at [510,490]!
 Cleared by TNT: 17 at [509,490]
 Cleared by TNT: 18 at [510,489]
 Cleared by TNT: 45 at [511,490]
-TNT explosion at [509,489]!
-Cleared by TNT: 28 at [509,488]
-Cleared by TNT: 31 at [508,489]
 TNT explosion at [510,492]!
 TNT explosion at [510,493]!
 TNT explosion at [509,493]!
@@ -423,6 +420,9 @@ Cleared by TNT: 18 at [509,492]
 Cleared by TNT: 29 at [508,493]
 Cleared by TNT: 35 at [511,493]
 Cleared by TNT: 39 at [511,492]
+TNT explosion at [509,489]!
+Cleared by TNT: 28 at [509,488]
+Cleared by TNT: 31 at [508,489]
 Cleared: 12 at [508,488]
 Cleared: 17 at [514,490]
 Cleared: 5 at [515,490]
@@ -755,13 +755,13 @@ Cleared by TNT: 26 at [545,498]
 Cleared by TNT: 40 at [546,499]
 Cleared by TNT: 42 at [543,499]
 Cleared by TNT: 46 at [544,500]
+TNT explosion at [543,498]!
+Cleared by TNT: 13 at [543,497]
+Cleared by TNT: 15 at [542,498]
 TNT explosion at [545,497]!
 Cleared by TNT: 33 at [545,496]
 Cleared by TNT: 39 at [544,497]
 Cleared by TNT: 48 at [546,497]
-TNT explosion at [543,498]!
-Cleared by TNT: 13 at [543,497]
-Cleared by TNT: 15 at [542,498]
 TNT explosion at [546,498]!
 Cleared by TNT: 14 at [547,498]
 Cleared: 6 at [543,500]
@@ -991,6 +991,9 @@ TNT explosion at [568,485]!
 Cleared by TNT: 23 at [569,485]
 Cleared by TNT: 24 at [568,484]
 Cleared by TNT: 28 at [567,485]
+TNT explosion at [569,486]!
+Cleared by TNT: 10 at [570,486]
+Cleared by TNT: 48 at [569,487]
 TNT explosion at [567,484]!
 TNT explosion at [567,483]!
 Cleared by TNT: 9 at [568,483]
@@ -1001,9 +1004,6 @@ TNT explosion at [565,483]!
 Cleared by TNT: 21 at [565,484]
 Cleared by TNT: 23 at [564,483]
 Cleared by TNT: 43 at [565,482]
-TNT explosion at [569,486]!
-Cleared by TNT: 10 at [570,486]
-Cleared by TNT: 48 at [569,487]
 TNT explosion at [569,488]!
 Cleared by TNT: 3 at [570,488]
 Cleared by TNT: 42 at [568,488]
@@ -1049,6 +1049,9 @@ TNT explosion at [567,476]!
 Cleared by TNT: 22 at [568,476]
 Cleared by TNT: 39 at [567,475]
 Cleared by TNT: 40 at [567,477]
+TNT explosion at [566,477]!
+Cleared by TNT: 9 at [566,478]
+Cleared by TNT: 29 at [565,477]
 TNT explosion at [567,474]!
 TNT explosion at [566,474]!
 Cleared by TNT: 1 at [568,474]
@@ -1056,9 +1059,6 @@ Cleared by TNT: 10 at [567,473]
 Cleared by TNT: 31 at [565,474]
 Cleared by TNT: 39 at [566,473]
 Cleared by TNT: 42 at [566,475]
-TNT explosion at [566,477]!
-Cleared by TNT: 9 at [566,478]
-Cleared by TNT: 29 at [565,477]
 Cleared: 7 at [567,478]
 Cleared: 8 at [566,472]
 Cleared: 8 at [561,474]
@@ -2054,13 +2054,13 @@ Cleared by TNT: 41 at [578,462]
 Cleared by TNT: 42 at [579,465]
 Cleared by TNT: 44 at [578,465]
 Cleared by TNT: 48 at [579,463]
-TNT explosion at [577,465]!
-Cleared by TNT: 15 at [577,466]
-Cleared by TNT: 26 at [576,465]
 TNT explosion at [575,464]!
 Cleared by TNT: 8 at [575,463]
 Cleared by TNT: 10 at [574,464]
 Cleared by TNT: 18 at [575,465]
+TNT explosion at [577,465]!
+Cleared by TNT: 15 at [577,466]
+Cleared by TNT: 26 at [576,465]
 Cleared: 5 at [575,466]
 TNT explosion at [575,467]!
 Cleared by TNT: 19 at [575,468]
@@ -2308,6 +2308,9 @@ TNT explosion at [538,473]!
 Cleared by TNT: 17 at [538,472]
 Cleared by TNT: 17 at [538,474]
 Cleared by TNT: 20 at [537,473]
+TNT explosion at [539,474]!
+Cleared by TNT: 27 at [539,475]
+Cleared by TNT: 40 at [540,474]
 TNT explosion at [536,473]!
 Cleared by TNT: 20 at [536,474]
 Cleared by TNT: 41 at [535,473]
@@ -2315,9 +2318,6 @@ Cleared by TNT: 47 at [536,472]
 TNT explosion at [535,474]!
 Cleared by TNT: 7 at [535,475]
 Cleared by TNT: 23 at [534,474]
-TNT explosion at [539,474]!
-Cleared by TNT: 27 at [539,475]
-Cleared by TNT: 40 at [540,474]
 TNT explosion at [540,475]!
 Cleared by TNT: 18 at [541,475]
 Cleared by TNT: 22 at [540,476]
@@ -3049,10 +3049,6 @@ Cleared by TNT: 18 at [538,435]
 Cleared by TNT: 23 at [540,436]
 Cleared by TNT: 27 at [539,435]
 Cleared by TNT: 44 at [538,437]
-TNT explosion at [539,434]!
-Cleared by TNT: 13 at [538,434]
-Cleared by TNT: 15 at [539,433]
-Cleared by TNT: 35 at [540,434]
 TNT explosion at [537,435]!
 Cleared by TNT: 16 at [536,435]
 Cleared by TNT: 32 at [537,434]
@@ -3063,6 +3059,10 @@ Cleared by TNT: 21 at [533,435]
 Cleared by TNT: 42 at [535,436]
 Cleared by TNT: 47 at [533,436]
 Cleared by TNT: 49 at [534,434]
+TNT explosion at [539,434]!
+Cleared by TNT: 13 at [538,434]
+Cleared by TNT: 15 at [539,433]
+Cleared by TNT: 35 at [540,434]
 Cleared: 5 at [540,433]
 Cleared: 7 at [535,437]
 Cleared: 12 at [532,436]
@@ -3209,13 +3209,13 @@ TNT explosion at [534,447]!
 Cleared by TNT: 22 at [534,448]
 Cleared by TNT: 33 at [533,447]
 Cleared by TNT: 44 at [534,446]
-TNT explosion at [533,446]!
-Cleared by TNT: 18 at [533,445]
-Cleared by TNT: 46 at [532,446]
 TNT explosion at [536,447]!
 Cleared by TNT: 9 at [536,448]
 Cleared by TNT: 40 at [536,446]
 Cleared by TNT: 40 at [537,447]
+TNT explosion at [533,446]!
+Cleared by TNT: 18 at [533,445]
+Cleared by TNT: 46 at [532,446]
 TNT explosion at [533,448]!
 Cleared by TNT: 15 at [532,448]
 Cleared by TNT: 41 at [533,449]
@@ -3798,6 +3798,9 @@ TNT explosion at [595,484]!
 Cleared by TNT: 8 at [595,483]
 Cleared by TNT: 34 at [596,484]
 Cleared by TNT: 37 at [595,485]
+TNT explosion at [594,485]!
+Cleared by TNT: 14 at [594,486]
+Cleared by TNT: 49 at [593,485]
 TNT explosion at [597,484]!
 TNT explosion at [597,483]!
 Cleared by TNT: 2 at [597,485]
@@ -3805,9 +3808,6 @@ Cleared by TNT: 37 at [598,484]
 Cleared by TNT: 38 at [597,482]
 Cleared by TNT: 39 at [598,483]
 Cleared by TNT: 48 at [596,483]
-TNT explosion at [594,485]!
-Cleared by TNT: 14 at [594,486]
-Cleared by TNT: 49 at [593,485]
 TNT explosion at [595,486]!
 Cleared by TNT: 27 at [596,486]
 Cleared by TNT: 46 at [595,487]
@@ -4009,6 +4009,9 @@ Cleared by TNT: 12 at [592,502]
 Cleared by TNT: 13 at [591,503]
 Cleared by TNT: 26 at [593,502]
 Cleared by TNT: 47 at [593,504]
+TNT explosion at [594,504]!
+Cleared by TNT: 13 at [594,505]
+Cleared by TNT: 28 at [595,504]
 TNT explosion at [592,501]!
 TNT explosion at [592,500]!
 Cleared by TNT: 1 at [591,501]
@@ -4016,9 +4019,6 @@ Cleared by TNT: 11 at [593,500]
 Cleared by TNT: 15 at [591,500]
 Cleared by TNT: 38 at [593,501]
 Cleared by TNT: 39 at [592,499]
-TNT explosion at [594,504]!
-Cleared by TNT: 13 at [594,505]
-Cleared by TNT: 28 at [595,504]
 Cleared: 5 at [590,500]
 Cleared: 10 at [591,504]
 Cleared: 12 at [591,502]
@@ -4174,13 +4174,13 @@ TNT explosion at [611,508]!
 Cleared by TNT: 2 at [612,508]
 Cleared by TNT: 14 at [610,508]
 Cleared by TNT: 19 at [611,507]
+TNT explosion at [612,509]!
+Cleared by TNT: 3 at [613,509]
+Cleared by TNT: 47 at [612,510]
 TNT explosion at [609,508]!
 Cleared by TNT: 15 at [609,507]
 Cleared by TNT: 15 at [609,509]
 Cleared by TNT: 24 at [608,508]
-TNT explosion at [612,509]!
-Cleared by TNT: 3 at [613,509]
-Cleared by TNT: 47 at [612,510]
 Cleared: 5 at [613,508]
 Cleared: 5 at [613,510]
 Cleared: 8 at [614,508]
@@ -4754,12 +4754,12 @@ TNT explosion at [607,495]!
 Cleared by TNT: 13 at [606,495]
 Cleared by TNT: 39 at [607,494]
 Cleared by TNT: 48 at [607,496]
-TNT explosion at [606,494]!
-Cleared by TNT: 3 at [605,494]
-Cleared by TNT: 21 at [606,493]
 TNT explosion at [608,496]!
 Cleared by TNT: 25 at [608,497]
 Cleared by TNT: 34 at [609,496]
+TNT explosion at [606,494]!
+Cleared by TNT: 3 at [605,494]
+Cleared by TNT: 21 at [606,493]
 TNT explosion at [607,497]!
 TNT explosion at [606,497]!
 Cleared by TNT: 20 at [605,497]
@@ -4792,15 +4792,15 @@ TNT explosion at [609,487]!
 Cleared by TNT: 24 at [610,487]
 Cleared by TNT: 34 at [609,486]
 Cleared by TNT: 43 at [608,487]
+TNT explosion at [610,488]!
+Cleared by TNT: 28 at [611,488]
 TNT explosion at [611,487]!
 Cleared by TNT: 13 at [611,486]
-Cleared by TNT: 28 at [611,488]
 Cleared by TNT: 39 at [612,487]
 TNT explosion at [613,487]!
 Cleared by TNT: 3 at [613,486]
 Cleared by TNT: 3 at [614,487]
 Cleared by TNT: 11 at [613,488]
-TNT explosion at [610,488]!
 TNT explosion at [613,489]!
 TNT explosion at [612,489]!
 TNT explosion at [614,489]!
@@ -5557,6 +5557,10 @@ Cleared by TNT: 26 at [609,468]
 TNT explosion at [609,469]!
 Cleared by TNT: 13 at [610,469]
 Cleared by TNT: 42 at [609,470]
+TNT explosion at [606,470]!
+Cleared by TNT: 1 at [607,470]
+Cleared by TNT: 21 at [605,470]
+Cleared by TNT: 33 at [606,471]
 TNT explosion at [611,469]!
 Cleared by TNT: 18 at [611,470]
 Cleared by TNT: 23 at [611,468]
@@ -5566,10 +5570,6 @@ Cleared by TNT: 9 at [612,467]
 Cleared by TNT: 22 at [613,469]
 Cleared by TNT: 35 at [613,467]
 Cleared by TNT: 42 at [614,468]
-TNT explosion at [606,470]!
-Cleared by TNT: 1 at [607,470]
-Cleared by TNT: 21 at [605,470]
-Cleared by TNT: 33 at [606,471]
 TNT explosion at [604,470]!
 Cleared by TNT: 17 at [603,470]
 Cleared by TNT: 23 at [604,469]
@@ -6641,8 +6641,8 @@ TNT explosion at [566,538]!
 Cleared by TNT: 8 at [566,539]
 Cleared by TNT: 17 at [566,537]
 Cleared by TNT: 21 at [567,538]
-TNT explosion at [565,540]!
 TNT explosion at [566,540]!
+TNT explosion at [565,540]!
 Cleared by TNT: 6 at [566,541]
 Cleared by TNT: 31 at [565,539]
 Cleared by TNT: 32 at [567,540]
@@ -7223,6 +7223,9 @@ TNT explosion at [525,559]!
 Cleared by TNT: 2 at [525,560]
 Cleared by TNT: 9 at [525,558]
 Cleared by TNT: 22 at [524,559]
+TNT explosion at [526,560]!
+Cleared by TNT: 20 at [526,561]
+Cleared by TNT: 48 at [527,560]
 TNT explosion at [525,557]!
 Cleared by TNT: 9 at [526,557]
 Cleared by TNT: 24 at [525,556]
@@ -7233,9 +7236,6 @@ Cleared by TNT: 15 at [523,560]
 Cleared by TNT: 18 at [524,558]
 Cleared by TNT: 21 at [522,559]
 Cleared by TNT: 45 at [522,558]
-TNT explosion at [526,560]!
-Cleared by TNT: 20 at [526,561]
-Cleared by TNT: 48 at [527,560]
 TNT explosion at [526,562]!
 Cleared by TNT: 30 at [527,562]
 Cleared by TNT: 33 at [526,563]
@@ -7310,12 +7310,12 @@ TNT explosion at [510,557]!
 Cleared by TNT: 8 at [509,557]
 Cleared by TNT: 36 at [510,558]
 Cleared by TNT: 45 at [510,556]
+TNT explosion at [511,558]!
+Cleared by TNT: 28 at [511,559]
 TNT explosion at [508,557]!
 Cleared by TNT: 8 at [508,558]
 Cleared by TNT: 9 at [508,556]
 Cleared by TNT: 21 at [507,557]
-TNT explosion at [511,558]!
-Cleared by TNT: 28 at [511,559]
 TNT explosion at [510,559]!
 Cleared by TNT: 17 at [510,560]
 Cleared by TNT: 25 at [509,559]
@@ -7751,6 +7751,10 @@ Cleared by TNT: 24 at [588,574]
 Cleared by TNT: 29 at [589,572]
 Cleared by TNT: 31 at [587,572]
 Cleared by TNT: 48 at [587,571]
+TNT explosion at [585,571]!
+Cleared by TNT: 5 at [584,571]
+Cleared by TNT: 21 at [585,570]
+Cleared by TNT: 47 at [585,572]
 TNT explosion at [590,572]!
 Cleared by TNT: 3 at [590,571]
 Cleared by TNT: 11 at [590,573]
@@ -7758,10 +7762,6 @@ Cleared by TNT: 36 at [591,572]
 TNT explosion at [587,574]!
 Cleared by TNT: 11 at [587,575]
 Cleared by TNT: 40 at [586,574]
-TNT explosion at [585,571]!
-Cleared by TNT: 5 at [584,571]
-Cleared by TNT: 21 at [585,570]
-Cleared by TNT: 47 at [585,572]
 Cleared: 1 at [586,572]
 Cleared: 1 at [585,573]
 Cleared: 4 at [584,570]
@@ -8009,11 +8009,11 @@ TNT explosion at [584,559]!
 Cleared by TNT: 27 at [584,560]
 Cleared by TNT: 39 at [584,558]
 Cleared by TNT: 39 at [585,559]
+TNT explosion at [583,560]!
+Cleared by TNT: 44 at [583,561]
 TNT explosion at [585,558]!
 Cleared by TNT: 40 at [585,557]
 Cleared by TNT: 47 at [586,558]
-TNT explosion at [583,560]!
-Cleared by TNT: 44 at [583,561]
 Cleared: 7 at [584,557]
 Cleared: 11 at [584,561]
 TNT explosion at [584,562]!
@@ -8661,12 +8661,12 @@ TNT explosion at [569,407]!
 Cleared by TNT: 3 at [570,407]
 Cleared by TNT: 25 at [568,407]
 Cleared by TNT: 39 at [569,406]
+TNT explosion at [570,408]!
+Cleared by TNT: 31 at [571,408]
 TNT explosion at [569,405]!
 Cleared by TNT: 10 at [568,405]
 Cleared by TNT: 16 at [570,405]
 Cleared by TNT: 19 at [569,404]
-TNT explosion at [570,408]!
-Cleared by TNT: 31 at [571,408]
 TNT explosion at [572,408]!
 Cleared by TNT: 18 at [572,409]
 Cleared by TNT: 30 at [573,408]
@@ -8726,6 +8726,12 @@ Cleared by TNT: 18 at [578,415]
 Cleared by TNT: 18 at [579,416]
 Cleared by TNT: 38 at [580,414]
 Cleared by TNT: 44 at [580,415]
+TNT explosion at [578,416]!
+TNT explosion at [577,416]!
+Cleared by TNT: 6 at [577,417]
+Cleared by TNT: 12 at [576,416]
+Cleared by TNT: 37 at [577,415]
+Cleared by TNT: 47 at [578,417]
 TNT explosion at [581,415]!
 Cleared by TNT: 31 at [582,415]
 Cleared by TNT: 45 at [581,416]
@@ -8734,12 +8740,6 @@ TNT explosion at [583,415]!
 Cleared by TNT: 16 at [583,414]
 Cleared by TNT: 20 at [583,416]
 Cleared by TNT: 25 at [584,415]
-TNT explosion at [578,416]!
-TNT explosion at [577,416]!
-Cleared by TNT: 6 at [577,417]
-Cleared by TNT: 12 at [576,416]
-Cleared by TNT: 37 at [577,415]
-Cleared by TNT: 47 at [578,417]
 TNT explosion at [584,416]!
 Cleared by TNT: 19 at [584,417]
 Cleared by TNT: 45 at [585,416]
@@ -8754,15 +8754,15 @@ TNT explosion at [574,404]!
 Cleared by TNT: 30 at [573,404]
 Cleared by TNT: 42 at [575,404]
 Cleared by TNT: 44 at [574,403]
+TNT explosion at [573,405]!
+Cleared by TNT: 20 at [572,405]
+Cleared by TNT: 39 at [573,406]
 TNT explosion at [575,403]!
 Cleared by TNT: 19 at [576,403]
 Cleared by TNT: 33 at [575,402]
 TNT explosion at [576,404]!
 Cleared by TNT: 10 at [577,404]
 Cleared by TNT: 41 at [576,405]
-TNT explosion at [573,405]!
-Cleared by TNT: 20 at [572,405]
-Cleared by TNT: 39 at [573,406]
 TNT explosion at [577,405]!
 Cleared by TNT: 6 at [577,406]
 Cleared by TNT: 11 at [578,405]
@@ -9390,6 +9390,12 @@ Cleared by TNT: 46 at [609,393]
 TNT explosion at [610,393]!
 Cleared by TNT: 13 at [611,393]
 Cleared by TNT: 28 at [610,392]
+TNT explosion at [611,391]!
+Cleared by TNT: 9 at [611,390]
+Cleared by TNT: 18 at [612,391]
+TNT explosion at [612,392]!
+Cleared by TNT: 5 at [613,392]
+Cleared by TNT: 38 at [612,393]
 TNT explosion at [610,395]!
 TNT explosion at [611,395]!
 TNT explosion at [612,395]!
@@ -9399,12 +9405,6 @@ Cleared by TNT: 26 at [611,394]
 Cleared by TNT: 41 at [612,394]
 Cleared by TNT: 44 at [613,395]
 Cleared by TNT: 47 at [612,396]
-TNT explosion at [611,391]!
-Cleared by TNT: 9 at [611,390]
-Cleared by TNT: 18 at [612,391]
-TNT explosion at [612,392]!
-Cleared by TNT: 5 at [613,392]
-Cleared by TNT: 38 at [612,393]
 Cleared: 1 at [611,389]
 Cleared: 5 at [612,397]
 Cleared: 6 at [609,396]
@@ -10232,15 +10232,15 @@ TNT explosion at [542,366]!
 Cleared by TNT: 2 at [542,367]
 Cleared by TNT: 6 at [542,365]
 Cleared by TNT: 13 at [541,366]
+TNT explosion at [543,367]!
+Cleared by TNT: 33 at [543,368]
+Cleared by TNT: 36 at [544,367]
 TNT explosion at [541,365]!
 Cleared by TNT: 2 at [540,365]
 Cleared by TNT: 27 at [541,364]
 TNT explosion at [540,364]!
 Cleared by TNT: 10 at [540,363]
 Cleared by TNT: 22 at [539,364]
-TNT explosion at [543,367]!
-Cleared by TNT: 33 at [543,368]
-Cleared by TNT: 36 at [544,367]
 Cleared: 1 at [540,366]
 Cleared: 2 at [544,368]
 Cleared: 4 at [538,364]
@@ -10491,6 +10491,8 @@ TNT explosion at [596,346]!
 Cleared by TNT: 10 at [595,346]
 Cleared by TNT: 19 at [597,346]
 Cleared by TNT: 36 at [596,345]
+TNT explosion at [597,347]!
+Cleared by TNT: 27 at [598,347]
 TNT explosion at [595,345]!
 Cleared by TNT: 22 at [594,345]
 Cleared by TNT: 31 at [595,344]
@@ -10508,8 +10510,6 @@ Cleared by TNT: 44 at [593,343]
 TNT explosion at [591,342]!
 Cleared by TNT: 11 at [590,342]
 Cleared by TNT: 15 at [591,341]
-TNT explosion at [597,347]!
-Cleared by TNT: 27 at [598,347]
 Cleared: 1 at [598,348]
 Cleared: 5 at [593,342]
 Cleared: 6 at [591,340]
@@ -11977,12 +11977,12 @@ TNT explosion at [586,313]!
 Cleared by TNT: 13 at [585,313]
 Cleared by TNT: 32 at [587,313]
 Cleared by TNT: 35 at [586,312]
+TNT explosion at [585,314]!
+Cleared by TNT: 34 at [584,314]
+Cleared by TNT: 46 at [585,315]
 TNT explosion at [584,313]!
 Cleared by TNT: 29 at [584,312]
-Cleared by TNT: 34 at [584,314]
 Cleared by TNT: 45 at [583,313]
-TNT explosion at [585,314]!
-Cleared by TNT: 46 at [585,315]
 Cleared: 2 at [583,312]
 TNT explosion at [582,312]!
 Cleared by TNT: 1 at [582,311]
@@ -12510,6 +12510,8 @@ Cleared by TNT: 23 at [643,325]
 Cleared by TNT: 29 at [642,326]
 Cleared by TNT: 47 at [640,325]
 Cleared by TNT: 49 at [641,324]
+TNT explosion at [640,326]!
+Cleared by TNT: 40 at [639,326]
 TNT explosion at [642,323]!
 Cleared by TNT: 15 at [642,322]
 Cleared by TNT: 29 at [643,323]
@@ -12517,8 +12519,6 @@ Cleared by TNT: 40 at [641,323]
 TNT explosion at [642,321]!
 Cleared by TNT: 3 at [643,321]
 Cleared by TNT: 22 at [641,321]
-TNT explosion at [640,326]!
-Cleared by TNT: 40 at [639,326]
 Cleared: 3 at [640,324]
 Cleared: 3 at [638,331]
 Cleared: 2 at [637,331]
@@ -12566,12 +12566,12 @@ TNT explosion at [647,313]!
 Cleared by TNT: 29 at [647,312]
 Cleared by TNT: 42 at [648,313]
 Cleared by TNT: 44 at [647,314]
+TNT explosion at [646,314]!
+Cleared by TNT: 42 at [646,315]
 TNT explosion at [649,313]!
 Cleared by TNT: 4 at [649,314]
 Cleared by TNT: 21 at [649,312]
 Cleared by TNT: 44 at [650,313]
-TNT explosion at [646,314]!
-Cleared by TNT: 42 at [646,315]
 Cleared: 1 at [648,314]
 Cleared: 5 at [649,311]
 TNT explosion at [648,311]!
@@ -12889,10 +12889,6 @@ Cleared by TNT: 48 at [651,298]
 TNT explosion at [651,297]!
 Cleared by TNT: 36 at [650,297]
 Cleared by TNT: 48 at [651,296]
-TNT explosion at [649,297]!
-Cleared by TNT: 4 at [649,296]
-Cleared by TNT: 16 at [648,297]
-Cleared by TNT: 22 at [649,298]
 TNT explosion at [653,297]!
 Cleared by TNT: 3 at [654,297]
 Cleared by TNT: 34 at [653,296]
@@ -12912,6 +12908,10 @@ Cleared by TNT: 22 at [654,293]
 TNT explosion at [655,293]!
 Cleared by TNT: 2 at [656,293]
 Cleared by TNT: 5 at [655,292]
+TNT explosion at [649,297]!
+Cleared by TNT: 4 at [649,296]
+Cleared by TNT: 16 at [648,297]
+Cleared by TNT: 22 at [649,298]
 TNT explosion at [654,298]!
 Cleared by TNT: 16 at [655,298]
 Cleared by TNT: 42 at [654,299]
@@ -13690,13 +13690,13 @@ Cleared by TNT: 48 at [645,378]
 TNT explosion at [643,377]!
 Cleared by TNT: 33 at [643,376]
 Cleared by TNT: 47 at [642,377]
+TNT explosion at [645,377]!
+Cleared by TNT: 15 at [646,377]
+Cleared by TNT: 27 at [645,376]
 TNT explosion at [643,375]!
 Cleared by TNT: 8 at [643,374]
 Cleared by TNT: 34 at [642,375]
 Cleared by TNT: 41 at [644,375]
-TNT explosion at [645,377]!
-Cleared by TNT: 15 at [646,377]
-Cleared by TNT: 27 at [645,376]
 Cleared: 1 at [642,376]
 Cleared: 7 at [642,374]
 Cleared: 3 at [641,374]
@@ -14208,6 +14208,13 @@ TNT explosion at [679,349]!
 Cleared by TNT: 10 at [678,349]
 Cleared by TNT: 39 at [679,350]
 Cleared by TNT: 44 at [680,349]
+TNT explosion at [677,348]!
+Cleared by TNT: 14 at [676,348]
+Cleared by TNT: 44 at [678,348]
+Cleared by TNT: 45 at [677,347]
+TNT explosion at [676,349]!
+Cleared by TNT: 16 at [676,350]
+Cleared by TNT: 23 at [675,349]
 TNT explosion at [681,349]!
 Cleared by TNT: 24 at [682,349]
 Cleared by TNT: 38 at [681,348]
@@ -14224,13 +14231,6 @@ Cleared by TNT: 42 at [684,346]
 TNT explosion at [684,345]!
 Cleared by TNT: 19 at [684,344]
 Cleared by TNT: 22 at [685,345]
-TNT explosion at [677,348]!
-Cleared by TNT: 14 at [676,348]
-Cleared by TNT: 44 at [678,348]
-Cleared by TNT: 45 at [677,347]
-TNT explosion at [676,349]!
-Cleared by TNT: 16 at [676,350]
-Cleared by TNT: 23 at [675,349]
 Cleared: 7 at [677,350]
 Cleared: 10 at [678,347]
 Cleared: 11 at [676,344]
@@ -14307,6 +14307,9 @@ Cleared by TNT: 2 at [689,327]
 Cleared by TNT: 17 at [690,329]
 Cleared by TNT: 42 at [690,328]
 Cleared by TNT: 48 at [688,328]
+TNT explosion at [688,330]!
+Cleared by TNT: 15 at [687,330]
+Cleared by TNT: 27 at [688,331]
 TNT explosion at [690,327]!
 Cleared by TNT: 7 at [691,327]
 Cleared by TNT: 19 at [690,326]
@@ -14314,9 +14317,6 @@ TNT explosion at [692,327]!
 Cleared by TNT: 23 at [692,326]
 Cleared by TNT: 37 at [693,327]
 Cleared by TNT: 39 at [692,328]
-TNT explosion at [688,330]!
-Cleared by TNT: 15 at [687,330]
-Cleared by TNT: 27 at [688,331]
 Cleared: 12 at [673,349]
 Cleared: 12 at [673,350]
 Cleared: 5 at [674,350]
@@ -14379,6 +14379,9 @@ TNT explosion at [684,351]!
 Cleared by TNT: 12 at [685,351]
 Cleared by TNT: 18 at [683,351]
 Cleared by TNT: 23 at [684,350]
+TNT explosion at [683,352]!
+Cleared by TNT: 18 at [682,352]
+Cleared by TNT: 35 at [683,353]
 TNT explosion at [683,350]!
 Cleared by TNT: 17 at [683,349]
 Cleared by TNT: 20 at [682,350]
@@ -14388,9 +14391,6 @@ Cleared by TNT: 9 at [684,349]
 Cleared by TNT: 25 at [685,348]
 Cleared by TNT: 30 at [686,349]
 Cleared by TNT: 36 at [686,350]
-TNT explosion at [683,352]!
-Cleared by TNT: 18 at [682,352]
-Cleared by TNT: 35 at [683,353]
 Cleared: 2 at [686,351]
 Cleared: 7 at [681,352]
 Cleared: 13 at [687,351]
@@ -15036,13 +15036,13 @@ TNT explosion at [682,375]!
 Cleared by TNT: 9 at [682,376]
 Cleared by TNT: 20 at [682,374]
 Cleared by TNT: 40 at [681,375]
+TNT explosion at [683,376]!
+Cleared by TNT: 7 at [684,376]
+Cleared by TNT: 17 at [683,377]
 TNT explosion at [680,375]!
 Cleared by TNT: 19 at [680,376]
 Cleared by TNT: 21 at [680,374]
 Cleared by TNT: 24 at [679,375]
-TNT explosion at [683,376]!
-Cleared by TNT: 7 at [684,376]
-Cleared by TNT: 17 at [683,377]
 TNT explosion at [685,376]!
 Cleared by TNT: 36 at [685,377]
 Cleared by TNT: 39 at [685,375]
@@ -15718,22 +15718,22 @@ TNT explosion at [706,277]!
 Cleared by TNT: 6 at [707,277]
 Cleared by TNT: 13 at [706,276]
 Cleared by TNT: 35 at [705,277]
+TNT explosion at [705,278]!
+TNT explosion at [705,279]!
+TNT explosion at [704,279]!
+Cleared by TNT: 4 at [703,279]
+Cleared by TNT: 4 at [705,280]
+Cleared by TNT: 23 at [706,279]
+Cleared by TNT: 29 at [704,278]
+Cleared by TNT: 35 at [704,280]
 TNT explosion at [707,276]!
 Cleared by TNT: 30 at [707,275]
 Cleared by TNT: 46 at [708,276]
 TNT explosion at [704,277]!
 Cleared by TNT: 14 at [704,276]
 Cleared by TNT: 26 at [703,277]
-Cleared by TNT: 29 at [704,278]
 TNT explosion at [703,278]!
-Cleared by TNT: 4 at [703,279]
 Cleared by TNT: 23 at [702,278]
-TNT explosion at [705,278]!
-TNT explosion at [705,279]!
-TNT explosion at [704,279]!
-Cleared by TNT: 4 at [705,280]
-Cleared by TNT: 23 at [706,279]
-Cleared by TNT: 35 at [704,280]
 Cleared: 7 at [705,276]
 Cleared: 5 at [705,275]
 Cleared: 8 at [708,278]
@@ -16045,9 +16045,6 @@ TNT explosion at [725,246]!
 Cleared by TNT: 1 at [726,246]
 Cleared by TNT: 30 at [724,246]
 Cleared by TNT: 37 at [725,245]
-TNT explosion at [726,249]!
-Cleared by TNT: 36 at [726,250]
-Cleared by TNT: 37 at [727,249]
 TNT explosion at [724,244]!
 Cleared by TNT: 5 at [723,244]
 Cleared by TNT: 9 at [724,243]
@@ -16059,6 +16056,9 @@ Cleared by TNT: 16 at [722,245]
 TNT explosion at [721,245]!
 Cleared by TNT: 38 at [721,246]
 Cleared by TNT: 42 at [720,245]
+TNT explosion at [726,249]!
+Cleared by TNT: 36 at [726,250]
+Cleared by TNT: 37 at [727,249]
 Cleared: 4 at [723,243]
 Cleared: 7 at [721,247]
 Cleared: 8 at [726,247]
@@ -16414,10 +16414,15 @@ TNT explosion at [706,262]!
 Cleared by TNT: 29 at [706,261]
 Cleared by TNT: 44 at [705,262]
 Cleared by TNT: 45 at [707,262]
+TNT explosion at [705,263]!
+Cleared by TNT: 28 at [704,263]
+Cleared by TNT: 37 at [705,264]
 TNT explosion at [706,260]!
 Cleared by TNT: 30 at [705,260]
 Cleared by TNT: 32 at [707,260]
 Cleared by TNT: 36 at [706,259]
+TNT explosion at [707,261]!
+Cleared by TNT: 32 at [708,261]
 TNT explosion at [707,259]!
 Cleared by TNT: 39 at [708,259]
 Cleared by TNT: 46 at [707,258]
@@ -16435,11 +16440,6 @@ Cleared by TNT: 41 at [704,261]
 TNT explosion at [704,258]!
 Cleared by TNT: 6 at [704,257]
 Cleared by TNT: 39 at [705,258]
-TNT explosion at [707,261]!
-Cleared by TNT: 32 at [708,261]
-TNT explosion at [705,263]!
-Cleared by TNT: 28 at [704,263]
-Cleared by TNT: 37 at [705,264]
 TNT explosion at [703,263]!
 TNT explosion at [702,263]!
 Cleared by TNT: 16 at [703,264]
@@ -16502,12 +16502,12 @@ TNT explosion at [701,256]!
 Cleared by TNT: 11 at [700,256]
 Cleared by TNT: 26 at [702,256]
 Cleared by TNT: 48 at [701,255]
-TNT explosion at [700,255]!
-Cleared by TNT: 39 at [699,255]
-Cleared by TNT: 48 at [700,254]
 TNT explosion at [700,257]!
 Cleared by TNT: 2 at [699,257]
 Cleared by TNT: 20 at [700,258]
+TNT explosion at [700,255]!
+Cleared by TNT: 39 at [699,255]
+Cleared by TNT: 48 at [700,254]
 Cleared: 13 at [706,264]
 Cleared: 13 at [693,265]
 Cleared: 13 at [693,266]
@@ -16938,6 +16938,10 @@ TNT explosion at [702,326]!
 Cleared by TNT: 1 at [702,325]
 Cleared by TNT: 2 at [702,327]
 Cleared by TNT: 37 at [703,326]
+TNT explosion at [701,324]!
+Cleared by TNT: 29 at [701,325]
+Cleared by TNT: 42 at [701,323]
+Cleared by TNT: 46 at [700,324]
 TNT explosion at [704,326]!
 TNT explosion at [704,325]!
 Cleared by TNT: 7 at [705,326]
@@ -16945,10 +16949,6 @@ Cleared by TNT: 9 at [703,325]
 Cleared by TNT: 14 at [704,327]
 Cleared by TNT: 17 at [704,324]
 Cleared by TNT: 47 at [705,325]
-TNT explosion at [701,324]!
-Cleared by TNT: 29 at [701,325]
-Cleared by TNT: 42 at [701,323]
-Cleared by TNT: 46 at [700,324]
 Cleared: 1 at [704,323]
 TNT explosion at [703,323]!
 Cleared by TNT: 22 at [703,322]
@@ -17337,12 +17337,12 @@ Cleared by TNT: 23 at [748,339]
 Cleared by TNT: 31 at [749,337]
 Cleared by TNT: 34 at [746,338]
 Cleared by TNT: 35 at [749,338]
-TNT explosion at [747,336]!
-Cleared by TNT: 37 at [746,336]
-Cleared by TNT: 39 at [747,335]
 TNT explosion at [746,339]!
 Cleared by TNT: 47 at [745,339]
 Cleared by TNT: 48 at [746,340]
+TNT explosion at [747,336]!
+Cleared by TNT: 37 at [746,336]
+Cleared by TNT: 39 at [747,335]
 Cleared: 2 at [746,335]
 Cleared: 14 at [755,337]
 Cleared: 14 at [750,338]
@@ -17485,6 +17485,9 @@ TNT explosion at [752,354]!
 Cleared by TNT: 7 at [752,355]
 Cleared by TNT: 26 at [751,354]
 Cleared by TNT: 43 at [752,353]
+TNT explosion at [753,355]!
+Cleared by TNT: 37 at [753,356]
+Cleared by TNT: 44 at [754,355]
 TNT explosion at [750,354]!
 Cleared by TNT: 12 at [750,355]
 Cleared by TNT: 18 at [749,354]
@@ -17501,9 +17504,6 @@ TNT explosion at [746,354]!
 Cleared by TNT: 22 at [746,353]
 Cleared by TNT: 33 at [746,355]
 Cleared by TNT: 40 at [745,354]
-TNT explosion at [753,355]!
-Cleared by TNT: 37 at [753,356]
-Cleared by TNT: 44 at [754,355]
 Cleared: 2 at [750,356]
 Cleared: 3 at [751,355]
 Cleared: 6 at [746,352]
@@ -17564,13 +17564,13 @@ TNT explosion at [760,358]!
 Cleared by TNT: 5 at [761,358]
 Cleared by TNT: 9 at [760,357]
 Cleared by TNT: 40 at [760,359]
+TNT explosion at [759,359]!
+Cleared by TNT: 35 at [759,360]
+Cleared by TNT: 46 at [758,359]
 TNT explosion at [760,356]!
 Cleared by TNT: 7 at [759,356]
 Cleared by TNT: 10 at [760,355]
 Cleared by TNT: 12 at [761,356]
-TNT explosion at [759,359]!
-Cleared by TNT: 35 at [759,360]
-Cleared by TNT: 46 at [758,359]
 Cleared: 1 at [761,359]
 TNT explosion at [761,360]!
 Cleared by TNT: 8 at [761,361]
@@ -18248,6 +18248,13 @@ Cleared by TNT: 45 at [716,384]
 TNT explosion at [714,384]!
 Cleared by TNT: 16 at [713,384]
 Cleared by TNT: 38 at [714,385]
+TNT explosion at [712,383]!
+Cleared by TNT: 2 at [711,383]
+Cleared by TNT: 7 at [713,383]
+Cleared by TNT: 45 at [712,382]
+TNT explosion at [711,384]!
+Cleared by TNT: 15 at [711,385]
+Cleared by TNT: 38 at [710,384]
 TNT explosion at [716,385]!
 TNT explosion at [717,385]!
 Cleared by TNT: 26 at [717,384]
@@ -18258,13 +18265,6 @@ Cleared by TNT: 49 at [715,385]
 TNT explosion at [715,386]!
 Cleared by TNT: 3 at [715,387]
 Cleared by TNT: 30 at [714,386]
-TNT explosion at [712,383]!
-Cleared by TNT: 2 at [711,383]
-Cleared by TNT: 7 at [713,383]
-Cleared by TNT: 45 at [712,382]
-TNT explosion at [711,384]!
-Cleared by TNT: 15 at [711,385]
-Cleared by TNT: 38 at [710,384]
 TNT explosion at [718,387]!
 Cleared by TNT: 15 at [719,387]
 Cleared by TNT: 26 at [717,387]
@@ -19614,12 +19614,16 @@ Cleared by TNT: 30 at [742,295]
 Cleared by TNT: 33 at [743,297]
 Cleared by TNT: 34 at [743,295]
 Cleared by TNT: 42 at [744,294]
+TNT explosion at [745,297]!
+Cleared by TNT: 20 at [746,297]
 TNT explosion at [745,294]!
 TNT explosion at [746,294]!
 Cleared by TNT: 6 at [747,294]
 Cleared by TNT: 38 at [746,295]
 Cleared by TNT: 43 at [745,293]
 Cleared by TNT: 48 at [746,293]
+TNT explosion at [746,296]!
+Cleared by TNT: 33 at [747,296]
 TNT explosion at [740,296]!
 Cleared by TNT: 10 at [740,295]
 Cleared by TNT: 16 at [739,296]
@@ -19634,10 +19638,6 @@ Cleared by TNT: 5 at [741,291]
 Cleared by TNT: 35 at [739,291]
 Cleared by TNT: 38 at [740,290]
 Cleared by TNT: 40 at [741,292]
-TNT explosion at [746,296]!
-Cleared by TNT: 20 at [746,297]
-Cleared by TNT: 33 at [747,296]
-TNT explosion at [745,297]!
 Cleared: 1 at [738,298]
 Cleared: 3 at [746,298]
 Cleared: 5 at [740,289]
@@ -19810,6 +19810,8 @@ TNT explosion at [730,294]!
 Cleared by TNT: 3 at [729,294]
 Cleared by TNT: 18 at [730,293]
 Cleared by TNT: 41 at [730,295]
+TNT explosion at [731,295]!
+Cleared by TNT: 16 at [731,296]
 TNT explosion at [729,295]!
 Cleared by TNT: 15 at [729,296]
 Cleared by TNT: 48 at [728,295]
@@ -19817,8 +19819,6 @@ TNT explosion at [727,295]!
 Cleared by TNT: 9 at [727,294]
 Cleared by TNT: 28 at [727,296]
 Cleared by TNT: 46 at [726,295]
-TNT explosion at [731,295]!
-Cleared by TNT: 16 at [731,296]
 TNT explosion at [727,297]!
 TNT explosion at [728,297]!
 TNT explosion at [728,298]!
@@ -19980,16 +19980,16 @@ Cleared by TNT: 29 at [713,339]
 TNT explosion at [711,340]!
 Cleared by TNT: 22 at [710,340]
 Cleared by TNT: 32 at [711,341]
-TNT explosion at [709,340]!
-Cleared by TNT: 4 at [709,341]
-Cleared by TNT: 23 at [709,339]
-Cleared by TNT: 29 at [708,340]
 TNT explosion at [713,340]!
 TNT explosion at [714,340]!
 Cleared by TNT: 21 at [715,340]
 Cleared by TNT: 26 at [714,339]
 Cleared by TNT: 44 at [713,341]
 Cleared by TNT: 45 at [714,341]
+TNT explosion at [709,340]!
+Cleared by TNT: 4 at [709,341]
+Cleared by TNT: 23 at [709,339]
+Cleared by TNT: 29 at [708,340]
 Cleared: 7 at [710,339]
 Cleared: 8 at [714,342]
 Cleared: 9 at [709,342]
@@ -20545,12 +20545,12 @@ TNT explosion at [756,382]!
 Cleared by TNT: 5 at [755,382]
 Cleared by TNT: 36 at [756,381]
 Cleared by TNT: 40 at [756,383]
-TNT explosion at [759,384]!
-Cleared by TNT: 34 at [758,384]
-Cleared by TNT: 45 at [759,385]
 TNT explosion at [755,384]!
 Cleared by TNT: 12 at [754,384]
 Cleared by TNT: 14 at [755,385]
+TNT explosion at [759,384]!
+Cleared by TNT: 34 at [758,384]
+Cleared by TNT: 45 at [759,385]
 Cleared: 3 at [762,382]
 TNT explosion at [763,382]!
 Cleared by TNT: 15 at [764,382]
@@ -20724,12 +20724,12 @@ Cleared by TNT: 26 at [757,396]
 Cleared by TNT: 37 at [756,397]
 Cleared by TNT: 37 at [759,398]
 Cleared by TNT: 43 at [756,398]
-TNT explosion at [759,399]!
-Cleared by TNT: 4 at [759,400]
 TNT explosion at [759,396]!
 Cleared by TNT: 19 at [759,395]
 Cleared by TNT: 42 at [760,396]
 Cleared by TNT: 44 at [759,397]
+TNT explosion at [759,399]!
+Cleared by TNT: 4 at [759,400]
 Cleared: 1 at [757,401]
 TNT explosion at [756,401]!
 Cleared by TNT: 30 at [756,402]
@@ -22506,6 +22506,9 @@ Cleared: 11 at [775,292]
 TNT explosion at [775,291]!
 Cleared by TNT: 10 at [776,291]
 Cleared by TNT: 40 at [774,291]
+TNT explosion at [776,292]!
+Cleared by TNT: 13 at [777,292]
+Cleared by TNT: 28 at [776,293]
 TNT explosion at [776,290]!
 TNT explosion at [776,289]!
 TNT explosion at [777,289]!
@@ -22516,9 +22519,6 @@ Cleared by TNT: 20 at [777,288]
 Cleared by TNT: 26 at [775,289]
 Cleared by TNT: 27 at [778,290]
 Cleared by TNT: 42 at [776,288]
-TNT explosion at [776,292]!
-Cleared by TNT: 13 at [777,292]
-Cleared by TNT: 28 at [776,293]
 Cleared: 1 at [777,287]
 TNT explosion at [777,286]!
 Cleared by TNT: 27 at [777,285]
@@ -23086,6 +23086,10 @@ Cleared by TNT: 31 at [824,311]
 Cleared by TNT: 31 at [826,313]
 Cleared by TNT: 34 at [824,313]
 Cleared by TNT: 47 at [826,312]
+TNT explosion at [824,309]!
+Cleared by TNT: 3 at [825,309]
+Cleared by TNT: 36 at [824,308]
+Cleared by TNT: 42 at [823,309]
 TNT explosion at [827,313]!
 Cleared by TNT: 2 at [828,313]
 Cleared by TNT: 3 at [827,312]
@@ -23100,10 +23104,6 @@ Cleared by TNT: 35 at [830,311]
 TNT explosion at [830,314]!
 Cleared by TNT: 13 at [831,314]
 Cleared by TNT: 32 at [830,315]
-TNT explosion at [824,309]!
-Cleared by TNT: 3 at [825,309]
-Cleared by TNT: 36 at [824,308]
-Cleared by TNT: 42 at [823,309]
 Cleared: 3 at [830,316]
 Cleared: 4 at [823,313]
 Cleared: 6 at [831,311]
@@ -23295,6 +23295,8 @@ TNT explosion at [835,296]!
 Cleared by TNT: 15 at [835,295]
 Cleared by TNT: 41 at [836,296]
 Cleared by TNT: 48 at [835,297]
+TNT explosion at [834,297]!
+Cleared by TNT: 23 at [834,298]
 TNT explosion at [837,296]!
 TNT explosion at [837,295]!
 Cleared by TNT: 10 at [837,297]
@@ -23302,8 +23304,6 @@ Cleared by TNT: 19 at [837,294]
 Cleared by TNT: 29 at [836,295]
 Cleared by TNT: 34 at [838,296]
 Cleared by TNT: 46 at [838,295]
-TNT explosion at [834,297]!
-Cleared by TNT: 23 at [834,298]
 Cleared: 1 at [838,294]
 Cleared: 4 at [834,295]
 Cleared: 4 at [833,298]
@@ -23514,12 +23514,12 @@ TNT explosion at [854,282]!
 Cleared by TNT: 26 at [855,282]
 Cleared by TNT: 38 at [854,283]
 Cleared by TNT: 39 at [854,281]
-TNT explosion at [855,281]!
-Cleared by TNT: 10 at [855,280]
-Cleared by TNT: 32 at [856,281]
 TNT explosion at [853,283]!
 Cleared by TNT: 1 at [853,284]
 Cleared by TNT: 26 at [852,283]
+TNT explosion at [855,281]!
+Cleared by TNT: 10 at [855,280]
+Cleared by TNT: 32 at [856,281]
 TNT explosion at [853,285]!
 TNT explosion at [854,285]!
 Cleared by TNT: 8 at [854,284]
@@ -23900,13 +23900,13 @@ TNT explosion at [885,253]!
 Cleared by TNT: 7 at [886,253]
 Cleared by TNT: 14 at [884,253]
 Cleared by TNT: 25 at [885,252]
+TNT explosion at [886,254]!
+Cleared by TNT: 19 at [887,254]
+Cleared by TNT: 40 at [886,255]
 TNT explosion at [883,253]!
 Cleared by TNT: 3 at [883,252]
 Cleared by TNT: 11 at [883,254]
 Cleared by TNT: 26 at [882,253]
-TNT explosion at [886,254]!
-Cleared by TNT: 19 at [887,254]
-Cleared by TNT: 40 at [886,255]
 Cleared: 7 at [883,251]
 Cleared: 7 at [884,252]
 Cleared: 9 at [882,260]
@@ -24036,14 +24036,14 @@ TNT explosion at [902,259]!
 Cleared by TNT: 23 at [901,259]
 Cleared by TNT: 24 at [902,258]
 Cleared by TNT: 32 at [903,259]
-TNT explosion at [901,258]!
-Cleared by TNT: 3 at [900,258]
-Cleared by TNT: 14 at [901,257]
 TNT explosion at [901,260]!
 TNT explosion at [900,260]!
 Cleared by TNT: 27 at [900,259]
 Cleared by TNT: 28 at [900,261]
 Cleared by TNT: 32 at [899,260]
+TNT explosion at [901,258]!
+Cleared by TNT: 3 at [900,258]
+Cleared by TNT: 14 at [901,257]
 Cleared: 9 at [902,257]
 Cleared: 12 at [899,259]
 Cleared: 13 at [902,256]
@@ -24994,6 +24994,27 @@ Cleared by TNT: 32 at [815,252]
 Cleared by TNT: 35 at [814,251]
 Cleared by TNT: 36 at [815,250]
 Cleared by TNT: 49 at [816,250]
+TNT explosion at [814,250]!
+Cleared by TNT: 17 at [814,249]
+Cleared by TNT: 41 at [813,250]
+TNT explosion at [814,248]!
+TNT explosion at [814,247]!
+TNT explosion at [814,246]!
+Cleared by TNT: 4 at [814,245]
+Cleared by TNT: 13 at [815,247]
+Cleared by TNT: 14 at [813,247]
+Cleared by TNT: 32 at [813,248]
+Cleared by TNT: 46 at [815,246]
+Cleared by TNT: 49 at [815,248]
+TNT explosion at [813,249]!
+Cleared by TNT: 1 at [812,249]
+TNT explosion at [816,246]!
+Cleared by TNT: 10 at [816,245]
+Cleared by TNT: 10 at [817,246]
+Cleared by TNT: 10 at [816,247]
+TNT explosion at [817,245]!
+Cleared by TNT: 14 at [818,245]
+Cleared by TNT: 23 at [817,244]
 TNT explosion at [816,249]!
 Cleared by TNT: 9 at [815,249]
 Cleared by TNT: 46 at [816,248]
@@ -25020,27 +25041,6 @@ Cleared by TNT: 26 at [818,246]
 TNT explosion at [820,247]!
 Cleared by TNT: 26 at [821,247]
 Cleared by TNT: 41 at [820,246]
-TNT explosion at [814,250]!
-Cleared by TNT: 17 at [814,249]
-Cleared by TNT: 41 at [813,250]
-TNT explosion at [814,248]!
-TNT explosion at [814,247]!
-TNT explosion at [814,246]!
-Cleared by TNT: 4 at [814,245]
-Cleared by TNT: 13 at [815,247]
-Cleared by TNT: 14 at [813,247]
-Cleared by TNT: 32 at [813,248]
-Cleared by TNT: 46 at [815,246]
-Cleared by TNT: 49 at [815,248]
-TNT explosion at [816,246]!
-Cleared by TNT: 10 at [816,245]
-Cleared by TNT: 10 at [817,246]
-Cleared by TNT: 10 at [816,247]
-TNT explosion at [817,245]!
-Cleared by TNT: 14 at [818,245]
-Cleared by TNT: 23 at [817,244]
-TNT explosion at [813,249]!
-Cleared by TNT: 1 at [812,249]
 Cleared: 1 at [817,250]
 Cleared: 3 at [812,248]
 Cleared: 10 at [823,250]
@@ -25248,6 +25248,8 @@ TNT explosion at [812,223]!
 Cleared by TNT: 8 at [812,224]
 Cleared by TNT: 29 at [811,223]
 Cleared by TNT: 33 at [812,222]
+TNT explosion at [813,224]!
+Cleared by TNT: 11 at [813,225]
 TNT explosion at [811,222]!
 TNT explosion at [810,222]!
 Cleared by TNT: 35 at [810,221]
@@ -25257,8 +25259,6 @@ Cleared by TNT: 49 at [811,221]
 TNT explosion at [809,221]!
 Cleared by TNT: 23 at [809,220]
 Cleared by TNT: 43 at [808,221]
-TNT explosion at [813,224]!
-Cleared by TNT: 11 at [813,225]
 Cleared: 1 at [808,222]
 Cleared: 1 at [809,223]
 Cleared: 6 at [814,221]
@@ -25561,11 +25561,11 @@ TNT explosion at [835,236]!
 Cleared by TNT: 3 at [836,236]
 Cleared by TNT: 17 at [834,236]
 Cleared by TNT: 22 at [835,235]
-TNT explosion at [837,236]!
-Cleared by TNT: 25 at [837,237]
-Cleared by TNT: 29 at [837,235]
 TNT explosion at [836,237]!
 Cleared by TNT: 21 at [836,238]
+Cleared by TNT: 25 at [837,237]
+TNT explosion at [837,236]!
+Cleared by TNT: 29 at [837,235]
 Cleared: 5 at [837,234]
 TNT explosion at [837,233]!
 Cleared by TNT: 17 at [836,233]
@@ -25646,12 +25646,12 @@ TNT explosion at [833,224]!
 Cleared by TNT: 36 at [832,224]
 Cleared by TNT: 44 at [833,223]
 Cleared by TNT: 45 at [834,224]
-TNT explosion at [832,223]!
-Cleared by TNT: 11 at [831,223]
-Cleared by TNT: 48 at [832,222]
 TNT explosion at [832,225]!
 Cleared by TNT: 25 at [832,226]
 Cleared by TNT: 26 at [831,225]
+TNT explosion at [832,223]!
+Cleared by TNT: 11 at [831,223]
+Cleared by TNT: 48 at [832,222]
 Cleared: 1 at [831,224]
 Cleared: 8 at [834,223]
 TNT explosion at [835,223]!
@@ -25675,14 +25675,6 @@ Cleared by TNT: 33 at [836,220]
 TNT explosion at [836,219]!
 Cleared by TNT: 22 at [836,218]
 Cleared by TNT: 27 at [835,219]
-TNT explosion at [834,219]!
-Cleared by TNT: 17 at [833,219]
-Cleared by TNT: 39 at [834,218]
-Cleared by TNT: 42 at [834,220]
-TNT explosion at [840,221]!
-Cleared by TNT: 12 at [841,221]
-Cleared by TNT: 17 at [840,220]
-Cleared by TNT: 39 at [840,222]
 TNT explosion at [835,217]!
 Cleared by TNT: 1 at [836,217]
 Cleared by TNT: 29 at [835,216]
@@ -25693,6 +25685,14 @@ Cleared by TNT: 23 at [835,214]
 Cleared by TNT: 43 at [836,215]
 TNT explosion at [834,216]!
 Cleared by TNT: 17 at [833,216]
+TNT explosion at [834,219]!
+Cleared by TNT: 17 at [833,219]
+Cleared by TNT: 39 at [834,218]
+Cleared by TNT: 42 at [834,220]
+TNT explosion at [840,221]!
+Cleared by TNT: 12 at [841,221]
+Cleared by TNT: 17 at [840,220]
+Cleared by TNT: 39 at [840,222]
 Cleared: 1 at [833,218]
 TNT explosion at [831,218]!
 Cleared by TNT: 24 at [831,219]
@@ -25807,14 +25807,14 @@ Cleared by TNT: 49 at [825,203]
 TNT explosion at [825,201]!
 Cleared by TNT: 23 at [824,201]
 Cleared by TNT: 49 at [825,200]
-TNT explosion at [827,205]!
-Cleared by TNT: 27 at [826,205]
-Cleared by TNT: 37 at [828,205]
-Cleared by TNT: 41 at [827,206]
 TNT explosion at [826,199]!
 Cleared by TNT: 5 at [825,199]
 Cleared by TNT: 13 at [826,198]
 Cleared by TNT: 38 at [827,199]
+TNT explosion at [827,205]!
+Cleared by TNT: 27 at [826,205]
+Cleared by TNT: 37 at [828,205]
+Cleared by TNT: 41 at [827,206]
 Cleared: 1 at [824,200]
 Cleared: 10 at [824,199]
 Cleared: 12 at [824,203]
@@ -25900,6 +25900,9 @@ Cleared by TNT: 17 at [812,191]
 Cleared by TNT: 20 at [810,190]
 Cleared by TNT: 21 at [813,190]
 Cleared by TNT: 38 at [811,189]
+TNT explosion at [810,191]!
+Cleared by TNT: 2 at [810,192]
+Cleared by TNT: 26 at [809,191]
 TNT explosion at [811,188]!
 Cleared by TNT: 16 at [810,188]
 Cleared by TNT: 17 at [811,187]
@@ -25908,9 +25911,6 @@ TNT explosion at [814,190]!
 Cleared by TNT: 19 at [814,191]
 Cleared by TNT: 44 at [814,189]
 Cleared by TNT: 46 at [815,190]
-TNT explosion at [810,191]!
-Cleared by TNT: 2 at [810,192]
-Cleared by TNT: 26 at [809,191]
 Cleared: 3 at [810,189]
 Cleared: 14 at [809,189]
 TNT explosion at [808,189]!
@@ -25934,6 +25934,8 @@ TNT explosion at [824,189]!
 Cleared by TNT: 11 at [824,188]
 Cleared by TNT: 18 at [825,189]
 Cleared by TNT: 31 at [823,189]
+TNT explosion at [825,190]!
+Cleared by TNT: 36 at [826,190]
 TNT explosion at [825,188]!
 TNT explosion at [825,187]!
 Cleared by TNT: 1 at [825,186]
@@ -25945,8 +25947,6 @@ Cleared by TNT: 39 at [827,189]
 Cleared by TNT: 44 at [828,188]
 Cleared by TNT: 47 at [827,187]
 TNT explosion at [826,189]!
-Cleared by TNT: 36 at [826,190]
-TNT explosion at [825,190]!
 Cleared: 1 at [822,189]
 Cleared: 2 at [824,186]
 Cleared: 6 at [825,185]
@@ -26612,8 +26612,8 @@ TNT explosion at [817,271]!
 Cleared by TNT: 20 at [816,271]
 Cleared by TNT: 27 at [817,272]
 Cleared by TNT: 43 at [818,271]
-TNT explosion at [815,271]!
 TNT explosion at [815,270]!
+TNT explosion at [815,271]!
 Cleared by TNT: 4 at [815,272]
 Cleared by TNT: 14 at [814,271]
 Cleared by TNT: 19 at [814,270]
@@ -26882,13 +26882,13 @@ Cleared by TNT: 16 at [853,227]
 Cleared by TNT: 17 at [851,227]
 Cleared by TNT: 32 at [852,228]
 Cleared by TNT: 45 at [851,226]
+TNT explosion at [851,228]!
+Cleared by TNT: 34 at [851,229]
+Cleared by TNT: 40 at [850,228]
 TNT explosion at [854,227]!
 Cleared by TNT: 6 at [855,227]
 Cleared by TNT: 26 at [854,226]
 Cleared by TNT: 26 at [854,228]
-TNT explosion at [851,228]!
-Cleared by TNT: 34 at [851,229]
-Cleared by TNT: 40 at [850,228]
 Cleared: 1 at [851,222]
 Cleared: 1 at [855,226]
 Cleared: 2 at [855,224]
@@ -27094,6 +27094,9 @@ TNT explosion at [812,207]!
 Cleared by TNT: 31 at [812,206]
 Cleared by TNT: 42 at [811,207]
 Cleared by TNT: 45 at [812,208]
+TNT explosion at [813,208]!
+Cleared by TNT: 19 at [814,208]
+Cleared by TNT: 46 at [813,209]
 TNT explosion at [810,207]!
 TNT explosion at [810,206]!
 Cleared by TNT: 6 at [809,206]
@@ -27109,9 +27112,6 @@ TNT explosion at [806,206]!
 Cleared by TNT: 15 at [806,207]
 Cleared by TNT: 34 at [806,205]
 Cleared by TNT: 46 at [805,206]
-TNT explosion at [813,208]!
-Cleared by TNT: 19 at [814,208]
-Cleared by TNT: 46 at [813,209]
 Cleared: 3 at [812,209]
 Cleared: 4 at [809,208]
 Cleared: 8 at [807,205]
@@ -27243,12 +27243,12 @@ TNT explosion at [805,201]!
 Cleared by TNT: 23 at [806,201]
 Cleared by TNT: 30 at [805,200]
 Cleared by TNT: 31 at [805,202]
-TNT explosion at [806,200]!
-Cleared by TNT: 40 at [807,200]
-Cleared by TNT: 47 at [806,199]
 TNT explosion at [804,202]!
 Cleared by TNT: 27 at [803,202]
 Cleared by TNT: 38 at [804,203]
+TNT explosion at [806,200]!
+Cleared by TNT: 40 at [807,200]
+Cleared by TNT: 47 at [806,199]
 Cleared: 5 at [807,201]
 Cleared: 5 at [803,203]
 Cleared: 10 at [807,199]
@@ -28120,19 +28120,22 @@ Cleared by TNT: 15 at [842,145]
 Cleared by TNT: 28 at [842,147]
 Cleared by TNT: 32 at [844,146]
 Cleared by TNT: 45 at [843,145]
+TNT explosion at [844,147]!
+Cleared by TNT: 13 at [844,148]
+Cleared by TNT: 39 at [845,147]
+TNT explosion at [841,145]!
+Cleared by TNT: 9 at [841,144]
+Cleared by TNT: 44 at [840,145]
 TNT explosion at [843,144]!
 Cleared by TNT: 13 at [844,144]
 Cleared by TNT: 30 at [843,143]
 Cleared by TNT: 48 at [842,144]
+TNT explosion at [844,145]!
+Cleared by TNT: 5 at [845,145]
 TNT explosion at [843,142]!
 Cleared by TNT: 16 at [843,141]
 Cleared by TNT: 31 at [844,142]
 Cleared by TNT: 42 at [842,142]
-TNT explosion at [841,145]!
-Cleared by TNT: 9 at [841,144]
-Cleared by TNT: 44 at [840,145]
-TNT explosion at [844,145]!
-Cleared by TNT: 5 at [845,145]
 TNT explosion at [846,145]!
 Cleared by TNT: 11 at [847,145]
 Cleared by TNT: 31 at [846,144]
@@ -28149,9 +28152,6 @@ Cleared by TNT: 6 at [850,144]
 TNT explosion at [849,146]!
 Cleared by TNT: 25 at [849,147]
 Cleared by TNT: 44 at [850,146]
-TNT explosion at [844,147]!
-Cleared by TNT: 13 at [844,148]
-Cleared by TNT: 39 at [845,147]
 Cleared: 3 at [840,142]
 Cleared: 2 at [839,142]
 Cleared: 3 at [845,148]
@@ -28208,10 +28208,6 @@ TNT explosion at [835,131]!
 Cleared by TNT: 19 at [834,131]
 Cleared by TNT: 42 at [835,130]
 Cleared by TNT: 47 at [836,131]
-TNT explosion at [833,131]!
-Cleared by TNT: 15 at [833,130]
-Cleared by TNT: 15 at [832,131]
-Cleared by TNT: 21 at [833,132]
 TNT explosion at [835,133]!
 TNT explosion at [834,133]!
 Cleared by TNT: 3 at [834,134]
@@ -28219,6 +28215,10 @@ Cleared by TNT: 3 at [835,134]
 Cleared by TNT: 23 at [836,133]
 Cleared by TNT: 25 at [834,132]
 Cleared by TNT: 46 at [833,133]
+TNT explosion at [833,131]!
+Cleared by TNT: 15 at [833,130]
+Cleared by TNT: 15 at [832,131]
+Cleared by TNT: 21 at [833,132]
 TNT explosion at [832,133]!
 Cleared by TNT: 4 at [832,132]
 Cleared by TNT: 27 at [831,133]
@@ -28274,14 +28274,14 @@ TNT explosion at [848,126]!
 Cleared by TNT: 10 at [849,126]
 Cleared by TNT: 23 at [847,126]
 Cleared by TNT: 27 at [848,125]
+TNT explosion at [849,127]!
+Cleared by TNT: 22 at [850,127]
 TNT explosion at [849,125]!
 TNT explosion at [849,124]!
 Cleared by TNT: 7 at [848,124]
 Cleared by TNT: 40 at [850,124]
 Cleared by TNT: 42 at [850,125]
 Cleared by TNT: 47 at [849,123]
-TNT explosion at [849,127]!
-Cleared by TNT: 22 at [850,127]
 Cleared: 2 at [849,129]
 Cleared: 4 at [851,124]
 Cleared: 6 at [850,123]
@@ -28512,11 +28512,11 @@ TNT explosion at [816,182]!
 Cleared by TNT: 6 at [816,183]
 Cleared by TNT: 23 at [815,182]
 Cleared by TNT: 49 at [816,181]
+TNT explosion at [817,183]!
+Cleared by TNT: 28 at [817,184]
 TNT explosion at [815,183]!
 Cleared by TNT: 5 at [814,183]
 Cleared by TNT: 25 at [815,184]
-TNT explosion at [817,183]!
-Cleared by TNT: 28 at [817,184]
 Cleared: 3 at [815,181]
 Cleared: 12 at [818,178]
 Cleared: 13 at [817,181]
@@ -28601,13 +28601,13 @@ TNT explosion at [856,115]!
 Cleared by TNT: 31 at [856,116]
 Cleared by TNT: 33 at [856,114]
 Cleared by TNT: 47 at [857,115]
+TNT explosion at [855,116]!
+Cleared by TNT: 25 at [855,117]
+Cleared by TNT: 31 at [854,116]
 TNT explosion at [856,113]!
 Cleared by TNT: 5 at [857,113]
 Cleared by TNT: 10 at [856,112]
 Cleared by TNT: 30 at [855,113]
-TNT explosion at [855,116]!
-Cleared by TNT: 25 at [855,117]
-Cleared by TNT: 31 at [854,116]
 Cleared: 6 at [856,117]
 Cleared: 7 at [854,113]
 Cleared: 10 at [855,114]
@@ -28632,10 +28632,15 @@ TNT explosion at [852,108]!
 Cleared by TNT: 3 at [851,108]
 Cleared by TNT: 3 at [853,108]
 Cleared by TNT: 19 at [852,107]
+TNT explosion at [851,109]!
+Cleared by TNT: 23 at [850,109]
+Cleared by TNT: 41 at [851,110]
 TNT explosion at [852,106]!
 Cleared by TNT: 9 at [853,106]
 Cleared by TNT: 10 at [852,105]
 Cleared by TNT: 18 at [851,106]
+TNT explosion at [851,107]!
+Cleared by TNT: 46 at [850,107]
 TNT explosion at [851,105]!
 Cleared by TNT: 26 at [851,104]
 Cleared by TNT: 45 at [850,105]
@@ -28649,11 +28654,6 @@ Cleared by TNT: 13 at [853,102]
 TNT explosion at [854,102]!
 Cleared by TNT: 1 at [854,101]
 Cleared by TNT: 23 at [855,102]
-TNT explosion at [851,107]!
-Cleared by TNT: 46 at [850,107]
-TNT explosion at [851,109]!
-Cleared by TNT: 23 at [850,109]
-Cleared by TNT: 41 at [851,110]
 Cleared: 1 at [850,106]
 Cleared: 1 at [853,107]
 Cleared: 2 at [854,104]
@@ -28987,13 +28987,13 @@ TNT explosion at [842,104]!
 Cleared by TNT: 1 at [842,103]
 Cleared by TNT: 13 at [843,104]
 Cleared by TNT: 21 at [841,104]
-TNT explosion at [843,103]!
-Cleared by TNT: 27 at [844,103]
-Cleared by TNT: 38 at [843,102]
 TNT explosion at [842,106]!
 Cleared by TNT: 2 at [843,106]
 Cleared by TNT: 17 at [842,107]
 Cleared by TNT: 32 at [841,106]
+TNT explosion at [843,103]!
+Cleared by TNT: 27 at [844,103]
+Cleared by TNT: 38 at [843,102]
 Cleared: 9 at [844,104]
 Cleared: 9 at [843,107]
 Cleared: 10 at [842,108]
@@ -29123,6 +29123,12 @@ Cleared: 1 at [826,94]
 TNT explosion at [825,94]!
 Cleared by TNT: 14 at [824,94]
 Cleared by TNT: 27 at [825,93]
+TNT explosion at [826,95]!
+TNT explosion at [827,95]!
+Cleared by TNT: 2 at [826,96]
+Cleared by TNT: 20 at [827,96]
+Cleared by TNT: 32 at [827,94]
+Cleared by TNT: 36 at [828,95]
 TNT explosion at [823,94]!
 TNT explosion at [822,94]!
 Cleared by TNT: 7 at [823,93]
@@ -29130,12 +29136,6 @@ Cleared by TNT: 15 at [822,95]
 Cleared by TNT: 19 at [823,95]
 Cleared by TNT: 26 at [822,93]
 Cleared by TNT: 41 at [821,94]
-TNT explosion at [826,95]!
-TNT explosion at [827,95]!
-Cleared by TNT: 2 at [826,96]
-Cleared by TNT: 20 at [827,96]
-Cleared by TNT: 32 at [827,94]
-Cleared by TNT: 36 at [828,95]
 TNT explosion at [828,96]!
 TNT explosion at [828,97]!
 Cleared by TNT: 1 at [829,97]
@@ -29771,12 +29771,12 @@ TNT explosion at [887,215]!
 Cleared by TNT: 14 at [888,215]
 Cleared by TNT: 26 at [887,214]
 Cleared by TNT: 32 at [886,215]
-TNT explosion at [886,214]!
-Cleared by TNT: 42 at [886,213]
-Cleared by TNT: 45 at [885,214]
 TNT explosion at [888,216]!
 Cleared by TNT: 15 at [889,216]
 Cleared by TNT: 37 at [888,217]
+TNT explosion at [886,214]!
+Cleared by TNT: 42 at [886,213]
+Cleared by TNT: 45 at [885,214]
 Cleared: 14 at [888,219]
 Cleared: 18 at [876,224]
 Cleared: 19 at [880,217]
@@ -30544,26 +30544,26 @@ Cleared by TNT: 5 at [805,309]
 Cleared by TNT: 12 at [806,311]
 Cleared by TNT: 31 at [805,312]
 Cleared by TNT: 40 at [804,310]
-TNT explosion at [803,311]!
-Cleared by TNT: 29 at [803,312]
-Cleared by TNT: 35 at [802,311]
-Cleared by TNT: 46 at [803,310]
-TNT explosion at [803,309]!
+TNT explosion at [804,308]!
 Cleared by TNT: 10 at [803,308]
+Cleared by TNT: 37 at [804,307]
+Cleared by TNT: 39 at [805,308]
+TNT explosion at [803,309]!
 Cleared by TNT: 25 at [802,309]
+Cleared by TNT: 46 at [803,310]
 TNT explosion at [803,307]!
 TNT explosion at [802,307]!
 Cleared by TNT: 5 at [802,306]
 Cleared by TNT: 7 at [802,308]
 Cleared by TNT: 20 at [801,307]
-Cleared by TNT: 37 at [804,307]
 Cleared by TNT: 43 at [803,306]
-TNT explosion at [804,308]!
-Cleared by TNT: 39 at [805,308]
 TNT explosion at [801,309]!
 Cleared by TNT: 29 at [801,308]
 Cleared by TNT: 34 at [801,310]
 Cleared by TNT: 39 at [800,309]
+TNT explosion at [803,311]!
+Cleared by TNT: 29 at [803,312]
+Cleared by TNT: 35 at [802,311]
 Cleared: 1 at [807,307]
 TNT explosion at [806,307]!
 Cleared by TNT: 2 at [805,307]
@@ -31709,13 +31709,13 @@ Cleared by TNT: 1 at [709,367]
 Cleared by TNT: 35 at [708,366]
 Cleared by TNT: 36 at [709,365]
 Cleared by TNT: 48 at [711,366]
+TNT explosion at [708,365]!
+Cleared by TNT: 4 at [707,365]
+Cleared by TNT: 48 at [708,364]
 TNT explosion at [710,364]!
 Cleared by TNT: 3 at [711,364]
 Cleared by TNT: 13 at [710,363]
 Cleared by TNT: 31 at [709,364]
-TNT explosion at [708,365]!
-Cleared by TNT: 4 at [707,365]
-Cleared by TNT: 48 at [708,364]
 Cleared: 8 at [712,366]
 Cleared: 5 at [712,367]
 Cleared: 4 at [712,368]
@@ -32199,12 +32199,12 @@ TNT explosion at [689,424]!
 Cleared by TNT: 35 at [689,423]
 Cleared by TNT: 42 at [688,424]
 Cleared by TNT: 49 at [689,425]
+TNT explosion at [690,425]!
+Cleared by TNT: 14 at [690,426]
 TNT explosion at [693,424]!
 Cleared by TNT: 15 at [693,423]
 Cleared by TNT: 42 at [694,424]
 Cleared by TNT: 48 at [693,425]
-TNT explosion at [690,425]!
-Cleared by TNT: 14 at [690,426]
 Cleared: 2 at [688,423]
 Cleared: 4 at [688,425]
 Cleared: 2 at [688,426]
@@ -33149,6 +33149,9 @@ Cleared by TNT: 15 at [645,502]
 Cleared by TNT: 22 at [647,503]
 Cleared by TNT: 32 at [646,501]
 Cleared by TNT: 41 at [648,502]
+TNT explosion at [645,503]!
+Cleared by TNT: 25 at [645,504]
+Cleared by TNT: 43 at [644,503]
 TNT explosion at [646,500]!
 Cleared by TNT: 23 at [645,500]
 Cleared by TNT: 33 at [647,500]
@@ -33159,9 +33162,6 @@ Cleared by TNT: 3 at [647,498]
 Cleared by TNT: 6 at [646,497]
 Cleared by TNT: 16 at [644,498]
 Cleared by TNT: 47 at [645,497]
-TNT explosion at [645,503]!
-Cleared by TNT: 25 at [645,504]
-Cleared by TNT: 43 at [644,503]
 TNT explosion at [644,496]!
 TNT explosion at [643,496]!
 TNT explosion at [643,497]!
@@ -33396,6 +33396,9 @@ Cleared by TNT: 14 at [612,543]
 Cleared by TNT: 16 at [611,542]
 Cleared by TNT: 40 at [610,542]
 Cleared by TNT: 42 at [610,544]
+TNT explosion at [608,544]!
+Cleared by TNT: 9 at [607,544]
+Cleared by TNT: 18 at [608,545]
 TNT explosion at [612,542]!
 Cleared by TNT: 19 at [612,541]
 Cleared by TNT: 26 at [613,542]
@@ -33407,9 +33410,6 @@ Cleared by TNT: 2 at [614,544]
 Cleared by TNT: 23 at [616,543]
 Cleared by TNT: 28 at [615,542]
 Cleared by TNT: 40 at [614,542]
-TNT explosion at [608,544]!
-Cleared by TNT: 9 at [607,544]
-Cleared by TNT: 18 at [608,545]
 Cleared: 2 at [608,546]
 TNT explosion at [609,546]!
 Cleared by TNT: 19 at [610,546]
@@ -33534,6 +33534,8 @@ TNT explosion at [620,558]!
 Cleared by TNT: 1 at [621,558]
 Cleared by TNT: 4 at [620,557]
 Cleared by TNT: 25 at [619,558]
+TNT explosion at [621,559]!
+Cleared by TNT: 42 at [622,559]
 TNT explosion at [619,557]!
 TNT explosion at [619,556]!
 Cleared by TNT: 5 at [618,556]
@@ -33543,8 +33545,6 @@ Cleared by TNT: 45 at [620,556]
 TNT explosion at [621,557]!
 Cleared by TNT: 9 at [622,557]
 Cleared by TNT: 39 at [621,556]
-TNT explosion at [621,559]!
-Cleared by TNT: 42 at [622,559]
 Cleared: 8 at [618,562]
 Cleared: 9 at [619,554]
 Cleared: 9 at [617,561]
@@ -35172,12 +35172,12 @@ TNT explosion at [628,595]!
 Cleared by TNT: 11 at [627,595]
 Cleared by TNT: 15 at [628,594]
 Cleared by TNT: 19 at [629,595]
-TNT explosion at [629,594]!
-Cleared by TNT: 10 at [629,593]
-Cleared by TNT: 30 at [630,594]
 TNT explosion at [627,596]!
 Cleared by TNT: 31 at [627,597]
 Cleared by TNT: 44 at [626,596]
+TNT explosion at [629,594]!
+Cleared by TNT: 10 at [629,593]
+Cleared by TNT: 30 at [630,594]
 Cleared: 1 at [627,598]
 Cleared: 2 at [631,593]
 Cleared: 5 at [631,592]
@@ -35813,6 +35813,9 @@ TNT explosion at [685,558]!
 Cleared by TNT: 19 at [685,557]
 Cleared by TNT: 19 at [684,558]
 Cleared by TNT: 30 at [686,558]
+TNT explosion at [686,559]!
+Cleared by TNT: 36 at [687,559]
+Cleared by TNT: 39 at [686,560]
 TNT explosion at [683,558]!
 TNT explosion at [683,557]!
 Cleared by TNT: 6 at [684,557]
@@ -35820,9 +35823,6 @@ Cleared by TNT: 13 at [682,557]
 Cleared by TNT: 18 at [683,556]
 Cleared by TNT: 19 at [683,559]
 Cleared by TNT: 30 at [682,558]
-TNT explosion at [686,559]!
-Cleared by TNT: 36 at [687,559]
-Cleared by TNT: 39 at [686,560]
 Cleared: 15 at [689,570]
 Cleared: 2 at [689,569]
 Cleared: 8 at [690,570]
@@ -36144,6 +36144,9 @@ Cleared: 13 at [669,542]
 TNT explosion at [669,541]!
 Cleared by TNT: 5 at [668,541]
 Cleared by TNT: 25 at [670,541]
+TNT explosion at [668,542]!
+Cleared by TNT: 16 at [668,543]
+Cleared by TNT: 29 at [667,542]
 TNT explosion at [668,540]!
 TNT explosion at [667,540]!
 Cleared by TNT: 2 at [668,539]
@@ -36158,9 +36161,6 @@ Cleared by TNT: 7 at [665,537]
 Cleared by TNT: 11 at [664,538]
 Cleared by TNT: 15 at [664,539]
 Cleared by TNT: 22 at [665,540]
-TNT explosion at [668,542]!
-Cleared by TNT: 16 at [668,543]
-Cleared by TNT: 29 at [667,542]
 Cleared: 6 at [663,539]
 Cleared: 8 at [665,536]
 TNT explosion at [665,535]!
@@ -36475,6 +36475,9 @@ TNT explosion at [711,533]!
 Cleared by TNT: 21 at [710,533]
 Cleared by TNT: 30 at [711,532]
 Cleared by TNT: 33 at [712,533]
+TNT explosion at [710,534]!
+Cleared by TNT: 7 at [709,534]
+Cleared by TNT: 23 at [710,535]
 TNT explosion at [710,532]!
 Cleared by TNT: 8 at [710,531]
 Cleared by TNT: 10 at [709,532]
@@ -36482,9 +36485,6 @@ TNT explosion at [710,530]!
 Cleared by TNT: 1 at [709,530]
 Cleared by TNT: 4 at [710,529]
 Cleared by TNT: 49 at [711,530]
-TNT explosion at [710,534]!
-Cleared by TNT: 7 at [709,534]
-Cleared by TNT: 23 at [710,535]
 TNT explosion at [708,534]!
 Cleared by TNT: 13 at [708,533]
 Cleared by TNT: 13 at [707,534]
@@ -37844,6 +37844,9 @@ TNT explosion at [730,470]!
 Cleared by TNT: 1 at [729,470]
 Cleared by TNT: 4 at [730,471]
 Cleared by TNT: 8 at [730,469]
+TNT explosion at [731,471]!
+Cleared by TNT: 4 at [731,472]
+Cleared by TNT: 12 at [732,471]
 TNT explosion at [728,470]!
 Cleared by TNT: 4 at [728,469]
 Cleared by TNT: 15 at [728,471]
@@ -37851,9 +37854,6 @@ Cleared by TNT: 34 at [727,470]
 TNT explosion at [727,471]!
 Cleared by TNT: 34 at [726,471]
 Cleared by TNT: 37 at [727,472]
-TNT explosion at [731,471]!
-Cleared by TNT: 4 at [731,472]
-Cleared by TNT: 12 at [732,471]
 Cleared: 5 at [731,466]
 Cleared: 7 at [730,466]
 Cleared: 7 at [729,469]
@@ -38199,12 +38199,12 @@ TNT explosion at [761,518]!
 Cleared by TNT: 9 at [760,518]
 Cleared by TNT: 9 at [761,519]
 Cleared by TNT: 38 at [761,517]
-TNT explosion at [766,518]!
-Cleared by TNT: 28 at [766,517]
-Cleared by TNT: 48 at [767,518]
 TNT explosion at [760,519]!
 Cleared by TNT: 35 at [759,519]
 Cleared by TNT: 46 at [760,520]
+TNT explosion at [766,518]!
+Cleared by TNT: 28 at [766,517]
+Cleared by TNT: 48 at [767,518]
 TNT explosion at [758,519]!
 TNT explosion at [758,518]!
 Cleared by TNT: 9 at [757,519]
@@ -38216,13 +38216,13 @@ TNT explosion at [758,516]!
 Cleared by TNT: 2 at [758,515]
 Cleared by TNT: 19 at [757,516]
 Cleared by TNT: 25 at [759,516]
-TNT explosion at [760,516]!
-Cleared by TNT: 6 at [761,516]
-Cleared by TNT: 21 at [760,515]
-Cleared by TNT: 36 at [760,517]
 TNT explosion at [757,517]!
 Cleared by TNT: 4 at [756,517]
 TNT explosion at [759,517]!
+Cleared by TNT: 36 at [760,517]
+TNT explosion at [760,516]!
+Cleared by TNT: 6 at [761,516]
+Cleared by TNT: 21 at [760,515]
 TNT explosion at [756,518]!
 Cleared by TNT: 38 at [756,519]
 Cleared by TNT: 48 at [755,518]
@@ -38348,17 +38348,17 @@ Cleared by TNT: 41 at [771,509]
 TNT explosion at [771,508]!
 Cleared by TNT: 8 at [772,508]
 Cleared by TNT: 13 at [770,508]
+TNT explosion at [770,509]!
+TNT explosion at [769,509]!
+Cleared by TNT: 25 at [768,509]
+Cleared by TNT: 26 at [769,508]
+Cleared by TNT: 37 at [769,510]
 TNT explosion at [772,507]!
 Cleared by TNT: 36 at [772,506]
 Cleared by TNT: 48 at [773,507]
 TNT explosion at [773,506]!
 Cleared by TNT: 14 at [773,505]
 Cleared by TNT: 39 at [774,506]
-TNT explosion at [770,509]!
-TNT explosion at [769,509]!
-Cleared by TNT: 25 at [768,509]
-Cleared by TNT: 26 at [769,508]
-Cleared by TNT: 37 at [769,510]
 TNT explosion at [770,511]!
 Cleared by TNT: 38 at [769,511]
 Cleared by TNT: 41 at [770,512]
@@ -38510,6 +38510,10 @@ TNT explosion at [752,459]!
 Cleared by TNT: 21 at [751,459]
 Cleared by TNT: 29 at [752,458]
 Cleared by TNT: 29 at [753,459]
+TNT explosion at [751,460]!
+Cleared by TNT: 37 at [750,460]
+TNT explosion at [753,460]!
+Cleared by TNT: 46 at [754,460]
 TNT explosion at [751,458]!
 Cleared by TNT: 2 at [751,457]
 Cleared by TNT: 12 at [750,458]
@@ -38520,10 +38524,6 @@ Cleared by TNT: 39 at [748,458]
 TNT explosion at [748,459]!
 Cleared by TNT: 18 at [748,460]
 Cleared by TNT: 44 at [747,459]
-TNT explosion at [751,460]!
-Cleared by TNT: 37 at [750,460]
-TNT explosion at [753,460]!
-Cleared by TNT: 46 at [754,460]
 Cleared: 1 at [747,460]
 Cleared: 2 at [751,464]
 Cleared: 5 at [751,456]
@@ -38841,15 +38841,15 @@ TNT explosion at [757,449]!
 Cleared by TNT: 26 at [758,449]
 Cleared by TNT: 28 at [757,448]
 Cleared by TNT: 45 at [756,449]
+TNT explosion at [758,450]!
+Cleared by TNT: 37 at [759,450]
 TNT explosion at [759,449]!
 Cleared by TNT: 27 at [759,448]
-Cleared by TNT: 37 at [759,450]
 Cleared by TNT: 48 at [760,449]
 TNT explosion at [759,447]!
 Cleared by TNT: 8 at [760,447]
 Cleared by TNT: 11 at [759,446]
 Cleared by TNT: 37 at [758,447]
-TNT explosion at [758,450]!
 Cleared: 4 at [756,448]
 Cleared: 7 at [760,448]
 Cleared: 8 at [759,451]
@@ -38893,12 +38893,12 @@ TNT explosion at [723,465]!
 Cleared by TNT: 5 at [723,464]
 Cleared by TNT: 12 at [723,466]
 Cleared by TNT: 19 at [722,465]
+TNT explosion at [724,466]!
+Cleared by TNT: 44 at [724,467]
 TNT explosion at [721,465]!
 Cleared by TNT: 1 at [721,466]
 Cleared by TNT: 39 at [720,465]
 Cleared by TNT: 44 at [721,464]
-TNT explosion at [724,466]!
-Cleared by TNT: 44 at [724,467]
 Cleared: 1 at [727,466]
 TNT explosion at [728,466]!
 Cleared by TNT: 22 at [728,467]
@@ -38948,12 +38948,12 @@ TNT explosion at [713,471]!
 Cleared by TNT: 15 at [713,470]
 Cleared by TNT: 17 at [712,471]
 Cleared by TNT: 23 at [713,472]
+TNT explosion at [714,472]!
+Cleared by TNT: 33 at [714,473]
 TNT explosion at [713,469]!
 Cleared by TNT: 41 at [712,469]
 Cleared by TNT: 44 at [714,469]
 Cleared by TNT: 47 at [713,468]
-TNT explosion at [714,472]!
-Cleared by TNT: 33 at [714,473]
 Cleared: 1 at [714,470]
 Cleared: 12 at [713,467]
 TNT explosion at [712,467]!
@@ -38983,13 +38983,15 @@ TNT explosion at [711,470]!
 Cleared by TNT: 27 at [711,469]
 Cleared by TNT: 39 at [710,470]
 Cleared by TNT: 47 at [712,470]
+TNT explosion at [710,471]!
+Cleared by TNT: 29 at [710,472]
+Cleared by TNT: 42 at [709,471]
 TNT explosion at [709,470]!
 TNT explosion at [709,469]!
 Cleared by TNT: 21 at [708,469]
 Cleared by TNT: 27 at [709,468]
 Cleared by TNT: 36 at [710,469]
 Cleared by TNT: 38 at [708,470]
-Cleared by TNT: 42 at [709,471]
 TNT explosion at [709,467]!
 TNT explosion at [709,466]!
 TNT explosion at [710,466]!
@@ -38998,14 +39000,12 @@ Cleared by TNT: 26 at [711,466]
 Cleared by TNT: 33 at [710,467]
 Cleared by TNT: 40 at [710,465]
 Cleared by TNT: 49 at [708,466]
+TNT explosion at [710,468]!
+Cleared by TNT: 35 at [711,468]
 TNT explosion at [710,464]!
 Cleared by TNT: 2 at [711,464]
 Cleared by TNT: 8 at [710,463]
 Cleared by TNT: 23 at [709,464]
-TNT explosion at [710,468]!
-Cleared by TNT: 35 at [711,468]
-TNT explosion at [710,471]!
-Cleared by TNT: 29 at [710,472]
 Cleared: 4 at [712,463]
 Cleared: 5 at [713,463]
 Cleared: 5 at [712,464]
@@ -40343,9 +40343,9 @@ TNT explosion at [694,498]!
 Cleared by TNT: 23 at [693,498]
 Cleared by TNT: 34 at [694,497]
 Cleared by TNT: 37 at [695,498]
-TNT explosion at [692,498]!
-TNT explosion at [692,499]!
 TNT explosion at [693,499]!
+TNT explosion at [692,499]!
+TNT explosion at [692,498]!
 Cleared by TNT: 24 at [692,497]
 Cleared by TNT: 26 at [691,499]
 Cleared by TNT: 37 at [691,498]
@@ -40825,13 +40825,13 @@ Cleared by TNT: 42 at [703,444]
 TNT explosion at [701,445]!
 Cleared by TNT: 8 at [701,446]
 Cleared by TNT: 47 at [700,445]
-TNT explosion at [702,446]!
-Cleared by TNT: 10 at [703,446]
-Cleared by TNT: 18 at [702,447]
 TNT explosion at [704,445]!
 Cleared by TNT: 11 at [703,445]
 Cleared by TNT: 38 at [705,445]
 Cleared by TNT: 40 at [704,446]
+TNT explosion at [702,446]!
+Cleared by TNT: 10 at [703,446]
+Cleared by TNT: 18 at [702,447]
 Cleared: 10 at [701,443]
 Cleared: 11 at [703,443]
 Cleared: 13 at [698,443]
@@ -40902,12 +40902,12 @@ TNT explosion at [713,451]!
 Cleared by TNT: 23 at [712,451]
 Cleared by TNT: 27 at [714,451]
 Cleared by TNT: 46 at [713,450]
-TNT explosion at [712,450]!
-Cleared by TNT: 34 at [712,449]
-Cleared by TNT: 34 at [711,450]
 TNT explosion at [714,452]!
 Cleared by TNT: 13 at [714,453]
 Cleared by TNT: 42 at [715,452]
+TNT explosion at [712,450]!
+Cleared by TNT: 34 at [712,449]
+Cleared by TNT: 34 at [711,450]
 Cleared: 9 at [711,454]
 Cleared: 17 at [707,450]
 Cleared: 17 at [709,452]
@@ -41000,6 +41000,9 @@ TNT explosion at [764,459]!
 Cleared by TNT: 2 at [763,459]
 Cleared by TNT: 11 at [764,460]
 Cleared by TNT: 27 at [764,458]
+TNT explosion at [765,460]!
+Cleared by TNT: 25 at [766,460]
+Cleared by TNT: 40 at [765,461]
 TNT explosion at [764,457]!
 Cleared by TNT: 8 at [765,457]
 Cleared by TNT: 36 at [763,457]
@@ -41009,9 +41012,6 @@ Cleared by TNT: 27 at [762,458]
 TNT explosion at [763,460]!
 Cleared by TNT: 27 at [762,460]
 Cleared by TNT: 36 at [763,461]
-TNT explosion at [765,460]!
-Cleared by TNT: 25 at [766,460]
-Cleared by TNT: 40 at [765,461]
 Cleared: 10 at [769,459]
 Cleared: 13 at [768,460]
 Cleared: 17 at [769,457]
@@ -41802,12 +41802,12 @@ TNT explosion at [804,463]!
 Cleared by TNT: 1 at [803,463]
 Cleared by TNT: 10 at [804,462]
 Cleared by TNT: 10 at [805,463]
-TNT explosion at [803,462]!
-Cleared by TNT: 27 at [802,462]
-Cleared by TNT: 42 at [803,461]
 TNT explosion at [803,464]!
 Cleared by TNT: 38 at [802,464]
 Cleared by TNT: 46 at [803,465]
+TNT explosion at [803,462]!
+Cleared by TNT: 27 at [802,462]
+Cleared by TNT: 42 at [803,461]
 Cleared: 3 at [807,467]
 Cleared: 4 at [804,461]
 Cleared: 8 at [802,461]
@@ -41859,12 +41859,12 @@ Cleared by TNT: 12 at [798,452]
 Cleared by TNT: 46 at [798,450]
 Cleared by TNT: 47 at [799,450]
 Cleared by TNT: 47 at [799,452]
+TNT explosion at [800,452]!
+Cleared by TNT: 2 at [800,453]
 TNT explosion at [796,451]!
 Cleared by TNT: 15 at [795,451]
 Cleared by TNT: 27 at [796,450]
 Cleared by TNT: 44 at [796,452]
-TNT explosion at [800,452]!
-Cleared by TNT: 2 at [800,453]
 Cleared: 1 at [803,452]
 Cleared: 2 at [803,449]
 Cleared: 3 at [803,450]
@@ -42580,6 +42580,8 @@ Cleared by TNT: 30 at [847,453]
 Cleared by TNT: 40 at [846,451]
 Cleared by TNT: 46 at [845,452]
 Cleared by TNT: 49 at [847,452]
+TNT explosion at [845,454]!
+Cleared by TNT: 24 at [845,455]
 TNT explosion at [846,450]!
 Cleared by TNT: 1 at [845,450]
 Cleared by TNT: 19 at [846,449]
@@ -42588,8 +42590,6 @@ TNT explosion at [848,452]!
 Cleared by TNT: 1 at [848,453]
 Cleared by TNT: 10 at [849,452]
 Cleared by TNT: 16 at [848,451]
-TNT explosion at [845,454]!
-Cleared by TNT: 24 at [845,455]
 TNT explosion at [846,455]!
 Cleared by TNT: 13 at [846,456]
 Cleared by TNT: 14 at [847,455]
@@ -42611,12 +42611,12 @@ TNT explosion at [843,455]!
 Cleared by TNT: 7 at [843,456]
 Cleared by TNT: 36 at [843,454]
 Cleared by TNT: 46 at [842,455]
-TNT explosion at [842,454]!
-Cleared by TNT: 22 at [841,454]
-Cleared by TNT: 27 at [842,453]
 TNT explosion at [844,456]!
 Cleared by TNT: 15 at [845,456]
 Cleared by TNT: 44 at [844,457]
+TNT explosion at [842,454]!
+Cleared by TNT: 22 at [841,454]
+Cleared by TNT: 27 at [842,453]
 Cleared: 5 at [845,457]
 Cleared: 7 at [851,454]
 Cleared: 8 at [843,457]
@@ -42732,12 +42732,12 @@ Cleared by TNT: 43 at [830,468]
 TNT explosion at [829,465]!
 Cleared by TNT: 38 at [828,465]
 Cleared by TNT: 44 at [829,464]
-TNT explosion at [832,465]!
-Cleared by TNT: 12 at [833,465]
-Cleared by TNT: 42 at [832,464]
 TNT explosion at [828,466]!
 Cleared by TNT: 9 at [827,466]
 Cleared by TNT: 14 at [828,467]
+TNT explosion at [832,465]!
+Cleared by TNT: 12 at [833,465]
+Cleared by TNT: 42 at [832,464]
 Cleared: 7 at [827,467]
 TNT explosion at [826,467]!
 Cleared by TNT: 24 at [826,466]
@@ -42818,8 +42818,8 @@ TNT explosion at [827,418]!
 Cleared by TNT: 18 at [827,417]
 Cleared by TNT: 29 at [828,418]
 Cleared by TNT: 37 at [826,418]
-TNT explosion at [825,419]!
 TNT explosion at [826,419]!
+TNT explosion at [825,419]!
 Cleared by TNT: 7 at [824,419]
 Cleared by TNT: 49 at [825,418]
 Cleared: 1 at [828,417]
@@ -43113,9 +43113,6 @@ Cleared by TNT: 22 at [842,425]
 Cleared by TNT: 30 at [840,426]
 Cleared by TNT: 35 at [841,424]
 Cleared by TNT: 42 at [841,427]
-TNT explosion at [842,427]!
-Cleared by TNT: 20 at [842,428]
-Cleared by TNT: 47 at [843,427]
 TNT explosion at [843,424]!
 TNT explosion at [844,424]!
 Cleared by TNT: 12 at [844,425]
@@ -43123,6 +43120,9 @@ Cleared by TNT: 18 at [843,423]
 Cleared by TNT: 19 at [843,425]
 Cleared by TNT: 27 at [844,423]
 Cleared by TNT: 33 at [845,424]
+TNT explosion at [842,427]!
+Cleared by TNT: 20 at [842,428]
+Cleared by TNT: 47 at [843,427]
 Cleared: 2 at [841,428]
 Cleared: 3 at [839,427]
 Cleared: 5 at [845,425]
@@ -43358,13 +43358,13 @@ Cleared by TNT: 30 at [846,427]
 TNT explosion at [847,429]!
 Cleared by TNT: 30 at [847,430]
 Cleared by TNT: 43 at [848,429]
+TNT explosion at [846,430]!
+Cleared by TNT: 9 at [846,431]
+Cleared by TNT: 28 at [845,430]
 TNT explosion at [849,429]!
 Cleared by TNT: 3 at [849,430]
 Cleared by TNT: 45 at [850,429]
 Cleared by TNT: 46 at [849,428]
-TNT explosion at [846,430]!
-Cleared by TNT: 9 at [846,431]
-Cleared by TNT: 28 at [845,430]
 Cleared: 1 at [844,430]
 Cleared: 3 at [849,431]
 Cleared: 4 at [848,428]
@@ -44400,14 +44400,14 @@ TNT explosion at [776,399]!
 Cleared by TNT: 3 at [775,399]
 Cleared by TNT: 25 at [776,398]
 Cleared by TNT: 36 at [777,399]
-TNT explosion at [774,399]!
-Cleared by TNT: 23 at [774,400]
-Cleared by TNT: 47 at [773,399]
-Cleared by TNT: 49 at [774,398]
 TNT explosion at [776,401]!
 Cleared by TNT: 4 at [775,401]
 Cleared by TNT: 22 at [777,401]
 Cleared by TNT: 38 at [776,402]
+TNT explosion at [774,399]!
+Cleared by TNT: 23 at [774,400]
+Cleared by TNT: 47 at [773,399]
+Cleared by TNT: 49 at [774,398]
 Cleared: 1 at [777,398]
 Cleared: 7 at [780,399]
 Cleared: 1 at [780,398]
@@ -44911,6 +44911,10 @@ Cleared by TNT: 48 at [660,456]
 TNT explosion at [659,458]!
 Cleared by TNT: 10 at [658,458]
 Cleared by TNT: 20 at [659,459]
+TNT explosion at [658,456]!
+Cleared by TNT: 5 at [657,456]
+Cleared by TNT: 13 at [658,455]
+Cleared by TNT: 31 at [658,457]
 TNT explosion at [657,458]!
 TNT explosion at [656,458]!
 Cleared by TNT: 7 at [655,458]
@@ -44918,10 +44922,6 @@ Cleared by TNT: 15 at [657,457]
 Cleared by TNT: 20 at [656,457]
 Cleared by TNT: 21 at [657,459]
 Cleared by TNT: 46 at [656,459]
-TNT explosion at [658,456]!
-Cleared by TNT: 5 at [657,456]
-Cleared by TNT: 13 at [658,455]
-Cleared by TNT: 31 at [658,457]
 Cleared: 2 at [662,457]
 Cleared: 7 at [657,455]
 Cleared: 8 at [656,456]
@@ -44962,12 +44962,12 @@ TNT explosion at [658,447]!
 Cleared by TNT: 7 at [659,447]
 Cleared by TNT: 10 at [657,447]
 Cleared by TNT: 35 at [658,446]
-TNT explosion at [656,447]!
+TNT explosion at [657,448]!
 Cleared by TNT: 5 at [656,448]
+Cleared by TNT: 15 at [657,449]
+TNT explosion at [656,447]!
 Cleared by TNT: 41 at [656,446]
 Cleared by TNT: 49 at [655,447]
-TNT explosion at [657,448]!
-Cleared by TNT: 15 at [657,449]
 Cleared: 2 at [655,448]
 TNT explosion at [655,449]!
 Cleared by TNT: 37 at [655,450]
@@ -45388,6 +45388,10 @@ Cleared by TNT: 30 at [733,501]
 Cleared by TNT: 35 at [732,503]
 Cleared by TNT: 45 at [732,502]
 Cleared by TNT: 47 at [734,504]
+TNT explosion at [735,502]!
+Cleared by TNT: 39 at [736,502]
+Cleared by TNT: 48 at [735,501]
+Cleared by TNT: 49 at [735,503]
 TNT explosion at [732,501]!
 TNT explosion at [732,500]!
 TNT explosion at [732,499]!
@@ -45397,10 +45401,6 @@ Cleared by TNT: 19 at [731,499]
 Cleared by TNT: 24 at [731,501]
 Cleared by TNT: 29 at [733,499]
 Cleared by TNT: 40 at [731,500]
-TNT explosion at [735,502]!
-Cleared by TNT: 39 at [736,502]
-Cleared by TNT: 48 at [735,501]
-Cleared by TNT: 49 at [735,503]
 Cleared: 7 at [731,503]
 Cleared: 8 at [731,498]
 Cleared: 13 at [731,504]
@@ -45932,6 +45932,8 @@ Cleared by TNT: 26 at [828,372]
 Cleared by TNT: 41 at [826,372]
 Cleared by TNT: 48 at [826,371]
 Cleared by TNT: 48 at [828,371]
+TNT explosion at [826,373]!
+Cleared by TNT: 31 at [825,373]
 TNT explosion at [825,371]!
 Cleared by TNT: 22 at [824,371]
 Cleared by TNT: 33 at [825,372]
@@ -45963,8 +45965,6 @@ Cleared by TNT: 38 at [826,368]
 Cleared by TNT: 44 at [822,368]
 Cleared by TNT: 46 at [823,366]
 Cleared by TNT: 49 at [821,369]
-TNT explosion at [826,373]!
-Cleared by TNT: 31 at [825,373]
 Cleared: 1 at [826,375]
 Cleared: 4 at [823,373]
 Cleared: 9 at [826,366]
@@ -46239,13 +46239,17 @@ TNT explosion at [856,385]!
 Cleared by TNT: 32 at [856,386]
 Cleared by TNT: 40 at [856,384]
 Cleared by TNT: 46 at [857,385]
+TNT explosion at [855,386]!
+Cleared by TNT: 8 at [854,386]
+Cleared by TNT: 35 at [855,387]
+TNT explosion at [855,383]!
+Cleared by TNT: 12 at [856,383]
+Cleared by TNT: 18 at [855,382]
+Cleared by TNT: 22 at [854,383]
 TNT explosion at [858,385]!
 Cleared by TNT: 6 at [859,385]
 Cleared by TNT: 40 at [858,384]
 Cleared by TNT: 45 at [858,386]
-TNT explosion at [855,386]!
-Cleared by TNT: 8 at [854,386]
-Cleared by TNT: 35 at [855,387]
 TNT explosion at [858,387]!
 TNT explosion at [859,387]!
 Cleared by TNT: 5 at [858,388]
@@ -46276,10 +46280,6 @@ TNT explosion at [856,390]!
 Cleared by TNT: 4 at [857,390]
 Cleared by TNT: 8 at [856,389]
 Cleared by TNT: 12 at [856,391]
-TNT explosion at [855,383]!
-Cleared by TNT: 12 at [856,383]
-Cleared by TNT: 18 at [855,382]
-Cleared by TNT: 22 at [854,383]
 Cleared: 3 at [860,390]
 Cleared: 1 at [860,391]
 Cleared: 5 at [854,382]
@@ -46590,22 +46590,22 @@ TNT explosion at [799,366]!
 Cleared by TNT: 5 at [799,365]
 Cleared by TNT: 41 at [800,366]
 Cleared by TNT: 47 at [798,366]
+TNT explosion at [799,368]!
+Cleared by TNT: 2 at [799,369]
+Cleared by TNT: 4 at [800,368]
+Cleared by TNT: 10 at [798,368]
 TNT explosion at [799,364]!
 Cleared by TNT: 3 at [800,364]
 Cleared by TNT: 36 at [798,364]
 Cleared by TNT: 41 at [799,363]
+TNT explosion at [798,365]!
+Cleared by TNT: 31 at [797,365]
 TNT explosion at [798,363]!
 TNT explosion at [797,363]!
 Cleared by TNT: 23 at [797,364]
 Cleared by TNT: 33 at [796,363]
 Cleared by TNT: 37 at [798,362]
 Cleared by TNT: 42 at [797,362]
-TNT explosion at [798,365]!
-Cleared by TNT: 31 at [797,365]
-TNT explosion at [799,368]!
-Cleared by TNT: 2 at [799,369]
-Cleared by TNT: 4 at [800,368]
-Cleared by TNT: 10 at [798,368]
 Cleared: 3 at [796,362]
 Cleared: 12 at [797,361]
 Cleared: 15 at [798,367]
@@ -46656,13 +46656,13 @@ TNT explosion at [790,361]!
 Cleared by TNT: 1 at [790,360]
 Cleared by TNT: 39 at [790,362]
 Cleared by TNT: 42 at [789,361]
-TNT explosion at [789,360]!
-Cleared by TNT: 3 at [788,360]
-Cleared by TNT: 36 at [789,359]
 TNT explosion at [792,361]!
 Cleared by TNT: 45 at [793,361]
 Cleared by TNT: 47 at [792,360]
 Cleared by TNT: 47 at [792,362]
+TNT explosion at [789,360]!
+Cleared by TNT: 3 at [788,360]
+Cleared by TNT: 36 at [789,359]
 Cleared: 1 at [788,359]
 TNT explosion at [788,358]!
 TNT explosion at [788,357]!
@@ -46751,12 +46751,12 @@ TNT explosion at [786,345]!
 Cleared by TNT: 1 at [786,344]
 Cleared by TNT: 32 at [787,345]
 Cleared by TNT: 35 at [785,345]
+TNT explosion at [787,346]!
+Cleared by TNT: 27 at [787,347]
+Cleared by TNT: 35 at [788,346]
 TNT explosion at [788,345]!
 Cleared by TNT: 8 at [789,345]
 Cleared by TNT: 31 at [788,344]
-Cleared by TNT: 35 at [788,346]
-TNT explosion at [787,346]!
-Cleared by TNT: 27 at [787,347]
 Cleared: 8 at [784,345]
 Cleared: 11 at [785,344]
 TNT explosion at [785,343]!
@@ -47243,16 +47243,16 @@ Cleared by TNT: 48 at [803,359]
 TNT explosion at [801,356]!
 Cleared by TNT: 2 at [801,355]
 Cleared by TNT: 47 at [800,356]
-TNT explosion at [799,356]!
-Cleared by TNT: 7 at [798,356]
-Cleared by TNT: 25 at [799,357]
-Cleared by TNT: 46 at [799,355]
 TNT explosion at [803,356]!
 TNT explosion at [804,356]!
 Cleared by TNT: 9 at [804,357]
 Cleared by TNT: 12 at [803,355]
 Cleared by TNT: 41 at [805,356]
 Cleared by TNT: 44 at [804,355]
+TNT explosion at [799,356]!
+Cleared by TNT: 7 at [798,356]
+Cleared by TNT: 25 at [799,357]
+Cleared by TNT: 46 at [799,355]
 TNT explosion at [800,357]!
 Cleared by TNT: 30 at [800,358]
 TNT explosion at [804,359]!
@@ -47778,12 +47778,12 @@ TNT explosion at [727,437]!
 Cleared by TNT: 30 at [728,437]
 Cleared by TNT: 41 at [727,436]
 Cleared by TNT: 48 at [726,437]
-TNT explosion at [728,436]!
-Cleared by TNT: 32 at [728,435]
-Cleared by TNT: 34 at [729,436]
 TNT explosion at [728,438]!
 Cleared by TNT: 20 at [728,439]
 Cleared by TNT: 31 at [729,438]
+TNT explosion at [728,436]!
+Cleared by TNT: 32 at [728,435]
+Cleared by TNT: 34 at [729,436]
 Cleared: 7 at [729,437]
 Cleared: 12 at [730,436]
 TNT explosion at [731,436]!
@@ -48115,6 +48115,15 @@ TNT explosion at [831,475]!
 Cleared by TNT: 13 at [832,475]
 Cleared by TNT: 14 at [831,474]
 Cleared by TNT: 42 at [830,475]
+TNT explosion at [832,476]!
+TNT explosion at [833,476]!
+TNT explosion at [834,476]!
+Cleared by TNT: 16 at [832,477]
+Cleared by TNT: 29 at [833,477]
+Cleared by TNT: 31 at [833,475]
+Cleared by TNT: 38 at [834,477]
+Cleared by TNT: 39 at [834,475]
+Cleared by TNT: 44 at [835,476]
 TNT explosion at [831,473]!
 Cleared by TNT: 42 at [831,472]
 Cleared by TNT: 45 at [832,473]
@@ -48129,15 +48138,6 @@ Cleared by TNT: 38 at [834,471]
 TNT explosion at [835,473]!
 Cleared by TNT: 23 at [836,473]
 Cleared by TNT: 49 at [835,474]
-TNT explosion at [832,476]!
-TNT explosion at [833,476]!
-TNT explosion at [834,476]!
-Cleared by TNT: 16 at [832,477]
-Cleared by TNT: 29 at [833,477]
-Cleared by TNT: 31 at [833,475]
-Cleared by TNT: 38 at [834,477]
-Cleared by TNT: 39 at [834,475]
-Cleared by TNT: 44 at [835,476]
 TNT explosion at [833,474]!
 Cleared by TNT: 1 at [832,474]
 Cleared by TNT: 20 at [834,474]
@@ -48338,13 +48338,13 @@ TNT explosion at [831,493]!
 Cleared by TNT: 8 at [830,493]
 Cleared by TNT: 39 at [831,494]
 Cleared by TNT: 49 at [831,492]
+TNT explosion at [832,494]!
+Cleared by TNT: 37 at [833,494]
+Cleared by TNT: 49 at [832,495]
 TNT explosion at [829,493]!
 Cleared by TNT: 7 at [829,492]
 Cleared by TNT: 23 at [829,494]
 Cleared by TNT: 48 at [828,493]
-TNT explosion at [832,494]!
-Cleared by TNT: 37 at [833,494]
-Cleared by TNT: 49 at [832,495]
 TNT explosion at [829,495]!
 Cleared by TNT: 25 at [830,495]
 Cleared by TNT: 32 at [828,495]
@@ -48456,9 +48456,6 @@ TNT explosion at [808,496]!
 Cleared by TNT: 16 at [808,497]
 Cleared by TNT: 43 at [807,496]
 Cleared by TNT: 46 at [809,496]
-TNT explosion at [809,497]!
-Cleared by TNT: 32 at [809,498]
-Cleared by TNT: 38 at [810,497]
 TNT explosion at [806,495]!
 Cleared by TNT: 19 at [805,495]
 Cleared by TNT: 20 at [807,495]
@@ -48466,6 +48463,9 @@ Cleared by TNT: 25 at [806,494]
 TNT explosion at [805,494]!
 Cleared by TNT: 24 at [805,493]
 Cleared by TNT: 38 at [804,494]
+TNT explosion at [809,497]!
+Cleared by TNT: 32 at [809,498]
+Cleared by TNT: 38 at [810,497]
 Cleared: 5 at [808,498]
 Cleared: 15 at [805,496]
 TNT explosion at [804,496]!
@@ -48503,19 +48503,19 @@ TNT explosion at [808,505]!
 Cleared by TNT: 5 at [808,504]
 Cleared by TNT: 9 at [807,505]
 Cleared by TNT: 39 at [808,506]
+TNT explosion at [809,506]!
+Cleared by TNT: 47 at [809,507]
 TNT explosion at [812,505]!
 Cleared by TNT: 15 at [812,504]
 Cleared by TNT: 25 at [812,506]
 Cleared by TNT: 35 at [813,505]
-TNT explosion at [809,506]!
-Cleared by TNT: 47 at [809,507]
 TNT explosion at [811,506]!
 Cleared by TNT: 47 at [811,507]
 TNT explosion at [812,507]!
 Cleared by TNT: 22 at [813,507]
 Cleared by TNT: 35 at [812,508]
-TNT explosion at [809,508]!
 TNT explosion at [808,508]!
+TNT explosion at [809,508]!
 TNT explosion at [809,509]!
 Cleared by TNT: 5 at [808,509]
 Cleared by TNT: 15 at [809,510]
@@ -48619,6 +48619,9 @@ Cleared by TNT: 17 at [797,505]
 Cleared by TNT: 41 at [796,504]
 Cleared by TNT: 44 at [797,503]
 Cleared by TNT: 48 at [798,503]
+TNT explosion at [799,505]!
+Cleared by TNT: 3 at [799,506]
+Cleared by TNT: 46 at [800,505]
 TNT explosion at [798,502]!
 Cleared by TNT: 35 at [798,501]
 Cleared by TNT: 37 at [797,502]
@@ -48626,9 +48629,6 @@ Cleared by TNT: 39 at [799,502]
 TNT explosion at [796,505]!
 Cleared by TNT: 40 at [796,506]
 Cleared by TNT: 41 at [795,505]
-TNT explosion at [799,505]!
-Cleared by TNT: 3 at [799,506]
-Cleared by TNT: 46 at [800,505]
 Cleared: 2 at [796,507]
 Cleared: 2 at [795,507]
 Cleared: 3 at [797,501]
@@ -48848,6 +48848,8 @@ TNT explosion at [782,512]!
 Cleared by TNT: 7 at [781,512]
 Cleared by TNT: 31 at [782,511]
 Cleared by TNT: 49 at [783,512]
+TNT explosion at [783,513]!
+Cleared by TNT: 46 at [784,513]
 TNT explosion at [780,512]!
 Cleared by TNT: 7 at [780,513]
 Cleared by TNT: 13 at [779,512]
@@ -48857,8 +48859,6 @@ Cleared by TNT: 17 at [779,510]
 Cleared by TNT: 40 at [778,511]
 TNT explosion at [778,510]!
 Cleared by TNT: 32 at [777,510]
-TNT explosion at [783,513]!
-Cleared by TNT: 46 at [784,513]
 TNT explosion at [780,509]!
 Cleared by TNT: 1 at [780,508]
 Cleared by TNT: 9 at [781,509]
@@ -49304,13 +49304,13 @@ Cleared by TNT: 26 at [758,541]
 Cleared by TNT: 31 at [758,542]
 Cleared by TNT: 41 at [760,544]
 Cleared by TNT: 46 at [759,543]
-TNT explosion at [761,544]!
-Cleared by TNT: 2 at [761,545]
-Cleared by TNT: 45 at [762,544]
 TNT explosion at [763,542]!
 Cleared by TNT: 1 at [764,542]
 Cleared by TNT: 28 at [763,541]
 Cleared by TNT: 32 at [763,543]
+TNT explosion at [761,544]!
+Cleared by TNT: 2 at [761,545]
+Cleared by TNT: 45 at [762,544]
 Cleared: 2 at [759,535]
 Cleared: 4 at [761,538]
 Cleared: 4 at [762,539]
@@ -49407,6 +49407,8 @@ Cleared by TNT: 33 at [755,534]
 Cleared by TNT: 44 at [753,532]
 Cleared by TNT: 45 at [755,532]
 Cleared by TNT: 46 at [754,532]
+TNT explosion at [752,534]!
+Cleared by TNT: 23 at [751,534]
 TNT explosion at [753,531]!
 Cleared by TNT: 18 at [754,531]
 Cleared by TNT: 27 at [753,530]
@@ -49417,8 +49419,6 @@ Cleared by TNT: 10 at [755,530]
 Cleared by TNT: 29 at [756,532]
 Cleared by TNT: 32 at [756,530]
 Cleared by TNT: 33 at [757,531]
-TNT explosion at [752,534]!
-Cleared by TNT: 23 at [751,534]
 Cleared: 3 at [752,536]
 Cleared: 5 at [757,532]
 Cleared: 8 at [753,548]
@@ -49588,12 +49588,12 @@ TNT explosion at [736,547]!
 Cleared by TNT: 12 at [735,547]
 Cleared by TNT: 35 at [736,546]
 Cleared by TNT: 39 at [736,548]
-TNT explosion at [735,546]!
-Cleared by TNT: 46 at [735,545]
-Cleared by TNT: 49 at [734,546]
 TNT explosion at [737,548]!
 Cleared by TNT: 24 at [738,548]
 Cleared by TNT: 25 at [737,549]
+TNT explosion at [735,546]!
+Cleared by TNT: 46 at [735,545]
+Cleared by TNT: 49 at [734,546]
 TNT explosion at [735,549]!
 TNT explosion at [734,549]!
 Cleared by TNT: 9 at [735,548]
@@ -52221,13 +52221,13 @@ TNT explosion at [679,497]!
 Cleared by TNT: 25 at [680,497]
 Cleared by TNT: 30 at [679,496]
 Cleared by TNT: 31 at [679,498]
+TNT explosion at [678,498]!
+Cleared by TNT: 15 at [677,498]
+Cleared by TNT: 46 at [678,499]
 TNT explosion at [679,495]!
 Cleared by TNT: 22 at [679,494]
 Cleared by TNT: 22 at [678,495]
 Cleared by TNT: 22 at [680,495]
-TNT explosion at [678,498]!
-Cleared by TNT: 15 at [677,498]
-Cleared by TNT: 46 at [678,499]
 Cleared: 5 at [681,495]
 Cleared: 11 at [682,495]
 TNT explosion at [682,496]!
@@ -54533,12 +54533,12 @@ TNT explosion at [860,467]!
 Cleared by TNT: 3 at [860,466]
 Cleared by TNT: 12 at [861,467]
 Cleared by TNT: 23 at [859,467]
-TNT explosion at [861,466]!
-Cleared by TNT: 5 at [862,466]
-Cleared by TNT: 17 at [861,465]
 TNT explosion at [861,468]!
 Cleared by TNT: 10 at [862,468]
 Cleared by TNT: 38 at [861,469]
+TNT explosion at [861,466]!
+Cleared by TNT: 5 at [862,466]
+Cleared by TNT: 17 at [861,465]
 TNT explosion at [863,467]!
 Cleared by TNT: 1 at [862,467]
 Cleared by TNT: 11 at [863,466]
@@ -55369,13 +55369,13 @@ TNT explosion at [891,496]!
 Cleared by TNT: 15 at [890,496]
 Cleared by TNT: 16 at [891,495]
 Cleared by TNT: 21 at [892,496]
+TNT explosion at [892,497]!
+Cleared by TNT: 20 at [893,497]
+Cleared by TNT: 35 at [892,498]
 TNT explosion at [891,494]!
 Cleared by TNT: 2 at [891,493]
 Cleared by TNT: 29 at [890,494]
 Cleared by TNT: 45 at [892,494]
-TNT explosion at [892,497]!
-Cleared by TNT: 20 at [893,497]
-Cleared by TNT: 35 at [892,498]
 Cleared: 7 at [889,494]
 Cleared: 9 at [895,498]
 Cleared: 1 at [896,498]
@@ -55488,6 +55488,9 @@ TNT explosion at [872,492]!
 Cleared by TNT: 10 at [872,491]
 Cleared by TNT: 10 at [873,492]
 Cleared by TNT: 21 at [871,492]
+TNT explosion at [871,493]!
+Cleared by TNT: 21 at [870,493]
+Cleared by TNT: 40 at [871,494]
 TNT explosion at [872,490]!
 TNT explosion at [872,489]!
 Cleared by TNT: 8 at [873,489]
@@ -55496,11 +55499,8 @@ Cleared by TNT: 15 at [872,488]
 Cleared by TNT: 18 at [871,490]
 Cleared by TNT: 28 at [871,489]
 TNT explosion at [870,492]!
-Cleared by TNT: 21 at [870,493]
 Cleared by TNT: 23 at [869,492]
 Cleared by TNT: 29 at [870,491]
-TNT explosion at [871,493]!
-Cleared by TNT: 40 at [871,494]
 Cleared: 4 at [870,489]
 Cleared: 5 at [870,490]
 Cleared: 9 at [868,492]
@@ -55534,13 +55534,13 @@ TNT explosion at [880,490]!
 Cleared by TNT: 17 at [879,490]
 Cleared by TNT: 46 at [880,489]
 Cleared by TNT: 48 at [881,490]
-TNT explosion at [881,489]!
-Cleared by TNT: 10 at [882,489]
-Cleared by TNT: 25 at [881,488]
 TNT explosion at [880,492]!
 Cleared by TNT: 1 at [880,493]
 Cleared by TNT: 12 at [881,492]
 Cleared by TNT: 26 at [879,492]
+TNT explosion at [881,489]!
+Cleared by TNT: 10 at [882,489]
+Cleared by TNT: 25 at [881,488]
 Cleared: 1 at [878,485]
 Cleared: 1 at [881,486]
 Cleared: 3 at [881,485]
@@ -55842,12 +55842,12 @@ TNT explosion at [909,485]!
 Cleared by TNT: 14 at [908,485]
 Cleared by TNT: 14 at [910,485]
 Cleared by TNT: 29 at [909,484]
-TNT explosion at [910,484]!
-Cleared by TNT: 27 at [911,484]
-Cleared by TNT: 44 at [910,483]
 TNT explosion at [910,486]!
 Cleared by TNT: 15 at [911,486]
 Cleared by TNT: 29 at [910,487]
+TNT explosion at [910,484]!
+Cleared by TNT: 27 at [911,484]
+Cleared by TNT: 44 at [910,483]
 Cleared: 7 at [912,486]
 TNT explosion at [912,485]!
 Cleared by TNT: 14 at [911,485]
@@ -56205,13 +56205,13 @@ TNT explosion at [918,457]!
 Cleared by TNT: 15 at [917,457]
 Cleared by TNT: 24 at [918,456]
 Cleared by TNT: 38 at [919,457]
+TNT explosion at [919,458]!
+Cleared by TNT: 22 at [919,459]
+Cleared by TNT: 24 at [920,458]
 TNT explosion at [918,455]!
 Cleared by TNT: 20 at [919,455]
 Cleared by TNT: 45 at [918,454]
 Cleared by TNT: 49 at [917,455]
-TNT explosion at [919,458]!
-Cleared by TNT: 22 at [919,459]
-Cleared by TNT: 24 at [920,458]
 Cleared: 4 at [919,456]
 Cleared: 5 at [920,455]
 Cleared: 10 at [920,454]
@@ -56271,12 +56271,12 @@ TNT explosion at [919,445]!
 Cleared by TNT: 14 at [920,445]
 Cleared by TNT: 15 at [919,444]
 Cleared by TNT: 38 at [918,445]
+TNT explosion at [918,446]!
+Cleared by TNT: 40 at [917,446]
 TNT explosion at [919,443]!
 Cleared by TNT: 21 at [918,443]
 Cleared by TNT: 36 at [920,443]
 Cleared by TNT: 47 at [919,442]
-TNT explosion at [918,446]!
-Cleared by TNT: 40 at [917,446]
 Cleared: 11 at [920,446]
 Cleared: 4 at [921,446]
 Cleared: 10 at [922,446]
@@ -56315,14 +56315,14 @@ TNT explosion at [926,444]!
 Cleared by TNT: 1 at [927,444]
 Cleared by TNT: 2 at [926,443]
 Cleared by TNT: 34 at [925,444]
+TNT explosion at [927,445]!
+Cleared by TNT: 3 at [928,445]
 TNT explosion at [927,443]!
 TNT explosion at [927,442]!
 Cleared by TNT: 7 at [928,443]
 Cleared by TNT: 12 at [928,442]
 Cleared by TNT: 13 at [927,441]
 Cleared by TNT: 15 at [926,442]
-TNT explosion at [927,445]!
-Cleared by TNT: 3 at [928,445]
 Cleared: 4 at [927,447]
 Cleared: 6 at [928,441]
 Cleared: 6 at [929,443]
@@ -56703,14 +56703,14 @@ TNT explosion at [943,440]!
 Cleared by TNT: 13 at [942,440]
 Cleared by TNT: 20 at [944,440]
 Cleared by TNT: 36 at [943,439]
-TNT explosion at [945,442]!
-TNT explosion at [945,441]!
-Cleared by TNT: 4 at [946,441]
-Cleared by TNT: 20 at [946,442]
-Cleared by TNT: 31 at [944,441]
 TNT explosion at [946,440]!
+Cleared by TNT: 4 at [946,441]
 Cleared by TNT: 16 at [947,440]
 Cleared by TNT: 21 at [946,439]
+TNT explosion at [945,441]!
+TNT explosion at [945,442]!
+Cleared by TNT: 20 at [946,442]
+Cleared by TNT: 31 at [944,441]
 Cleared: 7 at [942,439]
 Cleared: 8 at [943,438]
 Cleared: 12 at [941,440]
@@ -57906,13 +57906,13 @@ TNT explosion at [916,483]!
 Cleared by TNT: 27 at [917,483]
 Cleared by TNT: 35 at [915,483]
 Cleared by TNT: 44 at [916,484]
+TNT explosion at [915,484]!
+Cleared by TNT: 22 at [915,485]
+Cleared by TNT: 33 at [914,484]
 TNT explosion at [918,483]!
 Cleared by TNT: 5 at [918,482]
 Cleared by TNT: 34 at [918,484]
 Cleared by TNT: 48 at [919,483]
-TNT explosion at [915,484]!
-Cleared by TNT: 22 at [915,485]
-Cleared by TNT: 33 at [914,484]
 Cleared: 9 at [918,481]
 Cleared: 9 at [915,486]
 Cleared: 12 at [916,485]
@@ -57966,12 +57966,12 @@ Cleared by TNT: 4 at [927,480]
 Cleared by TNT: 11 at [928,482]
 Cleared by TNT: 21 at [926,482]
 Cleared by TNT: 31 at [926,481]
+TNT explosion at [928,483]!
+Cleared by TNT: 5 at [929,483]
+Cleared by TNT: 25 at [928,484]
 TNT explosion at [929,482]!
 Cleared by TNT: 4 at [929,481]
 Cleared by TNT: 5 at [930,482]
-Cleared by TNT: 5 at [929,483]
-TNT explosion at [928,483]!
-Cleared by TNT: 25 at [928,484]
 Cleared: 5 at [928,480]
 Cleared: 3 at [928,479]
 Cleared: 6 at [927,479]
@@ -58828,6 +58828,8 @@ TNT explosion at [988,413]!
 Cleared by TNT: 8 at [988,412]
 Cleared by TNT: 22 at [989,413]
 Cleared by TNT: 43 at [987,413]
+TNT explosion at [989,414]!
+Cleared by TNT: 25 at [990,414]
 TNT explosion at [988,411]!
 Cleared by TNT: 8 at [988,410]
 Cleared by TNT: 20 at [987,411]
@@ -58836,8 +58838,6 @@ TNT explosion at [986,413]!
 Cleared by TNT: 6 at [985,413]
 Cleared by TNT: 8 at [986,414]
 Cleared by TNT: 22 at [986,412]
-TNT explosion at [989,414]!
-Cleared by TNT: 25 at [990,414]
 TNT explosion at [991,414]!
 Cleared by TNT: 7 at [992,414]
 Cleared by TNT: 17 at [991,415]

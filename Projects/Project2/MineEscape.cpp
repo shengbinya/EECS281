@@ -43,25 +43,14 @@ struct tileComp {
     }
 };
 
-struct tileCompOp {
-    bool operator()(const tile& b, const tile& a) {
-        if (a.rubble > b.rubble)
-            return true;
-        else if (a.rubble < b.rubble)
-            return false;
-        else if (a.col > b.col)
-            return true;
-        else if (a.col < b.col)
-            return false;
-        else if (a.row > b.col)
-            return true;
-        else
-            return false;
+struct intCompLess {
+    bool operator()(int a, int b) {
+        return a > b;
     }
 };
 
 class mine {
-public: 
+public:
 
     //Grabs options from command line
     void get_options(int argc, char** argv);
@@ -74,9 +63,9 @@ public:
 
     void breakout();
 
-    void discover(const tile &);
+    void discover(const tile&);
 
-    bool edge(const tile &);
+    bool edge(const tile&);
 
     void setEdge(int row, int col);
 
@@ -86,15 +75,18 @@ public:
 
     void printStats();
 
-    void TNTClear(const tile& current);
+    void blowUp(const tile& current);
+
+    void addMedian(int);
 
 private:
 
     //Underlying Data Structures
-	vector<vector<tile>> layout;
+    vector<vector<tile>> gridMine;
     priority_queue<tile, vector<tile>, tileComp> primaryQueue;
     priority_queue<tile, vector<tile>, tileComp> TNTQueue;
-    vector<int> median;
+    priority_queue<int, vector<int>, intCompLess> leftPQ;
+    priority_queue<int, vector<int>> rightPQ;
     vector<tile> discard;
 
     //Initial Variables
@@ -106,11 +98,16 @@ private:
     int firstCleared = -1;
     bool m = false;
     bool v = false;
-    tile finalEdge;
+    tile finalEdge {-3, 0, 0};
     int triggered = false;
     
 
 };
+
+//Definitions:
+//If something is "cleared" the rubble value is set to 0
+//If something is "discovered" the discovered variable is set to true
+//If something is "investigated" the discovered variable is true and the rubble value is 0
 
 /* Helper Functions*/
 
@@ -120,24 +117,28 @@ void mine::insert(int val) {
 }
 
 void mine::printMedian() {
+    
     cout << "Median difficulty of clearing rubble is: ";
     cout << std::fixed << std::setprecision(2);
-    if (median.size() % 2 == 0)
-        if (median.size() != 1) {
-            double step = (median[median.size() / 2] + median[median.size() / 2 - 1]);
+    int size = leftPQ.size() + rightPQ.size();
+    
+    //If even average
+    if (size % 2 == 0 && size % 2 != 1)
+        if (size != 1) {
+            double step = leftPQ.top() + rightPQ.top();
             step = step / 2;
             cout << step << "\n";
         }
-        else
-            cout << double(median.at(0)) << "\n";
+    
+    //If odd just return leftPQ value    
     else
-        cout << double(median[median.size() / 2]) << "\n";
+        cout << double(leftPQ.top()) << "\n";
 }
 
 void mine::writeMine() {
-    for (unsigned int i = 0; i < layout.size(); ++i) {
-        for (unsigned int j = 0; j < layout.size(); ++j) {
-            cout << layout[i][j].rubble << " ";
+    for (unsigned int i = 0; i < gridMine.size(); ++i) {
+        for (unsigned int j = 0; j < gridMine.size(); ++j) {
+            cout << gridMine[i][j].rubble << " ";
         }
         cout << "\n";
     }
@@ -186,7 +187,7 @@ void mine::printStats() {
 
 bool mine::edge(const tile& current) {
     if (current.col != 0 && current.row != 0 &&
-        current.col != layout.size() && current.row != layout.size())
+        current.col != gridMine.size() && current.row != gridMine.size())
         return false;
     return true;
 }
@@ -196,41 +197,50 @@ void mine::setEdge(int row, int col) {
     finalEdge.rubble = -4;
     finalEdge.row = row;
     finalEdge.col = col;
+    finalEdge.discovered = true;
 }
 
-void mine::TNTClear(const tile& current) {
+void mine::blowUp(const tile& current) {
     unsigned int row = current.row;
     unsigned int col = current.col;
 
+    //If not in top row
     if (row != 0) {
-        tile* now = &layout[current.row - 1][current.col];
-            TNTQueue.push(*now);
-            now->discovered = true;
-            now->rubble = 0;
+        if (gridMine[row - 1][col].rubble != 0) {
+            TNTQueue.push(gridMine[row - 1][col]);
+            //Clear here to indicate that it has already been blown up
+            gridMine[row - 1][col].rubble = 0;
+        }
     }
     else
         setEdge(row, col);
-    if (row != layout.size() - 1) {
-        tile* now = &layout[current.row + 1][current.col];
-            TNTQueue.push(*now);
-            now->discovered = true;
-            now->rubble = 0;
+
+    //If not in bottom row
+    if (row != gridMine.size() - 1 ) {
+        if (gridMine[row + 1][col].rubble != 0) {
+            TNTQueue.push(gridMine[row + 1][col]);
+            gridMine[row + 1][col].rubble = 0;
+        }
     }
     else
         setEdge(row, col);
+
+    //If not on left edge
     if (col != 0) {
-        tile* now = &layout[row][col - 1];
-            TNTQueue.push(*now);
-            now->discovered = true;
-            now->rubble = 0;
+        if (gridMine[row][col - 1].rubble != 0) {
+            TNTQueue.push(gridMine[row][col - 1]);
+            gridMine[row][col - 1].rubble = 0;
+        }
     }
     else
         setEdge(row, col);
-    if (col != layout.size() - 1) {
-        tile* now = &layout[row][col + 1];
-            TNTQueue.push(*now);
-            now->discovered = true;
-            now->rubble = 0;
+
+    //If not on bottom edge
+    if (col != gridMine.size() - 1){
+        if (gridMine[row][col + 1].rubble != 0) {
+            TNTQueue.push(gridMine[row][col + 1]);
+            gridMine[row][col + 1].rubble = 0;
+        }
     }
     else
         setEdge(row, col);
@@ -240,46 +250,90 @@ void mine::discover(const tile& current) {
     unsigned int row = current.row;
     unsigned int col = current.col;
 
+    //If not on upper edge
     if (row != 0) {
-        tile * now = &layout[current.row - 1][current.col];
-        if (!now->discovered) {
-            primaryQueue.push(*now);
-            now->discovered = true;
+        //If not already discovered
+        if (!gridMine[current.row - 1][current.col].discovered) {
+            primaryQueue.push(gridMine[current.row - 1][current.col]);
+            gridMine[current.row - 1][current.col].discovered = true;
         }
             
     }
     else
         setEdge(row, col);
-    if (row != layout.size() - 1) {
-        tile * now = &layout[current.row + 1][current.col];
-        if (!now->discovered) {
-            primaryQueue.push(*now);
-            now->discovered = true;
+
+    //If not on lower edge
+    if (row != gridMine.size() - 1) {
+        //If not already discovered
+        if (!gridMine[current.row + 1][current.col].discovered) {
+            primaryQueue.push(gridMine[current.row + 1][current.col]);
+            gridMine[current.row + 1][current.col].discovered = true;
         }
             
     }
     else
         setEdge(row, col);
+
+    //If not on left edge
     if (col != 0) {
-        tile * now = &layout[row][col - 1];
-        if (!now->discovered) {
-            primaryQueue.push(*now);
-            now->discovered = true;
+        //If not already discovered
+        if (!gridMine[row][col - 1].discovered) {
+            primaryQueue.push(gridMine[row][col - 1]);
+            gridMine[row][col - 1].discovered = true;
         }
             
     }
     else
         setEdge(row, col);
-    if (col != layout.size() - 1) {
-        tile* now = &layout[row][col + 1];
-        if (!now->discovered) {
-            primaryQueue.push(*now);
-            now->discovered = true;
-        }
-            
+
+    //If not on right edge
+    if (col != gridMine.size() - 1) {
+        //If not already discovered
+        if (!gridMine[row][col + 1].discovered) {
+            primaryQueue.push(gridMine[row][col + 1]);
+            gridMine[row][col + 1].discovered = true;
+        }   
     }
     else
         setEdge(row, col);
+
+}
+
+void mine::addMedian(int a) {
+
+    //Always want left to be one larger or equal to right side
+    
+    //Need to push left
+    if (leftPQ.size() == rightPQ.size()) {
+        
+        //If less than or equal to largest left side it belongs in left side
+        if (a <= leftPQ.top())
+            leftPQ.push(a);
+        
+        //If greater than largest left it belongs in the right side
+        else {
+            int temp = rightPQ.top();
+            rightPQ.pop();
+            rightPQ.push(a);
+            leftPQ.push(temp);
+        }
+    }
+
+    //Push right
+    else {
+
+        //If greater than smallest value right side it belongs right side
+        if (a >= rightPQ.top())
+            rightPQ.push(a);
+        
+        //If smaller than smallest element in the right side it belongs in left side
+        else {
+            int temp = leftPQ.top();
+            leftPQ.pop();
+            leftPQ.push(a);
+            rightPQ.push(temp);
+        }
+    }
 
 }
 
@@ -345,20 +399,20 @@ void mine::readMine() {
     cin >> in;
     //Read in size
     unsigned int size = stoi(in);
-    layout.resize(stoi(in), vector<tile>(stoi(in)));
+    gridMine.resize(stoi(in), vector<tile>(stoi(in)));
     cin >> dump;
     cin >> in;
 
     start.first = stoi(in);
     //Check if start point is out of range
-    if (start.first >= layout.size()) {
+    if (start.first >= gridMine.size()) {
         cout << "Invalid starting row\n";
         exit(1);
     }
 
     cin >> in;
     start.second = stoi(in);
-    if (start.second > layout.size()) {
+    if (start.second > gridMine.size()) {
         cout << "Invalid starting column\n";
         exit(1);
     }
@@ -382,12 +436,12 @@ void mine::readMine() {
 
     string intermediate;
 
-    for (unsigned int i = 0; i < layout.size(); ++i) {
-        for (unsigned int j = 0; j < layout.size(); ++j) {        
+    for (unsigned int i = 0; i < gridMine.size(); ++i) {
+        for (unsigned int j = 0; j < gridMine.size(); ++j) {        
             inputStream >> intermediate;
-            layout[i][j].rubble = stoi(intermediate);
-            layout[i][j].row = i;
-            layout[i][j].col = j;
+            gridMine[i][j].rubble = stoi(intermediate);
+            gridMine[i][j].row = i;
+            gridMine[i][j].col = j;
         }
     }
 
@@ -395,109 +449,116 @@ void mine::readMine() {
 
 void mine::breakout() {
     
-    //Initialize queue
-    primaryQueue.push(layout[start.first][start.second]);
-    tile current = primaryQueue.top();
-    finalEdge.rubble = -3;
+    //Initialize Primary Queue
+    tile investigated (gridMine[start.first][start.second].rubble, start.first, start.second);
+    investigated.discovered = true;
+    primaryQueue.push(investigated);
 
-    //Loop through queue until edge is reached
+    //Loop through primary queue discovering and investigating tiles
     while (finalEdge.rubble == -3) {
-        current = primaryQueue.top();
 
-        //Check if TNT
-        if (current.rubble == -1) {
-            
-            //Check if already been exploded
-            if (layout[current.row][current.col].rubble == 0)
-                primaryQueue.pop();
+        //Grab top of primary queue and investigate it
+        investigated = primaryQueue.top();
+        primaryQueue.pop();
+        
+            //If not TNT the miner investigates
+            if (gridMine[investigated.row][investigated.col].rubble != -1) {
+               
+                //If the actual tile is not equal to 0 we don't want to output stuff
+                //We do want to discover around the tile
+                if (gridMine[investigated.row][investigated.col].rubble != 0) {
+                    
+                    //Clear the actual tile
+                    gridMine[investigated.row][investigated.col].rubble = 0;
 
-            else {
-                tile top = current;
-                TNTQueue.push(top);
-                primaryQueue.pop();
-
-                //While TNT Queue is not Empty
-                while (!TNTQueue.empty()) {
-                    top = TNTQueue.top();
-
-                    //Check if TNT
-                    if (top.rubble == -1) {
-                        if (v)
-                            std::cout << "TNT explosion at [" << top.row << "," << top.col << "]!\n";
-                        if (firstCleared != -1)
-                            discard.push_back(top);
-                        TNTQueue.pop();
-                        TNTClear(top);
-                        layout[top.row][top.col].rubble = 0;
-
-                    }
-
-                    //If not TNT Surroundings to Main Queue
-                    else {
+                    //Statistics Updates
+                    if (investigated.rubble != 0) {
                         if (v) {
-                            if (top.rubble != 0) {
-                                std::cout << "Cleared by TNT: " << top.rubble << " at [" << top.row << "," << top.col << "]\n";
-                            }       
+                            std::cout << "Cleared: " << investigated.rubble << " at [" << investigated.row << "," << investigated.col << "]\n";
                         }
                         if (m) {
-                            insert(top.rubble);
-                            printMedian();
+
                         }
-                        if (firstCleared != -1)
-                            discard.push_back(top);
-                        if (top.rubble != 0) {
-                            ++totalTiles;
-                            totalRubble += top.rubble;
-                        }
-                        TNTQueue.pop();
-                        discover(top);
+
+                        totalTiles++;
+                        totalRubble += investigated.rubble;
+
+                    }
+                }
+
+                //Discover tiles around the cleared tile
+                discover(investigated);
+       
+            }
+
+            //If TNT
+            else {
+
+                //Initialize TNT Queue
+                TNTQueue.push(investigated);
+                tile currentTNT;
+
+                //Fire up TNT While loop
+                while (!TNTQueue.empty()) {
+
+                    //Add top of queue to current TNT
+                    currentTNT = TNTQueue.top();
+                    TNTQueue.pop();
+
+                    //If TNT
+                    if (currentTNT.rubble == -1) {
+
+                        //Clear the TNT
+                        gridMine[currentTNT.row][currentTNT.col].rubble = 0;
+                        if (v)
+                            std::cout << "TNT explosion at [" << currentTNT.row << "," << currentTNT.col << "]!\n";
+
+                        //Add stuff around TNT to TNTQueue
+                        blowUp(currentTNT);
+
+                        //Add cleared TNT to Primary Queue
+                        primaryQueue.push(gridMine[currentTNT.row][currentTNT.col]);
 
                     }
 
+                    //If not TNT clear and add to PQ for discovery
+                    else {
+
+                        //Statistics Updates
+                        if (currentTNT.rubble != 0) {
+                            if (v)
+                                std::cout << "Cleared by TNT: " << currentTNT.rubble << " at [" << currentTNT.row << "," << currentTNT.col << "]\n";
+                            if (m) {
+                                
+                                   
+                            }
+                            totalTiles++;
+                            totalRubble += currentTNT.rubble;
+                        }
+                        if (currentTNT.row == 510 && currentTNT.col == 509) {
+                            int j = 0;
+                            j += j;
+                        }
+
+                        //Add Discovered TNT to queue to be investigated
+                        primaryQueue.push(gridMine[currentTNT.row][currentTNT.col]);
+
+                    }
                 }
 
             }
-        }
 
-        //If not TNT then just clear it
-        else {
-            if(v)
-                if(layout[current.row][current.col].rubble != 0)
-                std::cout << "Cleared: " << current.rubble << " at [" << current.row << "," << current.col << "]\n";
-            if (m) {
-                insert(current.rubble);
-                printMedian();
-            } 
-            if (firstCleared != -1)
-                discard.push_back(current);
-            primaryQueue.pop();
-            discover(current);
-            if (layout[current.row][current.col].rubble != 0) {
-                ++totalTiles;
-                totalRubble += layout[current.row][current.col].rubble;
-            }
-            layout[current.row][current.col].rubble = 0;
-        }
-
-        if (finalEdge.rubble != -3 && primaryQueue.top().rubble == -1 && !triggered) {
-            finalEdge.rubble = -3;
-            triggered = true;
-        }
-            
-            
     }
 
-    
-    cout << "Cleared " << totalTiles << " tiles containing " << totalRubble << " rubble and escaped.\n";
-    if (firstCleared != -1)
-        printStats();
+    std::cout << "Cleared " << totalTiles << " tiles containing " << totalRubble << " rubble and escaped.\n";
 }
 
+
 int main(int argc, char** argv) {
-    cout << std::fixed << std::setprecision(2);
+    std::ios_base::sync_with_stdio(false);
+    std::cout << std::fixed << std::setprecision(2);
 	mine jellystone;
 	jellystone.get_options(argc, argv);
     jellystone.readMine();
-    //jellystone.writeMine();
     jellystone.breakout();
 }

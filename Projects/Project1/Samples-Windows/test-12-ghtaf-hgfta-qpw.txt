@@ -1,8 +1,0 @@
-C
-5
-//Tests Swap function
-ghtaf!
-ghtf!a
-ghf!ta
-gh!fta
-hgfta

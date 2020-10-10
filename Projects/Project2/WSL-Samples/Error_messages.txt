@@ -1,3 +1,0 @@
-Invalid input mode
-Invalid starting row
-Invalid starting column

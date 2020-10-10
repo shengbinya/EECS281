@@ -1,3 +1,16 @@
+##Ignore Test Files
+WSL-Samples/
+VS-Samples/
+**/*[Tt]est-*
+[Tt]est/
+Samples-Windows/
+**/*.sln
+**/*.vcxproj.filters
+**/*.vcxproj
+**/*.tar.gz
+**/*.zip
+**/*.o
+
 ##Ignore Visual Studio Code
 .vscode/*
 !.vscode/settings.json

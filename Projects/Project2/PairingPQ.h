@@ -267,8 +267,49 @@ public:
     // Runtime: As discussed in reading material.
     // Given a vlue first thing you should do is change the appropriate value in the heap
     // 
-    void updateElt(Node* /*node*/, const TYPE & /*new_value*/) {
-        // TODO: Implement this function
+    void updateElt(Node* node, const TYPE & new_value) {
+        
+        //Change value
+        node->elt = new_value;
+
+        //Check if it has a parent
+        if (node->parent) {
+            
+            //Check if invalid
+            if (this->compare(node->parent->elt, node->elt)) {
+
+                //Figure out what value is to the left of node
+                Node* left = node->parent->child;
+
+                //If I'm leftmost
+                if (left == node) {
+
+                    //Set new child to be person to right of node
+                    node->parent->child = node->sibling;
+
+                }
+
+                else {
+
+                    //Find node to the left of node
+                    while (left->sibling != node) {
+                        left = left->sibling;
+                    }
+
+                    //Make that node point to the right of node
+                    left->sibling = node->sibling;
+                }
+
+                //Break associations
+                node->parent = nullptr;
+                node->sibling = nullptr;
+
+                //Meld with root
+                root = meld(root, node);
+            }
+
+        }
+        
     } // updateElt()
 
 

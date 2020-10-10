@@ -235,12 +235,51 @@ void testPairing(vector<int> & vec) {
     pq3->push(5);
     pq3->push(7);
     pq3->pop();
+    
+    /*
     assert(pq3->size() == 3);
     assert(pq3->top() == 5);
-    
+    */
 
     cout << "Basic tests done." << endl;
-    // TODO: Add more code to test addNode(), updateElt(), etc.
+    pq2->pop();
+    pq2->pop();
+    pq2->push(4);
+    pq2->push(2);
+    auto i = pq2->addNode(1);
+    pq2->updateElt(i, 3);
+    assert(pq2->size() == 3);
+    pq2->pop();
+    assert(pq2->top() == 3);
+    auto j = pq2->addNode(5);
+    pq2->updateElt(j, 7);
+    assert(pq2->size() == 3);
+    assert(pq2->top() == 7);
+    pq2->pop();
+    assert(pq2->top() == 3);
+    pq2->push(6);
+    pq2->push(2);
+    pq2->push(5);
+    auto l = pq2->addNode(5);
+    pq2->updateElt(l, 7);
+    assert(pq2->top() == 7);
+    pq2->pop();
+    assert(pq2->top() == 6);
+    assert(pq2->size() == 5);
+    auto m = pq2->addNode(5);
+    pq2->push(7);
+    pq2->push(10);
+    pq2->push(4);
+    pq2->push(3);
+    pq2->push(6);
+    pq2->push(5);
+    pq2->updateElt(m, 7);
+    assert(pq2->top() == 10);
+    pq2->updateElt(m, 14);
+    assert(pq2->top() == 14);
+    assert(!pq2->empty());
+
+    
 
     cout << "Calling destructors" << endl;
     delete pq1;
@@ -293,9 +332,6 @@ int main() {
     } // i
 
     // Clean up!
-    delete pq;
-    exit(1);
-    
     delete pq;
 
     return 0;

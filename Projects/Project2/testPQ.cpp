@@ -97,6 +97,7 @@ void testHiddenData(const string &pqType) {
     assert(ptr->top().data == 61);
     assert(ptr->size() == 14);
     
+    
     delete ptr;
 
     cout << "testHiddenData succeeded!\n";
@@ -159,7 +160,7 @@ void testUpdatePriorities(const string &pqType) {
         cout << "Invalid pq pointer; did you forget to create it?" << endl;
         return;
     } // if
-
+    delete pq;
     cout << "testUpdatePriorities() succeeded!\n";
    
 } // testUpdatePriorities()
@@ -207,9 +208,34 @@ void testPriorityQueue(Eecs281PQ<int> *pq, const string &pqType) {
     assert(8 == pq->top());
     pq->pop();
     assert(pq->empty());
+
+    //Testing updateElt and addNode
+    PairingPQ<int> *pq1 = new PairingPQ<int>;
+    pq1->push(10);
+    pq1->push(1);
+    pq1->push(5);
+    assert(pq1->size() == 3);
+    auto j = pq1->addNode(5);
+    pq1->push(7);
+    assert(pq1->size() == 5);
+    pq1->updateElt(j, 8);
+    pq1->pop();
+    assert(pq1->size() == 4);
+    assert(pq1->top() == 8);
     
+
+    //Testing copy constructor
+    PairingPQ<int>* pq2 = new PairingPQ<int>(*pq1);
+    assert(pq2->size() == 4);
+    assert(pq2->top() == 8);
+    
+    //Testing assignment operator
+
+    delete pq1;
+    delete pq2;
+
     cout << "testPriorityQueue() succeeded!" << endl;
-  
+    
 } // testPriorityQueue()
 
 
@@ -320,9 +346,52 @@ int main() {
         exit(1);
     } // else
    
-    testUpdatePriorities(types[choice]);
+    //pop
+    //top
+    //push
+    //range based constructor
+    //destructor
+    //size
     testHiddenData(types[choice]);
+    //push
+    //pop
+    //top
+    //empty
+    //default constructor
+    //destructor
+    //updateElt
+    //addNode
     testPriorityQueue(pq, types[choice]);
+    //push
+    //top
+    //destuctor
+    //updatePriorities
+    testUpdatePriorities(types[choice]);
+    //push
+    //updateElt
+    //pop
+    //addNode
+    //copyConstructor
+    //assignmentOperator
+
+    /*Working:
+    Pop
+    top
+    updateElt
+    addNode
+    empty
+    destructor
+    defautl constructor
+    range based constructor
+    size
+    push
+    updatePriorities
+    copy constructor
+
+    Test:
+    operator=
+    */
+
     if (choice == 3) {
         vector<int> vec;
         vec.push_back(0);
@@ -331,8 +400,19 @@ int main() {
         cerr << "Test Pairing Succeeded\n ";
     } // i
 
-    // Clean up!
     delete pq;
+    exit(1);
+    
+
+    
+   
+    
+    
+    
+    
+
+    // Clean up!
+    
 
     return 0;
 } // main()

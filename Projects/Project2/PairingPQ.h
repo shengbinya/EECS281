@@ -67,7 +67,7 @@ public:
     // Description: Copy constructor.
     // Runtime: O(n)
     PairingPQ(const PairingPQ& other) :
-        BaseClass{ other.compare }, numNodes{ numNodes }, root{ nullptr }  {
+        BaseClass{ other.compare }, numNodes{ 0 }, root{ nullptr }  {
        
         //If it's not already empty
         if (other.root) {

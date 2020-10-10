@@ -141,7 +141,34 @@ public:
     //We then call meld on root and on the top of doeque and meld this with root and we keep breaking elements, 
     //Adding relations to the dequee, and then melding the top of the deque until DQ is empty
     virtual void updatePriorities() {
-        // TODO: Implement this function.
+       
+        //Manually do first one
+        Node* cur = root;
+        if (cur->child)
+            dq.push_back(cur->child);
+        cur->child = nullptr;
+        
+        while (!dq.empty()) {
+
+            cur = dq.front();
+
+            //Check for associates
+            if (cur->sibling)
+                dq.push_back(cur->sibling);
+            if (cur->child)
+                dq.push_back(cur->child);
+
+            //Remove all associations
+            cur->child = nullptr;
+            cur->sibling = nullptr;
+            cur->parent = nullptr;
+
+            //Meld with root
+            meld(root, cur);
+
+            dq.pop_front();
+        }
+   
     } // updatePriorities()
 
 
@@ -270,8 +297,8 @@ public:
 private:
     
     //Member Variables
-    unsigned int numNodes;
-    Node* root;
+    unsigned int numNodes = 0;
+    Node* root = nullptr;
     std::deque<Node*> dq;
     //Function meld
     //Given two root pointers compares the two of them and makes the smaller one a child

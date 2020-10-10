@@ -113,6 +113,7 @@ void testUpdatePrioritiesHelper(Eecs281PQ<int *, IntPtrComp> *pq) {
     data.push_back(5);
     data.push_back(11);
     data.push_back(100);
+    data.push_back(6);
 
     // NOTE: If you add more data to the vector, don't push the pointers
     // until AFTER the vector stops changing size!  Think about why.
@@ -124,8 +125,10 @@ void testUpdatePrioritiesHelper(Eecs281PQ<int *, IntPtrComp> *pq) {
 
     // Change the first value (which is pointed to by the pq), and check it.
     data[0] = 10;
+    data[3] = 40;
+    data[2] = 7;
     pq->updatePriorities();
-    assert(*pq->top() == 100);
+    assert(*pq->top() == 40);
 } // testUpdatePrioritiesHelper()
 
 
@@ -146,6 +149,10 @@ void testUpdatePriorities(const string &pqType) {
     }
     else if (pqType == "Binary") {
         pq = new BinaryPQ<int*, IntPtrComp>;
+        testUpdatePrioritiesHelper(pq);
+    }
+    else if (pqType == "Pairing") {
+        pq = new PairingPQ<int*, IntPtrComp>;
         testUpdatePrioritiesHelper(pq);
     }
     if (!pq) {
@@ -212,11 +219,11 @@ void testPriorityQueue(Eecs281PQ<int> *pq, const string &pqType) {
 void testPairing(vector<int> & vec) {
     cout << "Testing Pairing Heap separately" << endl;
     Eecs281PQ<int> * pq1 = new PairingPQ<int>(vec.begin(), vec.end());
-    Eecs281PQ<int> * pq2 = new PairingPQ<int>(*((PairingPQ<int> *)pq1));
+    PairingPQ<int> * pq2 = new PairingPQ<int>(*((PairingPQ<int> *)pq1));
     // This line is different just to show two different ways to declare a
     // pairing heap: as an Eecs281PQ and as a PairingPQ. Yay for inheritance!
     PairingPQ<int> * pq3 = new PairingPQ<int>();
-    *pq3 = *((PairingPQ<int> *)pq2);
+    *pq3 = *pq2;
 
     pq1->push(3);
     pq2->pop();
@@ -228,8 +235,6 @@ void testPairing(vector<int> & vec) {
     pq3->push(5);
     pq3->push(7);
     pq3->pop();
-    cerr << pq3->size()<<"\n";
-    cerr << pq3->top() << "\n";
     assert(pq3->size() == 3);
     assert(pq3->top() == 5);
     
@@ -276,6 +281,9 @@ int main() {
         exit(1);
     } // else
    
+    testUpdatePriorities(types[choice]);
+    testHiddenData(types[choice]);
+    testPriorityQueue(pq, types[choice]);
     if (choice == 3) {
         vector<int> vec;
         vec.push_back(0);
@@ -284,17 +292,10 @@ int main() {
         cerr << "Test Pairing Succeeded\n ";
     } // i
 
-    testHiddenData(types[choice]);
-    testPriorityQueue(pq, types[choice]);
-    
-    
-
-    
-
     // Clean up!
     delete pq;
     exit(1);
-    testUpdatePriorities(types[choice]);
+    
     delete pq;
 
     return 0;

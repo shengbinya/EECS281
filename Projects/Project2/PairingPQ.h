@@ -42,12 +42,6 @@ public:
             Node* parent;
     }; // Node
 
-    struct nodeComp {
-        bool operator() (Node* a, Node* b) {
-            return this->compare(a->elt, b->elt);
-        }
-    };
-
     // Description: Construct an empty priority_queue with an optional comparison functor.
     // Runtime: O(1)
     explicit PairingPQ(COMP_FUNCTOR comp = COMP_FUNCTOR()) :
@@ -61,9 +55,11 @@ public:
     // Runtime: O(n) where n is number of elements in range.
     // TODO: when you implement this function, uncomment the parameter names.
     template<typename InputIterator>
-    PairingPQ(InputIterator /*start*/, InputIterator /*end*/, COMP_FUNCTOR comp = COMP_FUNCTOR()) :
+    PairingPQ(InputIterator start, InputIterator end, COMP_FUNCTOR comp = COMP_FUNCTOR()) :
         BaseClass{ comp } {
-        // TODO: Implement this function.
+        while (start != end) {
+            push(*start);
+        }
     } // PairingPQ()
 
 
@@ -88,6 +84,30 @@ public:
     // Description: Destructor
     // Runtime: O(n)
     ~PairingPQ() {
+        
+        //If it's not already empty
+        if (root) {
+            dq.push_back(root);
+            Node* cur = nullptr;
+
+            while (!dq.empty()) {
+
+                cur = dq.front();
+
+                //Check for associates
+                if (cur->sibling)
+                    dq.push_back(cur->sibling);
+                if (cur->child)
+                    dq.push_back(cur->child);
+
+                //Remove
+                --numNodes;
+                delete cur;
+                dq.pop_front();
+            }
+        }
+
+        root = nullptr;
         
     } // ~PairingPQ()
 
@@ -122,36 +142,45 @@ public:
     //
     virtual void pop() {
         Node* cur = root->child;
+        
+        //If there is more than one node
+        if (cur)
+        {
+            //Loop through adding all elements in a row to deque
+            while (cur) {
+                dq.push_back(cur);
+                cur = cur->sibling;
+            }
 
-        //Loop through adding all elements in a row to dector
-        while (cur->sibling) {
-            deque.push_back(cur);
-            cur = cur->sibling;
+            //Multipass meld until there is one element left in deque
+            while (dq.size() > 1) {
+
+                //Grab top element and braek connections
+                cur = dq.front();
+                cur->sibling = nullptr;
+                cur->parent = nullptr;
+                dq.pop_front();
+
+                //Grab next elemnt and break connections
+                dq.front()->sibling = nullptr;
+                dq.front()->parent = nullptr;
+
+                //Add new root node to back and pop
+                dq.push_back(meld(cur, dq.front()));
+                dq.pop_front();
+            }
+
+            //Remove current root and assign new root
+            delete root;
+            --numNodes;
+            root = dq.front();
+            dq.pop_front();
         }
-
-        //Multipass meld until there is one element left in deque
-        while (dq.size() > 1) {
-            
-            //Grab top element and braek connections
-            cur = dq.top();
-            cur->sibling = nullptr;
-            cur->parent = nullptr;
-            dq.pop();
-
-            //Grab next elemnt and break connections
-            dq.top()->sibling = nullptr;
-            dq.top()->parent = nullptr;
-
-            //Add new root node to back and pop
-            dq.push_back(meld(cur, dq.top()));
-            dq.pop();
+        else {
+            --numNodes;
+            delete root;
+            root = nullptr;
         }
-
-        //Remove current root and assign new root
-        delete root;
-        --numNodes;
-        root = dq.top();
-        dq.pop();
 
     } // pop()
 
@@ -175,8 +204,7 @@ public:
     // Description: Return true if the priority_queue is empty.
     // Runtime: O(1)
     virtual bool empty() const {
-        // TODO: Implement this function
-        return true; // TODO: Delete or change this line
+        return numNodes == 0;
     } // empty()
 
 
@@ -220,7 +248,7 @@ private:
     //Member Variables
     unsigned int numNodes;
     Node* root;
-    deque<Node*> dq;
+    std::deque<Node*> dq;
     //Function meld
     //Given two root pointers compares the two of them and makes the smaller one a child
     //of root and the root a parent of the smaller one
@@ -232,7 +260,7 @@ private:
         assert(b);
 
         //If a is less than b
-        if (nodeComp(a, b)) {
+        if (this->compare(a->elt, b->elt)) {
             a->sibling = b->child;
             b->child = a;
             a->parent = b;
@@ -252,6 +280,5 @@ private:
         return nullptr;
     }
 };
-
 
 #endif // PAIRINGPQ_H

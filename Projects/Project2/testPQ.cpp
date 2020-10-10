@@ -94,9 +94,10 @@ void testHiddenData(const string &pqType) {
     ptr->pop();
     assert(ptr->top().data == 61);
     assert(ptr->size() == 14);
+    delete ptr;
 
     cout << "testHiddenData succeeded!\n";
-
+    exit(1);
 } // testHiddenData()
 
 
@@ -166,22 +167,41 @@ void testPriorityQueue(Eecs281PQ<int> *pq, const string &pqType) {
     pq->push(3);
     assert(pq->size() == 4);
     assert(pq->top() == 7);
-    cerr << "Made it as far as you wanted to!!!!!!!!!!!!!!!!!!!!!\n";
     pq->pop();
     assert(pq->top() == 4);
-    delete pq;
-    exit(1);
     pq->pop();
-    assert(pq->size() == 1);
+    assert(pq->size() == 2);
     assert(pq->top() == 3);
     assert(!pq->empty());
-
+    pq->pop();
+    assert(pq->top() == 3);
     pq->pop();
     assert(pq->size() == 0);
     assert(pq->empty());
-    
+    pq->push(8);
+    pq->push(12);
+    pq->push(10);
+    pq->push(12);
+    pq->push(10);
+    pq->push(8);
+    assert(12 == pq->top());
+    pq->pop();
+    assert(12 == pq->top());
+    pq->pop();
+    assert(10 == pq->top());
+    pq->pop();
+    assert(10 == pq->top());
+    pq->pop();
+    assert(8 == pq->top());
+    pq->pop();
+    assert(8 == pq->top());
+    pq->pop();
+    assert(pq->empty());
 
+    delete pq;
+    
     cout << "testPriorityQueue() succeeded!" << endl;
+  
 } // testPriorityQueue()
 
 

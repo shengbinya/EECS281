@@ -562,9 +562,6 @@ void mine::breakout() {
                             totalRubble += currentTNT.rubble;
                         }
                       
-                        //Discover tiles with 0 rubble for normal PQ
-                        if (currentTNT.rubble == 0)
-                            discover(currentTNT);
                         //Add Discovered TNT to queue to be investigated 
                         else
                             primaryQueue.push(gridMine[currentTNT.row][currentTNT.col]);

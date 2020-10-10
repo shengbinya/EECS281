@@ -164,7 +164,7 @@ public:
             cur->parent = nullptr;
 
             //Meld with root
-            meld(root, cur);
+            root = meld(root, cur);
 
             dq.pop_front();
         }
@@ -346,10 +346,6 @@ private:
     //of root and the root a parent of the smaller one
     //Does this by assigning a node that is smaller than root to be sibling of new node
     Node* meld(Node* a, Node* b) {
-        
-        //Check for Null (eventually delete)
-        assert(a);
-        assert(b);
 
         //If a is less than b
         if (this->compare(a->elt, b->elt)) {

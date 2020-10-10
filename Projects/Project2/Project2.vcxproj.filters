@@ -41,10 +41,10 @@
     <ClCompile Include="getopt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MineEscape.cpp">
+    <ClCompile Include="P2random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="P2random.cpp">
+    <ClCompile Include="testPQ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

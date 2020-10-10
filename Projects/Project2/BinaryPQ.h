@@ -18,7 +18,6 @@ public:
     // Runtime: O(1)
     explicit BinaryPQ(COMP_FUNCTOR comp = COMP_FUNCTOR()) :
         BaseClass{ comp } {
-        // TODO: Implement this function.
     } // BinaryPQ
 
 
@@ -27,9 +26,17 @@ public:
     // Runtime: O(n) where n is number of elements in range.
     // TODO: when you implement this function, uncomment the parameter names.
     template<typename InputIterator>
-    BinaryPQ(InputIterator /*start*/, InputIterator /*end*/, COMP_FUNCTOR comp = COMP_FUNCTOR()) :
+    BinaryPQ(InputIterator start, InputIterator end, COMP_FUNCTOR comp = COMP_FUNCTOR()) :
         BaseClass{ comp } {
-        // TODO: Implement this function.
+
+        while (start != end) {
+            data.push_back(*start);
+            start++;
+        }
+        
+        //Update Ordering
+        updatePriorities();
+
     } // BinaryPQ
 
 
@@ -43,15 +50,18 @@ public:
     //              'rebuilds' the heap by fixing the heap invariant.
     // Runtime: O(n)
     virtual void updatePriorities() {
-        // TODO: Implement this function.
+        for (int i = int(size()); i > 0; i--) {
+            fixDown(i);
+        }
     } // updatePriorities()
 
 
     // Description: Add a new element to the heap.
     // Runtime: O(log(n))
     // TODO: when you implement this function, uncomment the parameter names.
-    virtual void push(const TYPE & /*val*/) {
-        // TODO: Implement this function.
+    virtual void push(const TYPE & val) {
+        data.push_back(val);
+        fixUp();
     } // push()
 
 
@@ -62,7 +72,10 @@ public:
     // familiar with them, you do not need to use exceptions in this project.
     // Runtime: O(log(n))
     virtual void pop() {
-        // TODO: Implement this function.
+        int i = int(size());
+        getElement(1) = getElement(i--);
+        data.pop_back();
+        fixDown(1);
     } // pop()
 
 
@@ -72,29 +85,21 @@ public:
     //              might make it no longer be the most extreme element.
     // Runtime: O(1)
     virtual const TYPE & top() const {
-        // TODO: Implement this function.
-
-        // These lines are present only so that this provided file compiles.
-        static TYPE temp; // TODO: Delete this line
-        return temp;      // TODO: Delete or change this line
+        return data.at(0);
     } // top()
 
 
     // Description: Get the number of elements in the heap.
     // Runtime: O(1)
     virtual std::size_t size() const {
-        // TODO: Implement this function.  Might be very simple,
-        // depending on your implementation.
-        return 0; // TODO: Delete or change this line
+        return data.size();
     } // size()
 
 
     // Description: Return true if the heap is empty.
     // Runtime: O(1)
     virtual bool empty() const {
-        // TODO: Implement this function.  Might be very simple,
-        // depending on your implementation.
-        return true; // TODO: Delete or change this line
+        return data.empty();
     } // empty()
 
 
@@ -102,8 +107,46 @@ private:
     // Note: This vector *must* be used your heap implementation.
     std::vector<TYPE> data;
 
-    // TODO: Add any additional member functions or data you require here.
-    // For instance, you might add fixUp() and fixDown().
+    void fixUp() {
+        
+        int k = int(size());
+
+        //While K is not root and value at k is greater than it's parent at k/2
+        while (k > 1 && this->compare(getElement(k / 2), getElement(k))) {
+            
+            //Swap K up
+            std::swap(getElement(k), getElement(k / 2));
+            
+            //Set equal to new swapped index
+            k /= 2;
+        }
+    }
+    //Huge change
+    void fixDown(unsigned int k) {
+
+        //While we have not gone past the bottom of the heap
+        while (2 * k <= size()) {
+
+            unsigned int j = 2 * k; //Check index of the left child
+
+            //If the left child is smaller than the right child set j to right child
+            //so you swap with the larger of the two, make sure not going out of bounds
+            if (j < size() && this->compare(getElement(j), getElement(j + 1))) ++j;
+
+            //If our value is larger than or equal to value below us heap restored
+            if ( !this->compare(getElement(k), getElement(j)) ) break;
+
+            //Swap if we've made it this far and determined what to swap with
+            std::swap(getElement(k), getElement(j));
+
+            k = j;
+        }
+        
+    }
+
+    TYPE& getElement(std::size_t i) {
+        return data[i - 1];
+    }
 
 }; // BinaryPQ
 

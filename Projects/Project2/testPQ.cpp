@@ -65,26 +65,37 @@ void testHiddenData(const string &pqType) {
 
     cout << "Testing " << pqType << " with hidden data" << endl;
 
-    if (pqType == "Sorted") {
-        vector<HiddenData> data;
-        data.resize(15);
-        for (int i = 0; i < data.size(); ++i) {
-            char temp = 60+i;
-            HiddenData intermediate = { temp };
-            data[i] = intermediate;
-        }
-        SortedPQ<HiddenData, HiddenDataComp> * ptr;
-        ptr = new SortedPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
-        assert(ptr->top().data == 60);
-        ptr->push(HiddenData{ 40 });
-        assert(ptr->top().data == 40);
-        ptr->pop();
-        ptr->pop();
-        assert(ptr->top().data == 61);
-        assert(ptr->size() == 14);
+    Eecs281PQ<HiddenData, HiddenDataComp>* ptr;
+    vector<HiddenData> data;
+    data.resize(15);
+    for (unsigned int i = 0; i < data.size(); ++i) {
+        char temp = char(74 - i);
+        HiddenData intermediate = { temp };
+        data[i] = intermediate;
     }
 
+    if (pqType == "Sorted")
+        ptr = new SortedPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+  
+    if (pqType == "Binary")
+        ptr = new BinaryPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+
+    else 
+        ptr = new BinaryPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+
+
+    assert(ptr->top().data == 60);
+    ptr->push(HiddenData{ 40 });
+    ptr->push(HiddenData{ 40 });
+    assert(ptr->top().data == 40);
+    ptr->pop();
+    ptr->pop();
+    ptr->pop();
+    assert(ptr->top().data == 61);
+    assert(ptr->size() == 14);
+
     cout << "testHiddenData succeeded!\n";
+
 } // testHiddenData()
 
 
@@ -122,13 +133,16 @@ void testUpdatePriorities(const string &pqType) {
     if (pqType == "Unordered") {
         pq = new UnorderedPQ<int*, IntPtrComp>;
     } // if
-    else if (pqType == "Sorted");
+    else if (pqType == "Sorted")
     {
         pq = new SortedPQ<int*, IntPtrComp>;
         testUpdatePrioritiesHelper(pq);
 
     }
-
+    else if (pqType == "Binary") {
+        pq = new BinaryPQ<int*, IntPtrComp>;
+        testUpdatePrioritiesHelper(pq);
+    }
     if (!pq) {
         cout << "Invalid pq pointer; did you forget to create it?" << endl;
         return;
@@ -205,7 +219,7 @@ int main() {
         cout << "  " << i << ") " << types[i] << endl;
     cout << endl;
     cout << "Select one: ";
-    cin >> choice;
+    choice = 2;
 
     if (choice == 0) {
         pq = new UnorderedPQ<int>;
@@ -224,9 +238,10 @@ int main() {
         exit(1);
     } // else
    
+    testHiddenData(types[choice]);
     testPriorityQueue(pq, types[choice]);
     testUpdatePriorities(types[choice]);
-    testHiddenData(types[choice]);
+    
 
     if (choice == 3) {
         vector<int> vec;

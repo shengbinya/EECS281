@@ -356,6 +356,7 @@ void mine::printMedian() {
 }
 
 /* Main Functions */
+
 void mine::get_options(int argc, char** argv) {
     int option_index = 0, option = 0;
 

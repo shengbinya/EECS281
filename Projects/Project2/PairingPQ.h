@@ -67,7 +67,7 @@ public:
     // Description: Copy constructor.
     // Runtime: O(n)
     PairingPQ(const PairingPQ& other) :
-        BaseClass{ other.compare } {
+        BaseClass{ other.compare }, numNodes{ numNodes }, root{ nullptr }  {
        
         //If it's not already empty
         if (other.root) {
@@ -86,7 +86,7 @@ public:
 
                 //Remove
                 push(cur->getElt());
-                ++numNodes;
+                dq.pop_front();
             }
         }
     } // PairingPQ()
@@ -95,9 +95,12 @@ public:
     // Description: Copy assignment operator.
     // Runtime: O(n)
     // TODO: when you implement this function, uncomment the parameter names.
-    PairingPQ& operator=(const PairingPQ& /*rhs*/) {
-        // TODO: Implement this function.
-
+    PairingPQ& operator=(const PairingPQ& rhs) {
+        
+        PairingPQ temp(rhs);
+        std::swap(numNodes, temp.numNodes);
+        std::swap(root, temp.root);
+     
         return *this;
     } // operator=()
 

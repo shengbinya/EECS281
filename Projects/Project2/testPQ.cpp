@@ -74,14 +74,14 @@ void testHiddenData(const string &pqType) {
         HiddenData intermediate = { temp };
         data[i] = intermediate;
     }
-    /*
+    
     if (pqType == "Sorted")
-        //ptr = new SortedPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+        ptr = new SortedPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
 
-    if (pqType == "Binary")
-            //ptr = new BinaryPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
-            */
-    if (pqType == "Pairing") {
+     if (pqType == "Binary")
+            ptr = new BinaryPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+            
+    else {
        ptr = new PairingPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
     }
    
@@ -202,8 +202,6 @@ void testPriorityQueue(Eecs281PQ<int> *pq, const string &pqType) {
     assert(pq->empty());
     
     cout << "testPriorityQueue() succeeded!" << endl;
-
-    exit(1);
   
 } // testPriorityQueue()
 
@@ -227,6 +225,14 @@ void testPairing(vector<int> & vec) {
     assert(pq1->top() == 3);
     pq2->push(pq3->top());
     assert(pq2->top() == pq3->top());
+    pq3->push(5);
+    pq3->push(7);
+    pq3->pop();
+    cerr << pq3->size()<<"\n";
+    cerr << pq3->top() << "\n";
+    assert(pq3->size() == 3);
+    assert(pq3->top() == 5);
+    
 
     cout << "Basic tests done." << endl;
     // TODO: Add more code to test addNode(), updateElt(), etc.
@@ -270,21 +276,25 @@ int main() {
         exit(1);
     } // else
    
-    testHiddenData(types[choice]);
-    testPriorityQueue(pq, types[choice]);
-    delete pq;
-    exit(1);
-    testUpdatePriorities(types[choice]);
-    
-
     if (choice == 3) {
         vector<int> vec;
         vec.push_back(0);
         vec.push_back(1);
         testPairing(vec);
-    } // if
+        cerr << "Test Pairing Succeeded\n ";
+    } // i
+
+    testHiddenData(types[choice]);
+    testPriorityQueue(pq, types[choice]);
+    
+    
+
+    
 
     // Clean up!
+    delete pq;
+    exit(1);
+    testUpdatePriorities(types[choice]);
     delete pq;
 
     return 0;

@@ -74,30 +74,33 @@ void testHiddenData(const string &pqType) {
         HiddenData intermediate = { temp };
         data[i] = intermediate;
     }
-
+    /*
     if (pqType == "Sorted")
-        ptr = new SortedPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
-  
+        //ptr = new SortedPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+
     if (pqType == "Binary")
-        ptr = new BinaryPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
-
-    else 
-        ptr = new BinaryPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
-
+            //ptr = new BinaryPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+            */
+    if (pqType == "Pairing") {
+       ptr = new PairingPQ<HiddenData, HiddenDataComp>(data.begin(), data.end());
+    }
+   
 
     assert(ptr->top().data == 60);
     ptr->push(HiddenData{ 40 });
     ptr->push(HiddenData{ 40 });
     assert(ptr->top().data == 40);
+
     ptr->pop();
     ptr->pop();
     ptr->pop();
     assert(ptr->top().data == 61);
     assert(ptr->size() == 14);
+    
     delete ptr;
 
     cout << "testHiddenData succeeded!\n";
-    exit(1);
+    
 } // testHiddenData()
 
 
@@ -197,10 +200,10 @@ void testPriorityQueue(Eecs281PQ<int> *pq, const string &pqType) {
     assert(8 == pq->top());
     pq->pop();
     assert(pq->empty());
-
-    delete pq;
     
     cout << "testPriorityQueue() succeeded!" << endl;
+
+    exit(1);
   
 } // testPriorityQueue()
 
@@ -267,8 +270,10 @@ int main() {
         exit(1);
     } // else
    
-    testPriorityQueue(pq, types[choice]);
     testHiddenData(types[choice]);
+    testPriorityQueue(pq, types[choice]);
+    delete pq;
+    exit(1);
     testUpdatePriorities(types[choice]);
     
 

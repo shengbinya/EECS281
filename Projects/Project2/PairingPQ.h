@@ -56,9 +56,10 @@ public:
     // TODO: when you implement this function, uncomment the parameter names.
     template<typename InputIterator>
     PairingPQ(InputIterator start, InputIterator end, COMP_FUNCTOR comp = COMP_FUNCTOR()) :
-        BaseClass{ comp } {
+        BaseClass{ comp }, numNodes{ 0 }, root{ nullptr } {
         while (start != end) {
             push(*start);
+            ++start;
         }
     } // PairingPQ()
 
@@ -67,7 +68,27 @@ public:
     // Runtime: O(n)
     PairingPQ(const PairingPQ& other) :
         BaseClass{ other.compare } {
-        // TODO: Implement this function.
+       
+        //If it's not already empty
+        if (other.root) {
+            dq.push_back(other.root);
+            Node* cur = nullptr;
+
+            while (!dq.empty()) {
+
+                cur = dq.front();
+
+                //Check for associates
+                if (cur->sibling)
+                    dq.push_back(cur->sibling);
+                if (cur->child)
+                    dq.push_back(cur->child);
+
+                //Remove
+                push(cur->getElt());
+                ++numNodes;
+            }
+        }
     } // PairingPQ()
 
 
@@ -100,14 +121,12 @@ public:
                 if (cur->child)
                     dq.push_back(cur->child);
 
-                //Remove
+                //Remov
                 --numNodes;
                 delete cur;
                 dq.pop_front();
             }
         }
-
-        root = nullptr;
         
     } // ~PairingPQ()
 
@@ -238,8 +257,10 @@ public:
             root = meld(ptr, root);
             return ptr;
         }
-        else
+        else {
             return root = ptr;
+        }
+            
     } // addNode()
 
 

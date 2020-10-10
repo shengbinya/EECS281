@@ -26,6 +26,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <deque>
 
 #include "Eecs281PQ.h"
 #include "BinaryPQ.h"
@@ -161,7 +162,15 @@ void testPriorityQueue(Eecs281PQ<int> *pq, const string &pqType) {
     pq->push(4);
     assert(pq->size() == 2);
     assert(pq->top() == 4);
-
+    pq->push(7);
+    pq->push(3);
+    assert(pq->size() == 4);
+    assert(pq->top() == 7);
+    cerr << "Made it as far as you wanted to!!!!!!!!!!!!!!!!!!!!!\n";
+    pq->pop();
+    assert(pq->top() == 4);
+    delete pq;
+    exit(1);
     pq->pop();
     assert(pq->size() == 1);
     assert(pq->top() == 3);
@@ -219,7 +228,7 @@ int main() {
         cout << "  " << i << ") " << types[i] << endl;
     cout << endl;
     cout << "Select one: ";
-    choice = 2;
+    choice = 3;
 
     if (choice == 0) {
         pq = new UnorderedPQ<int>;
@@ -238,8 +247,8 @@ int main() {
         exit(1);
     } // else
    
-    testHiddenData(types[choice]);
     testPriorityQueue(pq, types[choice]);
+    testHiddenData(types[choice]);
     testUpdatePriorities(types[choice]);
     
 

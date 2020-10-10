@@ -27,13 +27,8 @@ public:
     // TODO: when you implement this function, uncomment the parameter names.
     template<typename InputIterator>
     BinaryPQ(InputIterator start, InputIterator end, COMP_FUNCTOR comp = COMP_FUNCTOR()) :
-        BaseClass{ comp } {
-
-        while (start != end) {
-            data.push_back(*start);
-            start++;
-        }
-        
+        BaseClass{ comp }, data{ start,end } {
+ 
         //Update Ordering
         updatePriorities();
 

@@ -20,7 +20,7 @@ public:
             // TODO: After you add add one extra pointer (see below), be sure to
             // initialize it here.
             explicit Node(const TYPE &val)
-                : elt{ val }, child{ nullptr }, sibling{ nullptr }
+                : elt{ val }, child{ nullptr }, sibling{ nullptr }, parent{ nullptr }
             {}
 
             // Description: Allows access to the element at that Node's position.
@@ -29,7 +29,7 @@ public:
             // Runtime: O(1) - this has been provided for you.
             const TYPE &getElt() const { return elt; }
             const TYPE &operator*() const { return elt; }
-
+           
             // The following line allows you to access any private data members of this
             // Node class from within the PairingPQ class. (ie: myNode.elt is a legal
             // statement in PairingPQ's add_node() function).
@@ -39,15 +39,20 @@ public:
             TYPE elt;
             Node *child;
             Node *sibling;
-            // TODO: Add one extra pointer (parent or previous) as desired.
+            Node* parent;
     }; // Node
 
+    struct nodeComp {
+        bool operator() (Node* a, Node* b) {
+            return this->compare(a->elt, b->elt);
+        }
+    };
 
     // Description: Construct an empty priority_queue with an optional comparison functor.
     // Runtime: O(1)
     explicit PairingPQ(COMP_FUNCTOR comp = COMP_FUNCTOR()) :
-        BaseClass{ comp } {
-        // TODO: Implement this function.
+        BaseClass{ comp }, numNodes{ 0 }, root{ nullptr } {
+        
     } // PairingPQ()
 
 
@@ -83,13 +88,16 @@ public:
     // Description: Destructor
     // Runtime: O(n)
     ~PairingPQ() {
-        // TODO: Implement this function.
+        
     } // ~PairingPQ()
 
 
     // Description: Assumes that all elements inside the priority_queue are out of order and
     //              'rebuilds' the priority_queue by fixing the priority_queue invariant.
     // Runtime: O(n)
+    //Creates Deque and takes the and adds ptr to our current element to and this elements siblings to the deque
+    //We then call meld on root and on the top of doeque and meld this with root and we keep breaking elements, 
+    //Adding relations to the dequee, and then melding the top of the deque until DQ is empty
     virtual void updatePriorities() {
         // TODO: Implement this function.
     } // updatePriorities()
@@ -100,8 +108,8 @@ public:
     //              function, and this function should call addNode().
     // Runtime: O(1)
     // TODO: when you implement this function, uncomment the parameter names.
-    virtual void push(const TYPE & /*val*/) {
-        // TODO: Implement this function.
+    virtual void push(const TYPE & val) {
+        addNode(val);
     } // push()
 
 
@@ -111,8 +119,40 @@ public:
     // element when the priority_queue is empty. Though you are welcome to if you are
     // familiar with them, you do not need to use exceptions in this project.
     // Runtime: Amortized O(log(n))
+    //
     virtual void pop() {
-        // TODO: Implement this function.
+        Node* cur = root->child;
+
+        //Loop through adding all elements in a row to dector
+        while (cur->sibling) {
+            deque.push_back(cur);
+            cur = cur->sibling;
+        }
+
+        //Multipass meld until there is one element left in deque
+        while (dq.size() > 1) {
+            
+            //Grab top element and braek connections
+            cur = dq.top();
+            cur->sibling = nullptr;
+            cur->parent = nullptr;
+            dq.pop();
+
+            //Grab next elemnt and break connections
+            dq.top()->sibling = nullptr;
+            dq.top()->parent = nullptr;
+
+            //Add new root node to back and pop
+            dq.push_back(meld(cur, dq.top()));
+            dq.pop();
+        }
+
+        //Remove current root and assign new root
+        delete root;
+        --numNodes;
+        root = dq.top();
+        dq.pop();
+
     } // pop()
 
 
@@ -122,19 +162,14 @@ public:
     //              might make it no longer be the most extreme element.
     // Runtime: O(1)
     virtual const TYPE & top() const {
-        // TODO: Implement this function
-
-        // These lines are present only so that this provided file compiles.
-        static TYPE temp; // TODO: Delete this line
-        return temp;      // TODO: Delete or change this line
+        return root->elt;
     } // top()
 
 
     // Description: Get the number of elements in the priority_queue.
     // Runtime: O(1)
     virtual std::size_t size() const {
-        // TODO: Implement this function
-        return 0; // TODO: Delete or change this line
+        return numNodes;
     } // size()
 
     // Description: Return true if the priority_queue is empty.
@@ -153,7 +188,8 @@ public:
     //               (as defined by comp) than the old priority.
     //
     // Runtime: As discussed in reading material.
-    // TODO: when you implement this function, uncomment the parameter names.
+    // Given a vlue first thing you should do is change the appropriate value in the heap
+    // 
     void updateElt(Node* /*node*/, const TYPE & /*new_value*/) {
         // TODO: Implement this function
     } // updateElt()
@@ -167,16 +203,54 @@ public:
     //       never move or copy/delete that node in the future, until it is eliminated
     //       by the user calling pop().  Remember this when you implement updateElt() and
     //       updatePriorities().
-    Node* addNode(const TYPE & /*val*/) {
-        // TODO: Implement this function
-        return nullptr; // TODO: Delete or change this line
+    Node* addNode(const TYPE & val) {
+        Node* ptr = new Node{val};
+        ++numNodes;
+        if (root) {
+            root = meld(ptr, root);
+            return ptr;
+        }
+        else
+            return root = ptr;
     } // addNode()
 
 
 private:
-    // TODO: Add any additional member functions or data you require here.
-    // TODO: We recommend creating a 'meld' function (see the Pairing Heap papers).
+    
+    //Member Variables
+    unsigned int numNodes;
+    Node* root;
+    deque<Node*> dq;
+    //Function meld
+    //Given two root pointers compares the two of them and makes the smaller one a child
+    //of root and the root a parent of the smaller one
+    //Does this by assigning a node that is smaller than root to be sibling of new node
+    Node* meld(Node* a, Node* b) {
+        
+        //Check for Null (eventually delete)
+        assert(a);
+        assert(b);
 
+        //If a is less than b
+        if (nodeComp(a, b)) {
+            a->sibling = b->child;
+            b->child = a;
+            a->parent = b;
+            
+            return b;
+        }
+
+        //If a is greater than or equal to b
+        else {
+            b->sibling = a->child;
+            a->child = b;
+            b->parent = a;
+
+            return a;
+        }
+
+        return nullptr;
+    }
 };
 
 

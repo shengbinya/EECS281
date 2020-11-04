@@ -2,6 +2,7 @@
 #include <iostream>
 #include <utility>
 #include <unordered_map>
+#include <exception>
 #include "tableEntry.h"
 
 using namespace std;
@@ -45,6 +46,8 @@ public:
 	~DataBase();
 
 	void addTable();
+
+	void removeTable();
 };
 
 void DataBase::addTable() {
@@ -88,32 +91,79 @@ void DataBase::addTable() {
 
 }
 
+void DataBase::removeTable() {
+	string name;
+	cin >> name;
+	auto it = m_dataBase.find(name);
+	if (it != m_dataBase.end()) {
+		delete it->second;
+		m_dataBase.erase(it);
+		cout << "Table " << name << " deleted\n";
+		return;
+	}
+	throw string("2" + name);
+}
+
 DataBase::~DataBase() {
 	for (auto i : m_dataBase)
 		delete i.second;
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);   // you should already have this    
-	cin >> std::boolalpha;  // add these two lines    
+	ios_base::sync_with_stdio(false);  
+	cin >> std::boolalpha;
 	cout << std::boolalpha;
 
 	DataBase data;
-	bool quit = false;
 	string cmd = "";
 	
-	while (!quit) {
+
+	while (true) {
 		
-		cout << "%";
+		cout << "% ";
 		cin >> cmd;
 		
-		if (cmd == "CREATE") {
-			data.addTable();	
+		try {
+			if (cmd[0] == 'C')
+				data.addTable();
+			else if (cmd[0] == 'R')
+				data.removeTable();
+			else if (cmd[0] == 'Q')
+				throw 0;
+			else if (cmd[0] == '#')
+				throw string("comment");
+			else
+				throw string("4");			
 		}
-		else if (cmd == "QUIT") {
+		catch (string e) {
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			
+			//Checks for error 1
+			if (e[0] == '1')
+				cout << "Error: Cannot create already existing table " <<
+				e.substr(1, e.size() - 1) << "\n";
+			
+			//Checks for error 2
+			else if (e[0] == '2')
+				cout << "Error: " << e.substr(1, e.size() - 1) << 
+				" does not name a table in the database\n";
+			
+			//Checks for error 3
+			else if (e[0] == '3') {
+				size_t space = e.find(" ");
+				cout << "Error: " << e.substr(1, e.size() - space) <<
+				"does not name a column in " << e.substr(space+1, space-1) << "\n";
+			}
+
+			//Checks for error 4
+			else if (e[0] == '4')
+				cout << "Error: unrecognized command\n";
+		}
+		catch (int) {
+			cout << "Thanks for being silly!\n";
 			return 0;
 		}
-
 	}
 
 }

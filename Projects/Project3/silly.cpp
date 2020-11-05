@@ -3,6 +3,7 @@
 #include <utility>
 #include <unordered_map>
 #include <exception>
+#include <algorithm>
 #include "tableEntry.h"
 
 using namespace std;
@@ -48,6 +49,8 @@ public:
 	void removeTable();
 
 	void insert();
+
+	void print();
 
 	~DataBase();
 
@@ -104,7 +107,7 @@ void DataBase::removeTable() {
 		cout << "Table " << name << " deleted\n";
 		return;
 	}
-	throw string("2" + name);
+	throw string{ "2" + name };
 }
 
 void DataBase::insert() {
@@ -123,8 +126,6 @@ void DataBase::insert() {
 	numRows = stoi(rowNums);
 	cin >> rowNums;
 	
-	
-
 	size_t currRowNum = m_dataBase[table]->m_table[0].size();
 	Table* tablePtr = tableCheck->second;
 
@@ -161,7 +162,7 @@ void DataBase::insert() {
 			}
 
 			//Boolean
-			else if (tablePtr->m_colTypes[j] == EntryType::Bool) {
+			else {
 				string in;
 				cin >> in;
 				if(in == "true")
@@ -170,15 +171,68 @@ void DataBase::insert() {
 					tablePtr->m_table[j].push_back(TableEntry(false));
 			}
 
-			else
-				assert(false);
-
 		}
 	}
 
 	cout << "Added " << numRows << " rows to " << table << " from position "
-		<< currRowNum << " to " << currRowNum + numRows << "\n";
+		<< currRowNum << " to " << currRowNum + numRows - 1 << "\n";
 	
+}
+
+void DataBase::print() {
+	string table;
+	cin >> table;
+	cin >> table;
+
+	//Checks if the value is in the table
+	auto tableCheck = m_dataBase.find(table);
+	if (tableCheck == m_dataBase.end())
+		throw string{ "2" + table };
+
+	string colNums;
+	int numCols;
+	cin >> colNums;
+	numCols = stoi(colNums);
+
+	Table* tablePtr = tableCheck->second;
+
+	//Store cols in vector
+	vector<pair<string, int>> colNames;
+	colNames.reserve(numCols);
+	string temp;
+	for (int i = 0; i < numCols; ++i) {
+		cin >> temp;
+
+		//Find iterator
+		auto colIt = find(tablePtr->m_colNames.begin(), tablePtr->m_colNames.end(), temp);
+
+		//If not null then calcuate and push corresponding index
+		if (colIt != tablePtr->m_colNames.end())
+			colNames.push_back(pair<string, int>{temp, colIt - tablePtr->m_colNames.begin()});
+		else
+			throw string{ "3" + temp + " " + table };
+	}
+
+	//Find index of corresponding cols
+	string condition;
+	cin >> condition;
+
+	//Print out all specified columns
+	for (auto i : colNames) {
+		cout << i.first << " ";
+	}
+	cout << "\n";
+
+	//Print out all data
+	if (condition == "ALL") {
+		for (size_t row = 0; row < tablePtr->m_table[0].size(); ++row) {
+			for (auto i : colNames)
+				cout << tablePtr->m_table[i.second][row] << " ";
+			cout << "\n";
+		}
+		cout << "Printed " << tablePtr->m_table[0].size() << " matching rows from "
+			<< table << "\n";
+	}
 }
 
 DataBase::~DataBase() {
@@ -207,12 +261,14 @@ int main() {
 				data.removeTable();
 			else if (cmd[0] == 'I')
 				data.insert();
+			else if (cmd[0] == 'P')
+				data.print();
 			else if (cmd[0] == 'Q')
 				throw 0;
 			else if (cmd[0] == '#')
-				throw string("comment");
+				throw string{ "comment" };
 			else
-				throw string("4");			
+				throw string{ "4" };
 		}
 		catch (string e) {
 			cin.clear();

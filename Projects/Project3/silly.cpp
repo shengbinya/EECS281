@@ -33,7 +33,7 @@ public:
 	Table(string t_name, int t_colNum) : m_name{ t_name } {
 		m_colTypes.resize(t_colNum);
 		m_colNames.resize(t_colNum);
-		m_table.reserve(t_colNum);
+		m_table.resize(t_colNum);
 	};
 
 };
@@ -43,11 +43,14 @@ class DataBase {
 public:
 	unordered_map<string, Table*> m_dataBase;
 	 
-	~DataBase();
-
 	void addTable();
 
 	void removeTable();
+
+	void insert();
+
+	~DataBase();
+
 };
 
 void DataBase::addTable() {
@@ -104,6 +107,80 @@ void DataBase::removeTable() {
 	throw string("2" + name);
 }
 
+void DataBase::insert() {
+	string table;
+	cin >> table;
+	cin >> table;
+
+	//Checks if the value is in the table
+	auto tableCheck = m_dataBase.find(table);
+	if (tableCheck == m_dataBase.end())
+		throw "2" + table;
+
+	string rowNums;
+	int numRows;
+	cin >> rowNums;
+	numRows = stoi(rowNums);
+	cin >> rowNums;
+	
+	
+
+	size_t currRowNum = m_dataBase[table]->m_table[0].size();
+	Table* tablePtr = tableCheck->second;
+
+	//Reserve extra space in all columns
+	for (auto i : tablePtr->m_table)
+		i.reserve(currRowNum + numRows);
+
+	for (int i = 0; i < numRows; ++i) {
+		for (size_t j = 0; j < m_dataBase[table]->m_table.size(); ++j) {
+			
+			//String
+			if (tablePtr->m_colTypes[j] == EntryType::String) {
+				string temp;
+				cin >> temp;
+				tablePtr->m_table[j].push_back(TableEntry(temp));
+			}
+
+			//Double
+			else if (tablePtr->m_colTypes[j] == EntryType::Double) {
+				double temp;
+				string tempString;
+				cin >> tempString;
+				temp = stod(tempString);
+				tablePtr->m_table[j].push_back(TableEntry(temp));
+			}
+
+			//Int
+			else if (tablePtr->m_colTypes[j] == EntryType::Int) {
+				int temp;
+				string tempString;
+				cin >> tempString;
+				temp = stoi(tempString);
+				tablePtr->m_table[j].push_back(TableEntry(temp));
+			}
+
+			//Boolean
+			else if (tablePtr->m_colTypes[j] == EntryType::Bool) {
+				string in;
+				cin >> in;
+				if(in == "true")
+					tablePtr->m_table[j].push_back(TableEntry(true));
+				else
+					tablePtr->m_table[j].push_back(TableEntry(false));
+			}
+
+			else
+				assert(false);
+
+		}
+	}
+
+	cout << "Added " << numRows << " rows to " << table << " from position "
+		<< currRowNum << " to " << currRowNum + numRows << "\n";
+	
+}
+
 DataBase::~DataBase() {
 	for (auto i : m_dataBase)
 		delete i.second;
@@ -128,6 +205,8 @@ int main() {
 				data.addTable();
 			else if (cmd[0] == 'R')
 				data.removeTable();
+			else if (cmd[0] == 'I')
+				data.insert();
 			else if (cmd[0] == 'Q')
 				throw 0;
 			else if (cmd[0] == '#')

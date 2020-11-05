@@ -1,9 +1,11 @@
+//Project Identifier: C0F4DFE8B340D81183C208F70F9D2D797908754D
 #include <vector>
 #include <iostream>
 #include <utility>
 #include <unordered_map>
 #include <exception>
 #include <algorithm>
+#include "getopt.h"
 #include "tableEntry.h"
 
 using namespace std;
@@ -85,9 +87,12 @@ public:
 
 /* --- DataBase and Function Implementations --- */
 class DataBase {
+	bool q = false;
 public:
 	unordered_map<string, Table*> m_dataBase;
 	 
+	void getOptions(int, char**);
+
 	void addTable();
 
 	void removeTable();
@@ -101,6 +106,81 @@ public:
 	~DataBase();
 
 };
+
+/* --- Helper Functions --- */
+TableEntry convert(EntryType t_type, string t_value) {
+
+	//String
+	if (t_type == EntryType::String)
+		return TableEntry(t_value);
+
+	//Double
+	else if (t_type == EntryType::Double) {
+		double temp;
+		temp = stod(t_value);
+		return TableEntry(temp);
+	}
+
+	//Int
+	else if (t_type == EntryType::Int) {
+		int temp;
+		temp = stoi(t_value);
+		return TableEntry(temp);
+	}
+
+	//Boolean
+	else {
+		if (t_value == "true")
+			return TableEntry(true);
+		else
+			return TableEntry(false);
+	}
+}
+
+template <class ForwardIterator, class Compare>
+int printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
+			vector<pair<string, int>>& t_printCols ) {
+	int prints = 0;
+	while (t_first != t_last) {
+		if (t_pred(*t_first)) {
+			for (auto it : t_printCols) {
+				cout << t_first->at(it.second) << " ";
+			}
+			cout << "\n";
+			++prints;
+		}
+		t_first++;
+	}
+	return prints;
+}
+
+/* --- Main Functions --- */
+void DataBase::getOptions(int argc, char** argv) {
+	int option_index = 0, option = 0;
+
+	// Don't display getopt error messages about options
+	opterr = false;
+
+	// use getopt to find command line options
+	struct option longOpts[] = {{ "quiet", no_argument, nullptr, 'q' },
+								{ "help", no_argument, nullptr, 'h'},
+								{ nullptr, 0, nullptr, '\0' } };
+
+	while ((option = getopt_long(argc, argv, "qh", longOpts, &option_index)) != -1) {
+		switch (option) {
+		case 'q':
+			q = true;
+			break;
+
+		case 'h':
+			cout << "This program reads in user input from command line and performs"
+				<< "operations on a table based on the user input\n"
+				<< "Usage: \'./letter\n\t[--quiet | -q]\n"
+				<< "\t[--help | -h]\n";
+			exit(1);
+		}
+	}
+}
 
 void DataBase::addTable() {
 	
@@ -154,35 +234,6 @@ void DataBase::removeTable() {
 		return;
 	}
 	throw string{ "2" + name };
-}
-
-TableEntry convert(EntryType t_type, string t_value) {
-	
-	//String
-	if (t_type == EntryType::String)
-		return TableEntry(t_value);
-	
-	//Double
-	else if (t_type == EntryType::Double) {
-		double temp;
-		temp = stod(t_value);
-		return TableEntry(temp);
-	}
-
-	//Int
-	else if (t_type == EntryType::Int) {
-		int temp;
-		temp = stoi(t_value);
-		return TableEntry(temp);
-	}
-
-	//Boolean
-	else {
-		if (t_value == "true")
-			return TableEntry(true);
-		else
-			return TableEntry(false);
-	}
 }
 
 void DataBase::insert() {
@@ -327,6 +378,42 @@ void DataBase::print() {
 		cout << "Printed " << tablePtr->m_table.size() << " matching rows from "
 			<< table << "\n";
 	}
+
+	else if (condition == "WHERE") {
+		string colName;
+		string op;
+		string value;
+		size_t numCol;
+		cin >> colName;
+		cin >> op;
+		cin >> value;
+
+		//Checks if the column exists
+		auto colIt = find(tablePtr->m_colNames.begin(), tablePtr->m_colNames.end(), colName);
+
+		//If not null then calcuate and push corresponding index
+		if (colIt != tablePtr->m_colNames.end())
+			numCol = colIt - tablePtr->m_colNames.begin();
+		else
+			throw string{ "3" + colName + " " + table };
+
+		int prints = 0;
+		if (op == "<")
+			prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), LessThan(numCol,
+				convert(tablePtr->m_colTypes[numCol], value)), colNames);
+		else if (op == "=")
+			prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), Equal(numCol,
+				convert(tablePtr->m_colTypes[numCol], value)), colNames);
+		else if (op == ">")
+			prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), GreaterThan(numCol,
+				convert(tablePtr->m_colTypes[numCol], value)),colNames);
+		else
+			assert(false);
+
+		cout << "Printed " << prints << " matching rows from " << table << "\n";
+	}
+	else
+		assert(false);
 }
 
 DataBase::~DataBase() {
@@ -334,13 +421,14 @@ DataBase::~DataBase() {
 		delete i.second;
 }
 
-int main() {
+int main(int argc, char** argv) {
 
 	ios_base::sync_with_stdio(false);  
 	cin >> std::boolalpha;
 	cout << std::boolalpha;
 
 	DataBase data;
+	data.getOptions(argc, argv);
 	string cmd = "";
 	bool alreadyPrinted = false;
 

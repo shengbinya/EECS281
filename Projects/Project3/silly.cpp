@@ -38,6 +38,51 @@ public:
 
 };
 
+/* --- Less Than Functor Class --- */
+class LessThan {
+private:
+	size_t m_colNum;
+	TableEntry m_value;
+
+public:
+	LessThan(size_t t_colNum, TableEntry t_value) : 
+		m_colNum{ t_colNum }, m_value{ t_value } {}
+
+	bool operator()(vector<TableEntry>& t_row) {
+		return t_row[m_colNum] < m_value;
+	}
+};
+
+/* --- Equal to Functor Class --- */
+class Equal {
+private:
+	size_t m_colNum;
+	TableEntry m_value;
+
+public:
+	Equal(size_t t_colNum, TableEntry t_value) :
+		m_colNum{ t_colNum }, m_value{ t_value } {}
+
+	bool operator()(vector<TableEntry>& t_row) {
+		return t_row[m_colNum] == m_value;
+	}
+};
+
+/* --- Greater Than to Functor Class --- */
+class GreaterThan {
+private:
+	size_t m_colNum;
+	TableEntry m_value;
+
+public:
+	GreaterThan(size_t t_colNum, TableEntry t_value) :
+		m_colNum{ t_colNum }, m_value{ t_value } {}
+
+	bool operator()(vector<TableEntry>& t_row) {
+		return t_row[m_colNum] > m_value;
+	}
+};
+
 /* --- DataBase and Function Implementations --- */
 class DataBase {
 public:
@@ -111,6 +156,35 @@ void DataBase::removeTable() {
 	throw string{ "2" + name };
 }
 
+TableEntry convert(EntryType t_type, string t_value) {
+	
+	//String
+	if (t_type == EntryType::String)
+		return TableEntry(t_value);
+	
+	//Double
+	else if (t_type == EntryType::Double) {
+		double temp;
+		temp = stod(t_value);
+		return TableEntry(temp);
+	}
+
+	//Int
+	else if (t_type == EntryType::Int) {
+		int temp;
+		temp = stoi(t_value);
+		return TableEntry(temp);
+	}
+
+	//Boolean
+	else {
+		if (t_value == "true")
+			return TableEntry(true);
+		else
+			return TableEntry(false);
+	}
+}
+
 void DataBase::insert() {
 	string table;
 	cin >> table;
@@ -137,42 +211,9 @@ void DataBase::insert() {
 
 	for (int i = 0; i < numRows; ++i) {
 		for (size_t j = 0; j < tablePtr->m_colNames.size(); ++j) {
-			
-			//String
-			if (tablePtr->m_colTypes[j] == EntryType::String) {
-				string temp;
-				cin >> temp;
-				tablePtr->m_table[i].push_back(TableEntry(temp));
-			}
-
-			//Double
-			else if (tablePtr->m_colTypes[j] == EntryType::Double) {
-				double temp;
-				string tempString;
-				cin >> tempString;
-				temp = stod(tempString);
-				tablePtr->m_table[i].push_back(TableEntry(temp));
-			}
-
-			//Int
-			else if (tablePtr->m_colTypes[j] == EntryType::Int) {
-				int temp;
-				string tempString;
-				cin >> tempString;
-				temp = stoi(tempString);
-				tablePtr->m_table[i].push_back(TableEntry(temp));
-			}
-
-			//Boolean
-			else {
-				string in;
-				cin >> in;
-				if(in == "true")
-					tablePtr->m_table[i].push_back(TableEntry(true));
-				else
-					tablePtr->m_table[i].push_back(TableEntry(false));
-			}
-
+			string temp;
+			cin >> temp;
+			tablePtr->m_table[i].push_back(convert(tablePtr->m_colTypes[j], temp));
 		}
 	}
 
@@ -182,19 +223,54 @@ void DataBase::insert() {
 }
 
 void DataBase::deleteFrom() {
-	string table;
-	string colName;
-	string op;
-	string value;
-	
+	string table = "";
+	string colName = "";
+	string op = "";
+	string value = "";
+	size_t numCol = 0;
+	size_t numRows = 0;
+
 	cin >> table;
 	cin >> table;
+	cin >> colName;
 	cin >> colName;
 	cin >> op;
 	cin >> value;
 
+	//Checks if the value is in the table
+	auto tableCheck = m_dataBase.find(table);
+	if (tableCheck == m_dataBase.end())
+		throw "2" + table;
 
+	Table* tablePtr = tableCheck->second;
+	numRows = tablePtr->m_table.size();
 
+	//Checks if the column exists
+	auto colIt = find(tablePtr->m_colNames.begin(), tablePtr->m_colNames.end(), colName);
+
+	//If not null then calcuate and push corresponding index
+	if (colIt != tablePtr->m_colNames.end())
+		numCol =  colIt - tablePtr->m_colNames.begin();
+	else
+		throw string{ "3" + colName + " " + table };
+
+	auto end = tablePtr->m_table.end();
+	if (op == "<")
+		end = remove_if(tablePtr->m_table.begin(), tablePtr->m_table.end(), LessThan(numCol, 
+			convert(tablePtr->m_colTypes[numCol],value)));
+	else if (op == "=")
+		end = remove_if(tablePtr->m_table.begin(), tablePtr->m_table.end(), Equal(numCol,
+			convert(tablePtr->m_colTypes[numCol], value)));
+	else if (op == ">")
+		end = remove_if(tablePtr->m_table.begin(), tablePtr->m_table.end(), GreaterThan(numCol,
+			convert(tablePtr->m_colTypes[numCol], value)));
+	else
+		assert(false);
+
+	//Erase deleted elements
+	tablePtr->m_table.erase(end, tablePtr->m_table.end());
+
+	cout << "Deleted " << numRows - tablePtr->m_table.size() << " rows from " << table << "\n";
 }
 
 void DataBase::print() {
@@ -259,6 +335,7 @@ DataBase::~DataBase() {
 }
 
 int main() {
+
 	ios_base::sync_with_stdio(false);  
 	cin >> std::boolalpha;
 	cout << std::boolalpha;
@@ -310,7 +387,7 @@ int main() {
 				size_t space = e.find(" ");
 				if (!alreadyPrinted) {
 					cout << "Error: " << e.substr(1, e.size() - space) <<
-						"does not name a column in " << e.substr(space + 1, space - 1) << "\n";
+						" does not name a column in " << e.substr(space + 1, space - 1) << "\n";
 					alreadyPrinted = true;
 				}
 			}

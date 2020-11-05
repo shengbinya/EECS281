@@ -34,7 +34,6 @@ public:
 	Table(string t_name, int t_colNum) : m_name{ t_name } {
 		m_colTypes.resize(t_colNum);
 		m_colNames.resize(t_colNum);
-		m_table.resize(t_colNum);
 	};
 
 };
@@ -49,6 +48,8 @@ public:
 	void removeTable();
 
 	void insert();
+
+	void deleteFrom();
 
 	void print();
 
@@ -126,21 +127,22 @@ void DataBase::insert() {
 	numRows = stoi(rowNums);
 	cin >> rowNums;
 	
-	size_t currRowNum = m_dataBase[table]->m_table[0].size();
 	Table* tablePtr = tableCheck->second;
+	size_t currRowNum = tablePtr->m_table.size();
 
-	//Reserve extra space in all columns
+	//Reserve extra space in all rows and columns
+	tablePtr->m_table.resize(currRowNum + numRows);
 	for (auto i : tablePtr->m_table)
-		i.reserve(currRowNum + numRows);
+		i.reserve(tablePtr->m_colNames.size());
 
 	for (int i = 0; i < numRows; ++i) {
-		for (size_t j = 0; j < m_dataBase[table]->m_table.size(); ++j) {
+		for (size_t j = 0; j < tablePtr->m_colNames.size(); ++j) {
 			
 			//String
 			if (tablePtr->m_colTypes[j] == EntryType::String) {
 				string temp;
 				cin >> temp;
-				tablePtr->m_table[j].push_back(TableEntry(temp));
+				tablePtr->m_table[i].push_back(TableEntry(temp));
 			}
 
 			//Double
@@ -149,7 +151,7 @@ void DataBase::insert() {
 				string tempString;
 				cin >> tempString;
 				temp = stod(tempString);
-				tablePtr->m_table[j].push_back(TableEntry(temp));
+				tablePtr->m_table[i].push_back(TableEntry(temp));
 			}
 
 			//Int
@@ -158,7 +160,7 @@ void DataBase::insert() {
 				string tempString;
 				cin >> tempString;
 				temp = stoi(tempString);
-				tablePtr->m_table[j].push_back(TableEntry(temp));
+				tablePtr->m_table[i].push_back(TableEntry(temp));
 			}
 
 			//Boolean
@@ -166,9 +168,9 @@ void DataBase::insert() {
 				string in;
 				cin >> in;
 				if(in == "true")
-					tablePtr->m_table[j].push_back(TableEntry(true));
+					tablePtr->m_table[i].push_back(TableEntry(true));
 				else
-					tablePtr->m_table[j].push_back(TableEntry(false));
+					tablePtr->m_table[i].push_back(TableEntry(false));
 			}
 
 		}
@@ -177,6 +179,22 @@ void DataBase::insert() {
 	cout << "Added " << numRows << " rows to " << table << " from position "
 		<< currRowNum << " to " << currRowNum + numRows - 1 << "\n";
 	
+}
+
+void DataBase::deleteFrom() {
+	string table;
+	string colName;
+	string op;
+	string value;
+	
+	cin >> table;
+	cin >> table;
+	cin >> colName;
+	cin >> op;
+	cin >> value;
+
+
+
 }
 
 void DataBase::print() {
@@ -225,12 +243,12 @@ void DataBase::print() {
 
 	//Print out all data
 	if (condition == "ALL") {
-		for (size_t row = 0; row < tablePtr->m_table[0].size(); ++row) {
+		for (size_t row = 0; row < tablePtr->m_table.size(); ++row) {
 			for (auto i : colNames)
-				cout << tablePtr->m_table[i.second][row] << " ";
+				cout << tablePtr->m_table[row][i.second] << " ";
 			cout << "\n";
 		}
-		cout << "Printed " << tablePtr->m_table[0].size() << " matching rows from "
+		cout << "Printed " << tablePtr->m_table.size() << " matching rows from "
 			<< table << "\n";
 	}
 }
@@ -247,12 +265,13 @@ int main() {
 
 	DataBase data;
 	string cmd = "";
-	
+	bool alreadyPrinted = false;
 
 	while (true) {
 		
 		cout << "% ";
 		cin >> cmd;
+		alreadyPrinted = false;
 		
 		try {
 			if (cmd[0] == 'C')
@@ -261,6 +280,8 @@ int main() {
 				data.removeTable();
 			else if (cmd[0] == 'I')
 				data.insert();
+			else if (cmd[0] == 'D')
+				data.deleteFrom();
 			else if (cmd[0] == 'P')
 				data.print();
 			else if (cmd[0] == 'Q')
@@ -287,8 +308,11 @@ int main() {
 			//Checks for error 3
 			else if (e[0] == '3') {
 				size_t space = e.find(" ");
-				cout << "Error: " << e.substr(1, e.size() - space) <<
-				"does not name a column in " << e.substr(space+1, space-1) << "\n";
+				if (!alreadyPrinted) {
+					cout << "Error: " << e.substr(1, e.size() - space) <<
+						"does not name a column in " << e.substr(space + 1, space - 1) << "\n";
+					alreadyPrinted = true;
+				}
 			}
 
 			//Checks for error 4

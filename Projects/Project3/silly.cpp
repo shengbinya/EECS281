@@ -7,7 +7,7 @@
 #include <exception>
 #include <algorithm>
 #include "getopt.h"
-#include "tableEntry.h"
+#include "TableEntry.h"
 
 using namespace std;
 
@@ -147,6 +147,8 @@ public:
 
 	void updateIndex(string, string, size_t, Table*);
 
+	void join();
+
 	void print();
 
 	~DataBase();
@@ -158,6 +160,10 @@ public:
 	template <class ForwardIterator>
 	int printRange(ForwardIterator t_first, ForwardIterator t_last,
 		vector<pair<string, int>>& t_printCols, Table*);
+
+	Table* tableCheck(string t_table);
+
+	size_t colCheck(string t_col, Table*);
 
 };
 
@@ -230,6 +236,26 @@ int DataBase::printRange(ForwardIterator t_first, ForwardIterator t_last,
 	return prints;
 }
 
+Table* DataBase::tableCheck(string t_table) {
+	//Checks if the table is in the database
+	auto tableCheck = m_dataBase.find(t_table);
+	if (tableCheck == m_dataBase.end())
+		throw "2" + t_table;
+
+	return tableCheck->second;
+}
+
+size_t DataBase::colCheck(string t_col, Table* t_tablePtr) {
+	// Checks if the column exists
+	auto colIt = find(t_tablePtr->m_colNames.begin(), t_tablePtr->m_colNames.end(), t_col);
+
+	//If not null then calcuate and push corresponding index
+	if (colIt != t_tablePtr->m_colNames.end())
+		return (colIt - t_tablePtr->m_colNames.begin());
+	else
+		throw string{ "3" + t_col + " " + t_tablePtr->m_name };
+}
+
 /* --- Main Functions --- */
 void DataBase::getOptions(int argc, char** argv) {
 	int option_index = 0, option = 0;
@@ -266,6 +292,10 @@ void DataBase::addTable() {
 	string colNum;
 	cin >> colNum;
 	numCol = stoi(colNum);
+
+	//Make sure no preexisting table
+	if (m_dataBase.find(name) != m_dataBase.end())
+		throw string{ "1" + name };
 
 	Table* table  = new Table(name, numCol);
 	
@@ -317,10 +347,7 @@ void DataBase::insert() {
 	cin >> table;
 	cin >> table;
 
-	//Checks if the value is in the table
-	auto tableCheck = m_dataBase.find(table);
-	if (tableCheck == m_dataBase.end())
-		throw "2" + table;
+	Table* tablePtr = tableCheck(table);
 
 	string rowNums;
 	int numRows;
@@ -328,7 +355,6 @@ void DataBase::insert() {
 	numRows = stoi(rowNums);
 	cin >> rowNums;
 	
-	Table* tablePtr = tableCheck->second;
 	size_t currRowNum = tablePtr->m_table.size();
 
 	//Reserve extra space in all rows and columns
@@ -416,22 +442,10 @@ void DataBase::deleteFrom() {
 	cin >> op;
 	cin >> value;
 
-	//Checks if the value is in the table
-	auto tableCheck = m_dataBase.find(table);
-	if (tableCheck == m_dataBase.end())
-		throw "2" + table;
-
-	Table* tablePtr = tableCheck->second;
+	Table* tablePtr = tableCheck(table);
 	numRows = tablePtr->m_table.size();
 
-	//Checks if the column exists
-	auto colIt = find(tablePtr->m_colNames.begin(), tablePtr->m_colNames.end(), colName);
-
-	//If not null then calcuate and push corresponding index
-	if (colIt != tablePtr->m_colNames.end())
-		numCol =  colIt - tablePtr->m_colNames.begin();
-	else
-		throw string{ "3" + colName + " " + table };
+	numCol = colCheck(colName, tablePtr);
 
 	auto end = tablePtr->m_table.end();
 
@@ -491,22 +505,80 @@ void DataBase::generateIndex() {
 		<< table << " on column " << colName << "\n";
 }
 
+void DataBase::join() {
+	string table1 = "";
+	string table2 = "";
+	string compCol1 = "";
+	string compCol2 = "";
+	string garbage = "";
+	int numCol1 = 0;
+	int numCol2 = 0;
+	int numCols = 0;
+
+	cin >> table1;
+
+	Table* tablePtr1 = tableCheck(table1);
+
+	cin >> table2;
+	cin >> table2;
+
+	Table* tablePtr2 = tableCheck(table2);
+
+	cin >> garbage;
+	cin >> compCol1;
+
+	numCol1 = colCheck(compCol1, tablePtr1);
+
+	cin >> garbage;
+	cin >> compCol2;
+
+	numCol2 = colCheck(compCol2, tablePtr2);
+
+	cin >> garbage;
+	cin >> garbage;
+	cin >> garbage;
+
+	numCols = stoi(garbage);
+	
+	//First int is table and second int is col Index
+	vector<pair<Table*, int>> colNames;
+	string temp = "";
+	colNames.reserve(numCols);
+
+	for (int i = 0; i < numCols; ++i) {
+		int numTable = 0;
+		cin >> temp;
+		cin >> garbage;
+		numTable = stoi(garbage);
+		vector<string>::iterator colIt;
+		
+		//Find iterator
+		if (numTable == 1) {
+			colIt = find(tablePtr1->m_colNames.begin(), tablePtr1->m_colNames.end(), temp);
+		}
+		else
+			colIt = find(tablePtr2->m_colNames.begin(), tablePtr2->m_colNames.end(), temp);
+
+		//If not null then calcuate and push corresponding index
+		if (colIt != tablePtr1->m_colNames.end())
+			colNames.push_back(pair<int, int>{numTable, colIt - tablePtr->m_colNames.begin()});
+		else
+			throw string{ "3" + temp + " " + table };
+	}
+	
+}
+
 void DataBase::print() {
 	string table;
 	cin >> table;
 	cin >> table;
 
-	//Checks if the value is in the table
-	auto tableCheck = m_dataBase.find(table);
-	if (tableCheck == m_dataBase.end())
-		throw string{ "2" + table };
+	Table* tablePtr = tableCheck(table);
 
 	string colNums;
 	int numCols;
 	cin >> colNums;
 	numCols = stoi(colNums);
-
-	Table* tablePtr = tableCheck->second;
 
 	//Store cols in vector
 	vector<pair<string, int>> colNames;
@@ -666,6 +738,8 @@ int main(int argc, char** argv) {
 				data.deleteFrom();
 			else if (cmd[0] == 'G')
 				data.generateIndex();
+			else if (cmd[0] == 'J')
+				data.join();
 			else if (cmd[0] == 'P')
 				data.print();
 			else if (cmd[0] == 'Q')

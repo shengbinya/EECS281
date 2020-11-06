@@ -155,8 +155,8 @@ public:
 	int printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
 		vector<pair<string, int>>& t_printCols);
 
-	template <class ForwardIterator, class Compare>
-	int printRange(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
+	template <class ForwardIterator>
+	int printRange(ForwardIterator t_first, ForwardIterator t_last,
 		vector<pair<string, int>>& t_printCols, Table*);
 
 };
@@ -210,23 +210,23 @@ int DataBase::printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t
 	return prints;
 }
 
-template <class ForwardIterator, class Compare>
-int DataBase::printRange(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
+template <class ForwardIterator>
+int DataBase::printRange(ForwardIterator t_first, ForwardIterator t_last,
 	vector<pair<string, int>>& t_printCols, Table* t_table) {
 	int prints = 0;
-	while (t_first != t_last) {
-		if (t_pred(t_first->first)) {
-			if (!q) {
-				for (auto it : t_printCols) {
+	
+		while (t_first != t_last) {
+			for (auto it : t_printCols) {
+				if (!q)
 					cout << t_table->m_table[t_first->second][it.second] << " ";
-				}
 			}
-			if (!q)
+			if (!q) {
 				cout << "\n";
-			++prints;
+			prints++;
+			t_first++;
 		}
-		t_first++;
 	}
+	
 	return prints;
 }
 
@@ -390,6 +390,7 @@ void DataBase::updateIndex(string t_colName, string t_type,
 	}
 	else if (t_type == "hash") {
 		//Populate hash with all values in column
+		t_tablePtr->m_hash.reserve(t_tablePtr->m_table.size());
 		for (size_t i = 0; i < t_tablePtr->m_table.size(); ++i) {
 			t_tablePtr->m_hash[t_tablePtr->m_table[i][t_numCol]] = i;
 		}
@@ -570,19 +571,45 @@ void DataBase::print() {
 		int prints = 0;
 		if (op == "<") {
 			//If an index exists that's the same name as column
-			if (colName == tablePtr->m_indexedName && !tablePtr->m_bst.empty())
-				prints = printRange(tablePtr->m_bst.begin(), tablePtr->m_bst.end(),
-					LessThan(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames, tablePtr);
+			if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "bst") {
+				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
+				auto endIt = tablePtr->m_bst.lower_bound(val);
+				prints = printRange(tablePtr->m_bst.begin(), ++endIt, colNames, tablePtr);
+			}
+				
 			else
 				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), LessThan(numCol,
 					convert(tablePtr->m_colTypes[numCol], value)), colNames);
 		}
 
 		else if (op == "=") {
-			//If an index exists that's the same name as column
-			if (colName == tablePtr->m_indexedName && !tablePtr->m_bst.empty()) {
-				prints = printRange(tablePtr->m_bst.begin(), tablePtr->m_bst.end(),
-					Equal(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames, tablePtr);
+			//If an index exists that's the same name as column BST
+			if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "bst") {
+				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
+				auto rowIt = tablePtr->m_bst.find(val);
+				if (rowIt != tablePtr->m_bst.end()) {
+					if (!q) {
+						for (auto colIt : colNames) {
+							cout << tablePtr->m_table[rowIt->second][colIt.second] << " ";
+						}
+						cout << "\n";
+					}
+					prints = 1;
+				}
+			}
+			//If an index exists that's the same as hash
+			else if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "hash") {
+				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
+				auto rowIt = tablePtr->m_hash.find(val);
+				if (rowIt != tablePtr->m_hash.end()) {
+					if (!q) {
+						for (auto colIt : colNames) {
+							cout << tablePtr->m_table[rowIt->second][colIt.second] << " ";
+						}
+						cout << "\n";
+					}
+					prints = 1;
+				}
 			}
 			else
 				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), Equal(numCol,
@@ -591,9 +618,11 @@ void DataBase::print() {
 
 		else {
 			//If an index exists that's the same name as column
-			if (colName == tablePtr->m_indexedName && !tablePtr->m_bst.empty())
-				prints = printRange(tablePtr->m_bst.begin(), tablePtr->m_bst.end(),
-					GreaterThan(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames, tablePtr);
+			if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "bst") {
+				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
+				auto beginIt = tablePtr->m_bst.upper_bound(val);
+				prints = printRange(beginIt, tablePtr->m_bst.end(), colNames, tablePtr);
+			}
 			else
 				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), GreaterThan(numCol,
 					convert(tablePtr->m_colTypes[numCol], value)), colNames);

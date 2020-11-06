@@ -32,18 +32,25 @@ private:
 	//Indexed Column Name
 	string m_indexedName;
 
+	//Indexed column number
+	size_t m_indexedNum;
+
 	//BST for quick indexing
-	map<TableEntry, vector<TableEntry>*> m_bst;
+	map<TableEntry, size_t> m_bst;
 
 	//Hash table for quick indexing
-	unordered_map<TableEntry, vector<TableEntry>*> m_hash;
+	unordered_map<TableEntry, size_t> m_hash;
+
+	//Type of indexed col
+	string m_indexType;
 
 public:
 	//Default Constructor
 	Table() : m_name{ "" } {};
 
 	//Constructor
-	Table(string t_name, int t_colNum) : m_name{ t_name }, m_indexedName{ "" } {
+	Table(string t_name, int t_colNum) : m_name{ t_name }, 
+		m_indexedName{ "" }, m_indexedNum{ 0 }, m_indexType{ "" } {
 		m_colTypes.resize(t_colNum);
 		m_colNames.resize(t_colNum);
 	};
@@ -67,6 +74,10 @@ public:
 	bool operator()(const TableEntry& t_entry) {
 		return t_entry < m_value;
 	}
+
+	bool operator()(pair<const TableEntry, int>& t_pair) {
+		return t_pair.first < m_value;
+	}
 };
 
 /* --- Equal to Functor Class --- */
@@ -86,6 +97,10 @@ public:
 	bool operator()(const TableEntry& t_entry) {
 		return t_entry == m_value;
 	}
+
+	bool operator()(pair<const TableEntry, int>& t_pair) {
+		return t_pair.first == m_value;
+	}
 };
 
 /* --- Greater Than to Functor Class --- */
@@ -104,6 +119,10 @@ public:
 
 	bool operator()(const TableEntry& t_entry) {
 		return t_entry > m_value;
+	}
+
+	bool operator()(pair<const TableEntry, int>& t_pair) {
+		return t_pair.first > m_value;
 	}
 };
 
@@ -126,6 +145,8 @@ public:
 
 	void generateIndex();
 
+	void updateIndex(string, string, size_t, Table*);
+
 	void print();
 
 	~DataBase();
@@ -136,7 +157,7 @@ public:
 
 	template <class ForwardIterator, class Compare>
 	int printRange(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
-		vector<pair<string, int>>& t_printCols);
+		vector<pair<string, int>>& t_printCols, Table*);
 
 };
 
@@ -191,13 +212,14 @@ int DataBase::printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t
 
 template <class ForwardIterator, class Compare>
 int DataBase::printRange(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
-	vector<pair<string, int>>& t_printCols) {
+	vector<pair<string, int>>& t_printCols, Table* t_table) {
 	int prints = 0;
 	while (t_first != t_last) {
 		if (t_pred(t_first->first)) {
-			for (auto it : t_printCols) {
-				if (!q)
-					cout << t_first->second->at(it.second) << " ";
+			if (!q) {
+				for (auto it : t_printCols) {
+					cout << t_table->m_table[t_first->second][it.second] << " ";
+				}
 			}
 			if (!q)
 				cout << "\n";
@@ -314,17 +336,68 @@ void DataBase::insert() {
 	for (auto i : tablePtr->m_table)
 		i.reserve(tablePtr->m_colNames.size());
 
-	for (int i = 0; i < numRows; ++i) {
-		for (size_t j = 0; j < tablePtr->m_colNames.size(); ++j) {
-			string temp;
-			cin >> temp;
-			tablePtr->m_table[i].push_back(convert(tablePtr->m_colTypes[j], temp));
+	//If no BST or Hash Table
+	if (tablePtr->m_indexedName.empty()) {
+		for (size_t i = currRowNum; i < numRows+currRowNum; ++i) {
+			for (size_t j = 0; j < tablePtr->m_colNames.size(); ++j) {
+				string temp;
+					cin >> temp;
+					tablePtr->m_table[i].push_back(convert(tablePtr->m_colTypes[j], temp));
+			}
 		}
 	}
+	//Update the BST or Hash Table
+	else {
+		for (size_t i = currRowNum; i < numRows+currRowNum; ++i) {
+			for (size_t j = 0; j < tablePtr->m_colNames.size(); ++j) {
+				string temp;
+				cin >> temp;
+				tablePtr->m_table[i].push_back(convert(tablePtr->m_colTypes[j], temp));
+				
+			}
+			//Add element to binary search tree
+			if (tablePtr->m_indexType == "bst") {
+				tablePtr->m_bst[tablePtr->m_table[i][tablePtr->m_indexedNum]] = i;
+			}
+			//Add element to hash table
+			else {
+				tablePtr->m_hash[tablePtr->m_table[i][tablePtr->m_indexedNum]] = 1;
+			}
+		}
+	}
+	
 
 	cout << "Added " << numRows << " rows to " << table << " from position "
 		<< currRowNum << " to " << currRowNum + numRows - 1 << "\n";
 	
+}
+
+void DataBase::updateIndex(string t_colName, string t_type,
+	size_t t_numCol, Table* t_tablePtr) {
+
+	//Clear current indices if they are full
+	if (!t_tablePtr->m_hash.empty())
+		t_tablePtr->m_hash.clear();
+	else if (!t_tablePtr->m_bst.empty())
+		t_tablePtr->m_bst.clear();
+
+	//If type is BST
+	if (t_type == "bst") {
+		//Populate BST with all values in column
+		for (size_t i = 0; i < t_tablePtr->m_table.size(); ++i) {
+			t_tablePtr->m_bst[t_tablePtr->m_table[i][t_numCol]] = i;
+		}
+	}
+	else if (t_type == "hash") {
+		//Populate hash with all values in column
+		for (size_t i = 0; i < t_tablePtr->m_table.size(); ++i) {
+			t_tablePtr->m_hash[t_tablePtr->m_table[i][t_numCol]] = i;
+		}
+	}
+
+	t_tablePtr->m_indexedName = t_colName;
+	t_tablePtr->m_indexType = t_type;
+	t_tablePtr->m_indexedNum = t_numCol;
 }
 
 void DataBase::deleteFrom() {
@@ -360,13 +433,14 @@ void DataBase::deleteFrom() {
 		throw string{ "3" + colName + " " + table };
 
 	auto end = tablePtr->m_table.end();
+
 	if (op == "<")
 		end = remove_if(tablePtr->m_table.begin(), tablePtr->m_table.end(), LessThan(numCol, 
-			convert(tablePtr->m_colTypes[numCol],value)));
+			convert(tablePtr->m_colTypes[numCol], value)));
 	else if (op == "=")
 		end = remove_if(tablePtr->m_table.begin(), tablePtr->m_table.end(), Equal(numCol,
 			convert(tablePtr->m_colTypes[numCol], value)));
-	else if (op == ">")
+	else if (op == ">") 
 		end = remove_if(tablePtr->m_table.begin(), tablePtr->m_table.end(), GreaterThan(numCol,
 			convert(tablePtr->m_colTypes[numCol], value)));
 	else
@@ -374,6 +448,8 @@ void DataBase::deleteFrom() {
 
 	//Erase deleted elements
 	tablePtr->m_table.erase(end, tablePtr->m_table.end());
+
+	updateIndex(tablePtr->m_indexedName, tablePtr->m_indexType, tablePtr->m_indexedNum, tablePtr);
 
 	cout << "Deleted " << numRows - tablePtr->m_table.size() << " rows from " << table << "\n";
 }
@@ -408,29 +484,7 @@ void DataBase::generateIndex() {
 	else
 		throw string{ "3" + colName + " " + table };
 
-	//Clear current indices if they are full
-	if (!tablePtr->m_hash.empty())
-		tablePtr->m_hash.clear();
-	else if (!tablePtr->m_bst.empty())
-		tablePtr->m_bst.clear();
-
-	//If type is BST
-	if (type == "bst") {
-		//Populate BST with all values in column
-		for (size_t i = 0; i < tablePtr->m_table.size(); ++i) {
-			tablePtr->m_bst[tablePtr->m_table[i][numCol]] = 
-				&(tablePtr->m_table[i]);
-		}
-	}
-	else if (type == "hash") {
-		//Populate hash with all values in column
-		for (size_t i = 0; i < tablePtr->m_table.size(); ++i) {
-			tablePtr->m_hash[tablePtr->m_table[i][numCol]] =
-				&(tablePtr->m_table[i]);
-		}
-	}
-
-	tablePtr->m_indexedName = colName;
+	updateIndex(colName, type, numCol, tablePtr);
 
 	cout << "Created " << type << " index for table "
 		<< table << " on column " << colName << "\n";
@@ -518,7 +572,7 @@ void DataBase::print() {
 			//If an index exists that's the same name as column
 			if (colName == tablePtr->m_indexedName && !tablePtr->m_bst.empty())
 				prints = printRange(tablePtr->m_bst.begin(), tablePtr->m_bst.end(),
-					LessThan(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames);
+					LessThan(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames, tablePtr);
 			else
 				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), LessThan(numCol,
 					convert(tablePtr->m_colTypes[numCol], value)), colNames);
@@ -528,7 +582,7 @@ void DataBase::print() {
 			//If an index exists that's the same name as column
 			if (colName == tablePtr->m_indexedName && !tablePtr->m_bst.empty()) {
 				prints = printRange(tablePtr->m_bst.begin(), tablePtr->m_bst.end(),
-					Equal(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames);
+					Equal(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames, tablePtr);
 			}
 			else
 				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), Equal(numCol,
@@ -539,7 +593,7 @@ void DataBase::print() {
 			//If an index exists that's the same name as column
 			if (colName == tablePtr->m_indexedName && !tablePtr->m_bst.empty())
 				prints = printRange(tablePtr->m_bst.begin(), tablePtr->m_bst.end(),
-					GreaterThan(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames);
+					GreaterThan(numCol, convert(tablePtr->m_colTypes[numCol], value)), colNames, tablePtr);
 			else
 				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), GreaterThan(numCol,
 					convert(tablePtr->m_colTypes[numCol], value)), colNames);

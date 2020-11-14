@@ -36,10 +36,10 @@ private:
 	size_t m_indexedNum;
 
 	//BST for quick indexing
-	map<TableEntry, size_t> m_bst;
+	map<TableEntry, vector<size_t>> m_bst;
 
 	//Hash table for quick indexing
-	unordered_map<TableEntry, size_t> m_hash;
+	unordered_map<TableEntry, vector<size_t>> m_hash;
 
 	//Type of indexed col
 	string m_indexType;
@@ -221,20 +221,26 @@ int DataBase::printRange(ForwardIterator t_first, ForwardIterator t_last,
 	vector<pair<string, int>>& t_printCols, Table* t_table) {
 	int prints = 0;
 	
-		while (t_first != t_last) {
+	//Iterate through range
+	while (t_first != t_last) {
+		//Go through vector in range
+		for (auto i : t_first->second) {
+			//Print out appropriate columns
 			for (auto it : t_printCols) {
 				if (!q)
-					cout << t_table->m_table[t_first->second][it.second] << " ";
+					cout << t_table->m_table[i][it.second] << " ";
 			}
-			if (!q) {
+			if (!q) 
 				cout << "\n";
+
 			prints++;
-			t_first++;
 		}
+		t_first++;
 	}
 	
 	return prints;
 }
+
 
 Table* DataBase::tableCheck(string t_table) {
 	//Checks if the table is in the database
@@ -386,11 +392,11 @@ void DataBase::insert() {
 			}
 			//Add element to binary search tree
 			if (tablePtr->m_indexType == "bst") {
-				tablePtr->m_bst[tablePtr->m_table[i][tablePtr->m_indexedNum]] = i;
+				tablePtr->m_bst[tablePtr->m_table[i][tablePtr->m_indexedNum]].push_back(i);
 			}
 			//Add element to hash table
 			else {
-				tablePtr->m_hash[tablePtr->m_table[i][tablePtr->m_indexedNum]] = 1;
+				tablePtr->m_hash[tablePtr->m_table[i][tablePtr->m_indexedNum]].push_back(i);
 			}
 		}
 	}
@@ -414,14 +420,14 @@ void DataBase::updateIndex(string t_colName, string t_type,
 	if (t_type == "bst") {
 		//Populate BST with all values in column
 		for (size_t i = 0; i < t_tablePtr->m_table.size(); ++i) {
-			t_tablePtr->m_bst[t_tablePtr->m_table[i][t_numCol]] = i;
+			t_tablePtr->m_bst[t_tablePtr->m_table[i][t_numCol]].push_back(i);
 		}
 	}
 	else if (t_type == "hash") {
 		//Populate hash with all values in column
 		t_tablePtr->m_hash.reserve(t_tablePtr->m_table.size());
 		for (size_t i = 0; i < t_tablePtr->m_table.size(); ++i) {
-			t_tablePtr->m_hash[t_tablePtr->m_table[i][t_numCol]] = i;
+			t_tablePtr->m_hash[t_tablePtr->m_table[i][t_numCol]].push_back(i);
 		}
 	}
 
@@ -499,7 +505,7 @@ void DataBase::generateIndex() {
 }
 
 void DataBase::join() {
-/*	string table1 = "";
+	string table1 = "";
 	string table2 = "";
 	string compCol1 = "";
 	string compCol2 = "";
@@ -534,36 +540,81 @@ void DataBase::join() {
 	numCols = stoi(garbage);
 	
 	//First int is table and second int is col Index
-	vector<pair<Table*, int>> colNames;
+	vector<pair<int, string>> colNames;
 	string temp = "";
 	colNames.reserve(numCols);
 
+	//Extract and store column information from cmd line
 	for (int i = 0; i < numCols; ++i) {
 		int numTable = 0;
 		cin >> temp;
 		cin >> garbage;
 		numTable = stoi(garbage);
 		
-		//Find iterator
+		//Create vector of tables and corresponding column number
 		if (numTable == 1) {
-			auto colIt = find(tablePtr1->m_colNames.begin(), tablePtr1->m_colNames.end(), temp);
-			//If not null then calcuate and push corresponding index
-			if (colIt != tablePtr1->m_colNames.end())
-				colNames.push_back(pair<string, int>{temp, colIt - tablePtr1->m_colNames.begin()});
-			else
-				throw string{ "3" + temp + " " + tablePtr1->m_name };
+			colCheck(temp, tablePtr1);
+			colNames.push_back(pair<int, string>{1, temp});
 		}
 		else {
-			auto colIt = find(tablePtr2->m_colNames.begin(), tablePtr2->m_colNames.end(), temp);
-			//If not null then calcuate and push corresponding index
-			if (colIt != tablePtr1->m_colNames.end())
-				colNames.push_back(pair<int, int>{numTable, colIt - tablePtr2->m_colNames.begin()});
-			else
-				throw string{ "3" + temp + " " + tablePtr1->m_name };
-		}
-			
+			colCheck(temp, tablePtr2);
+			colNames.push_back(pair<int, string>{2, temp});
+		}	
+		cout << temp << " ";
 	}
-	*/
+	cout << "\n";
+	int printed = 0;
+
+	//Check if table 2 has hash table
+	if (tablePtr2->m_indexedNum == numCol2 && tablePtr2->m_indexedName == compCol2
+		&& tablePtr2->m_indexType == "hash")
+	{
+		//Itterate through first table beginning to end
+		for (auto i : tablePtr1->m_table) {
+			//If we have found a matching row in table 2
+			auto it = tablePtr2->m_hash.find(i[numCol1]);
+			if (it != tablePtr1->m_hash.end()) {
+				for (auto k : it->second) {
+					if (!q) {
+						//Loop through column names to print and print them out
+						for (auto j : colNames) {
+							if (j.first == 1)
+								cout << i[tablePtr1->m_colNames[j.second]] << " ";
+							else
+								cout << tablePtr2->m_table[k][tablePtr2->m_colNames[j.second]] << " ";
+						}
+						cout << "\n";
+					}
+					printed++;
+				}
+			}
+		}
+	}
+
+	//If there is no hash table do normal find
+	else {
+		//Itterate through first table beginning to end
+		for (auto i : tablePtr1->m_table) {
+			//Linear search down table to see if any similar values are found
+			for (auto j : tablePtr2->m_table)
+				//If matchinga value print out the appropriate row
+				if (i[numCol1] == j[numCol2]) {
+					if (!q) {
+						//Loop through column names to print and print them out
+						for (auto k : colNames) {
+							if (k.first == 1)
+								cout << i[tablePtr1->m_colNames[k.second]] << " ";
+							else
+								cout << j[tablePtr2->m_colNames[k.second]] << " ";
+						}
+						cout << "\n";
+					}
+					printed++;
+				}
+		}
+	}
+	
+	cout << "Printed " << printed << " rows from joining " << table1 << " to " << table2 << "\n";
 }
 
 void DataBase::print() {
@@ -632,7 +683,7 @@ void DataBase::print() {
 			if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "bst") {
 				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
 				auto endIt = tablePtr->m_bst.lower_bound(val);
-				prints = printRange(tablePtr->m_bst.begin(), ++endIt, colNames, tablePtr);
+				prints = printRange(tablePtr->m_bst.begin(), endIt, colNames, tablePtr);
 			}
 				
 			else
@@ -646,27 +697,32 @@ void DataBase::print() {
 				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
 				auto rowIt = tablePtr->m_bst.find(val);
 				if (rowIt != tablePtr->m_bst.end()) {
-					if (!q) {
-						for (auto colIt : colNames) {
-							cout << tablePtr->m_table[rowIt->second][colIt.second] << " ";
+					for (auto k : rowIt->second) {
+						if (!q) {
+							for (auto colIt : colNames) {
+								cout << tablePtr->m_table[k][colIt.second] << " ";
+							}
+							cout << "\n";
 						}
-						cout << "\n";
+						prints++;
 					}
-					prints = 1;
 				}
+				
 			}
 			//If an index exists that's the same as hash
 			else if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "hash") {
 				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
 				auto rowIt = tablePtr->m_hash.find(val);
 				if (rowIt != tablePtr->m_hash.end()) {
-					if (!q) {
-						for (auto colIt : colNames) {
-							cout << tablePtr->m_table[rowIt->second][colIt.second] << " ";
+					for (auto k : rowIt->second) {
+						if (!q) {
+							for (auto colIt : colNames) {
+								cout << tablePtr->m_table[k][colIt.second] << " ";
+							}
+							cout << "\n";
 						}
-						cout << "\n";
+						prints++;
 					}
-					prints = 1;
 				}
 			}
 			else

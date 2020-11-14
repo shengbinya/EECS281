@@ -377,7 +377,7 @@ void DataBase::insert() {
 			for (size_t j = 0; j < tablePtr->m_colNames.size(); ++j) {
 				string temp;
 					cin >> temp;
-					tablePtr->m_table[i].push_back(convert(tablePtr->m_colTypes[j], temp));
+					tablePtr->m_table[i].emplace_back(convert(tablePtr->m_colTypes[j], temp));
 			}
 		}
 	}
@@ -387,7 +387,7 @@ void DataBase::insert() {
 			for (size_t j = 0; j < tablePtr->m_colNames.size(); ++j) {
 				string temp;
 				cin >> temp;
-				tablePtr->m_table[i].push_back(convert(tablePtr->m_colTypes[j], temp));
+				tablePtr->m_table[i].emplace_back(convert(tablePtr->m_colTypes[j], temp));
 				
 			}
 			//Add element to binary search tree
@@ -560,8 +560,10 @@ void DataBase::join() {
 			colCheck(temp, tablePtr2);
 			colNames.push_back(pair<int, string>{2, temp});
 		}	
+		if(!q)
 		cout << temp << " ";
 	}
+	if(!q)
 	cout << "\n";
 	int printed = 0;
 
@@ -596,7 +598,7 @@ void DataBase::join() {
 		//Itterate through first table beginning to end
 		for (auto i : tablePtr1->m_table) {
 			//Linear search down table to see if any similar values are found
-			for (auto j : tablePtr2->m_table)
+			for (auto j : tablePtr2->m_table) {
 				//If matchinga value print out the appropriate row
 				if (i[numCol1] == j[numCol2]) {
 					if (!q) {
@@ -611,6 +613,7 @@ void DataBase::join() {
 					}
 					printed++;
 				}
+			}
 		}
 	}
 	

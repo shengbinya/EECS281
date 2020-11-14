@@ -203,9 +203,10 @@ int Table::printRange(ForwardIterator t_first, ForwardIterator t_last,
 
 	//Iterate through range
 	while (t_first != t_last) {
-		//Go through vector in range
-		for (auto i : t_first->second) {
-			if (!q) {
+		if (!q) {
+			//Go through vector in range
+			for (auto i : t_first->second) {
+
 				//Print out appropriate columns
 				for (auto it : t_printCols) {
 
@@ -213,8 +214,11 @@ int Table::printRange(ForwardIterator t_first, ForwardIterator t_last,
 				}
 
 				cout << "\n";
+				prints++;
 			}
-			prints++;
+		}
+		else {
+			prints += int(t_first->second.size());
 		}
 		t_first++;
 	}

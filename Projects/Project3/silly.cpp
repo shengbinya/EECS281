@@ -567,15 +567,14 @@ void DataBase::join() {
 	cout << "\n";
 	int printed = 0;
 
-	//Check if table 2 has hash table
+	//Check if table 2 has bst
 	if (tablePtr2->m_indexedNum == numCol2 && tablePtr2->m_indexedName == compCol2
-		&& tablePtr2->m_indexType == "hash")
-	{
+		&& tablePtr2->m_indexType == "bst") {
 		//Itterate through first table beginning to end
 		for (auto i : tablePtr1->m_table) {
 			//If we have found a matching row in table 2
-			auto it = tablePtr2->m_hash.find(i[numCol1]);
-			if (it != tablePtr1->m_hash.end()) {
+			auto it = tablePtr2->m_bst.find(i[numCol1]);
+			if (it != tablePtr2->m_bst.end()) {
 				for (auto k : it->second) {
 					if (!q) {
 						//Loop through column names to print and print them out
@@ -593,21 +592,22 @@ void DataBase::join() {
 		}
 	}
 
-	//If there is no hash table do normal find
-	else {
+	//Check if table 2 has hash table
+	else if (tablePtr2->m_indexedNum == numCol2 && tablePtr2->m_indexedName == compCol2
+		&& tablePtr2->m_indexType == "hash") {
 		//Itterate through first table beginning to end
 		for (auto i : tablePtr1->m_table) {
-			//Linear search down table to see if any similar values are found
-			for (auto j : tablePtr2->m_table) {
-				//If matchinga value print out the appropriate row
-				if (i[numCol1] == j[numCol2]) {
+			//If we have found a matching row in table 2
+			auto it = tablePtr2->m_hash.find(i[numCol1]);
+			if (it != tablePtr2->m_hash.end()) {
+				for (auto k : it->second) {
 					if (!q) {
 						//Loop through column names to print and print them out
-						for (auto k : colNames) {
-							if (k.first == 1)
-								cout << i[tablePtr1->m_colNames[k.second]] << " ";
+						for (auto j : colNames) {
+							if (j.first == 1)
+								cout << i[tablePtr1->m_colNames[j.second]] << " ";
 							else
-								cout << j[tablePtr2->m_colNames[k.second]] << " ";
+								cout << tablePtr2->m_table[k][tablePtr2->m_colNames[j.second]] << " ";
 						}
 						cout << "\n";
 					}
@@ -615,6 +615,34 @@ void DataBase::join() {
 				}
 			}
 		}
+	}
+
+	//If there is no hash table create one
+	else {
+		unordered_map<TableEntry, vector<size_t>> hash(tablePtr2->m_table.size()*2);
+		for (size_t i = 0; i < tablePtr2->m_table.size(); ++i) {
+			hash[tablePtr2->m_table[i][numCol2]].push_back(i);
+		}
+		for (auto i : tablePtr1->m_table) {
+			//If we have found a matching row in table 2
+			auto it = hash.find(i[numCol1]);
+			if (it != hash.end()) {
+				for (auto k : it->second) {
+					if (!q) {
+						//Loop through column names to print and print them out
+						for (auto j : colNames) {
+							if (j.first == 1)
+								cout << i[tablePtr1->m_colNames[j.second]] << " ";
+							else
+								cout << tablePtr2->m_table[k][tablePtr2->m_colNames[j.second]] << " ";
+						}
+						cout << "\n";
+					}
+					printed++;
+				}
+			}
+		}
+		
 	}
 	
 	cout << "Printed " << printed << " rows from joining " << table1 << " to " << table2 << "\n";

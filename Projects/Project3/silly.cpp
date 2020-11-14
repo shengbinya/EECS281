@@ -17,14 +17,20 @@ class Table {
 private:
 	friend class DataBase;
 
-	//Columns types
-	vector<EntryType> m_colTypes;
+	//Actual data in table
+	vector<vector<TableEntry>> m_table;
 
 	//Column names
 	unordered_map<string, size_t> m_colNames;
 
-	//Actual data in table
-	vector<vector<TableEntry>> m_table;
+	//Columns types
+	vector<EntryType> m_colTypes;
+
+	//BST for quick indexing
+	map<TableEntry, vector<size_t>> m_bst;
+
+	//Hash table for quick indexing
+	unordered_map<TableEntry, vector<size_t>> m_hash;
 
 	//Table name
 	string m_name;
@@ -34,12 +40,6 @@ private:
 
 	//Indexed column number
 	size_t m_indexedNum;
-
-	//BST for quick indexing
-	map<TableEntry, vector<size_t>> m_bst;
-
-	//Hash table for quick indexing
-	unordered_map<TableEntry, vector<size_t>> m_hash;
 
 	//Type of indexed col
 	string m_indexType;
@@ -54,6 +54,14 @@ public:
 		m_colTypes.resize(t_colNum);
 		m_colNames.reserve(t_colNum * 2);
 	};
+
+	void printTable(bool);
+
+	size_t colCheck(const string& t_col);
+
+	template <class ForwardIterator>
+	int printRange(ForwardIterator t_first, ForwardIterator t_last,
+		vector<pair<string, int>>& t_printCols, bool q);
 
 };
 
@@ -145,7 +153,7 @@ public:
 
 	void generateIndex();
 
-	void updateIndex(string, string, size_t, Table*);
+	void updateIndex(const string&, const string&, const size_t&, Table*);
 
 	void join();
 
@@ -153,22 +161,22 @@ public:
 
 	~DataBase();
 
-	template <class ForwardIterator, class Compare>
-	int printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
-		vector<pair<string, int>>& t_printCols);
+	//template <class ForwardIterator, class Compare>
+	//int printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
+		//vector<pair<string, int>>& t_printCols);
 
-	template <class ForwardIterator>
-	int printRange(ForwardIterator t_first, ForwardIterator t_last,
-		vector<pair<string, int>>& t_printCols, Table*);
+	//template <class ForwardIterator>
+	//int printRange(ForwardIterator t_first, ForwardIterator t_last,
+		//vector<pair<string, int>>& t_printCols, Table*);
 
-	Table* tableCheck(string t_table);
+	Table* tableCheck(const string& t_table);
 
-	size_t colCheck(string t_col, Table*);
+	size_t colCheck(const string& t_col, Table*);
 
 };
 
 /* --- Helper Functions --- */
-TableEntry convert(EntryType t_type, string t_value) {
+TableEntry convert(EntryType& t_type, const string& t_value) {
 
 	//String
 	if (t_type == EntryType::String)
@@ -198,17 +206,17 @@ TableEntry convert(EntryType t_type, string t_value) {
 }
 
 template <class ForwardIterator, class Compare>
-int DataBase::printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
-			vector<pair<string, int>>& t_printCols ) {
+int printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t_pred,
+			vector<pair<string, int>>& t_printCols, bool q ) {
 	int prints = 0;
 	while (t_first != t_last) {
 		if (t_pred(*t_first)) {
-			for (auto it : t_printCols) {
-				if(!q)
+			if (!q) {
+				for (auto it : t_printCols) {
 					cout << t_first->at(it.second) << " ";
-			}
-			if (!q)
+				}
 				cout << "\n";
+			}
 			++prints;
 		}
 		t_first++;
@@ -217,22 +225,23 @@ int DataBase::printIf(ForwardIterator t_first, ForwardIterator t_last, Compare t
 }
 
 template <class ForwardIterator>
-int DataBase::printRange(ForwardIterator t_first, ForwardIterator t_last,
-	vector<pair<string, int>>& t_printCols, Table* t_table) {
+int Table::printRange(ForwardIterator t_first, ForwardIterator t_last,
+	vector<pair<string, int>>& t_printCols, bool q) {
 	int prints = 0;
 	
 	//Iterate through range
 	while (t_first != t_last) {
 		//Go through vector in range
 		for (auto i : t_first->second) {
-			//Print out appropriate columns
-			for (auto it : t_printCols) {
-				if (!q)
-					cout << t_table->m_table[i][it.second] << " ";
-			}
-			if (!q) 
-				cout << "\n";
+			if (!q) {
+				//Print out appropriate columns
+				for (auto it : t_printCols) {
 
+					cout << m_table[i][it.second] << " ";
+				}
+				
+				cout << "\n";
+			}
 			prints++;
 		}
 		t_first++;
@@ -242,7 +251,7 @@ int DataBase::printRange(ForwardIterator t_first, ForwardIterator t_last,
 }
 
 
-Table* DataBase::tableCheck(string t_table) {
+Table* DataBase::tableCheck(const string& t_table) {
 	//Checks if the table is in the database
 	auto tableCheck = m_dataBase.find(t_table);
 	if (tableCheck == m_dataBase.end())
@@ -251,7 +260,18 @@ Table* DataBase::tableCheck(string t_table) {
 	return tableCheck->second;
 }
 
-size_t DataBase::colCheck(string t_col, Table* t_tablePtr) {
+size_t Table::colCheck(const string& t_col) {
+	// Checks if the column exists
+	auto colIt = m_colNames.find(t_col);
+
+	//If not null then calcuate and push corresponding index
+	if (colIt != m_colNames.end())
+		return colIt->second;
+	else
+		throw string{ "3" + t_col + " " + m_name };
+}
+
+size_t DataBase::colCheck(const string& t_col, Table* t_tablePtr) {
 	// Checks if the column exists
 	auto colIt = t_tablePtr->m_colNames.find(t_col);
 
@@ -407,8 +427,8 @@ void DataBase::insert() {
 	
 }
 
-void DataBase::updateIndex(string t_colName, string t_type,
-	size_t t_numCol, Table* t_tablePtr) {
+void DataBase::updateIndex(const string& t_colName, const string& t_type,
+	const size_t& t_numCol, Table* t_tablePtr) {
 
 	//Clear current indices if they are full
 	if (!t_tablePtr->m_hash.empty())
@@ -560,11 +580,14 @@ void DataBase::join() {
 			colCheck(temp, tablePtr2);
 			colNames.push_back(pair<int, string>{2, temp});
 		}	
-		if(!q)
-		cout << temp << " ";
 	}
-	if(!q)
-	cout << "\n";
+	if (!q) {
+		for (auto i : colNames) {
+			cout << i.second << " ";
+		}
+		cout << "\n";
+	}
+
 	int printed = 0;
 
 	//Check if table 2 has bst
@@ -648,13 +671,7 @@ void DataBase::join() {
 	cout << "Printed " << printed << " rows from joining " << table1 << " to " << table2 << "\n";
 }
 
-void DataBase::print() {
-	string table;
-	cin >> table;
-	cin >> table;
-
-	Table* tablePtr = tableCheck(table);
-
+void Table::printTable(bool q) {
 	string colNums;
 	int numCols;
 	cin >> colNums;
@@ -667,8 +684,8 @@ void DataBase::print() {
 	for (int i = 0; i < numCols; ++i) {
 		cin >> temp;
 
-		//Check if column exists and if so puch back colNum
-		colNames.push_back(pair<string, int>{temp, colCheck(temp, tablePtr)});
+		//Check if column exists and if so push back colNum
+		colNames.push_back(pair<string, int>{temp, colCheck(temp)});
 	}
 
 	//Find index of corresponding cols
@@ -677,23 +694,23 @@ void DataBase::print() {
 
 	//Print out all specified columns
 	for (auto i : colNames) {
-		if(!q)
-		cout << i.first << " ";
+		if (!q)
+			cout << i.first << " ";
 	}
-	if(!q)
-	cout << "\n";
+	if (!q)
+		cout << "\n";
 
 	//Print out all data
 	if (condition == "ALL") {
-		for (size_t row = 0; row < tablePtr->m_table.size(); ++row) {
-			for (auto i : colNames)
-				if (!q)
-					cout << tablePtr->m_table[row][i.second] << " ";
-			if(!q)
+		if (!q) {
+			for (size_t row = 0; row < m_table.size(); ++row) {
+				for (auto i : colNames)
+					cout << m_table[row][i.second] << " ";
 				cout << "\n";
+			}
 		}
-		cout << "Printed " << tablePtr->m_table.size() << " matching rows from "
-			<< table << "\n";
+		cout << "Printed " << m_table.size() << " matching rows from "
+			<< m_name << "\n";
 	}
 
 	else if (condition == "WHERE") {
@@ -706,49 +723,49 @@ void DataBase::print() {
 		cin >> value;
 
 		//Checks if the column exists
-		numCol = colCheck(colName, tablePtr);
+		numCol = colCheck(colName);
 
 		int prints = 0;
 		if (op == "<") {
 			//If an index exists that's the same name as column
-			if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "bst") {
-				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
-				auto endIt = tablePtr->m_bst.lower_bound(val);
-				prints = printRange(tablePtr->m_bst.begin(), endIt, colNames, tablePtr);
+			if (colName == m_indexedName && m_indexType == "bst") {
+				TableEntry val = convert(m_colTypes[numCol], value);
+				auto endIt = m_bst.lower_bound(val);
+				prints = printRange(m_bst.begin(), endIt, colNames, q);
 			}
-				
+
 			else
-				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), LessThan(numCol,
-					convert(tablePtr->m_colTypes[numCol], value)), colNames);
+				prints = printIf(m_table.begin(), m_table.end(), LessThan(numCol,
+					convert(m_colTypes[numCol], value)), colNames, q);
 		}
 
 		else if (op == "=") {
 			//If an index exists that's the same name as column BST
-			if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "bst") {
-				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
-				auto rowIt = tablePtr->m_bst.find(val);
-				if (rowIt != tablePtr->m_bst.end()) {
+			if (colName == m_indexedName && m_indexType == "bst") {
+				TableEntry val = convert(m_colTypes[numCol], value);
+				auto rowIt = m_bst.find(val);
+				if (rowIt != m_bst.end()) {
 					for (auto k : rowIt->second) {
 						if (!q) {
 							for (auto colIt : colNames) {
-								cout << tablePtr->m_table[k][colIt.second] << " ";
+								cout << m_table[k][colIt.second] << " ";
 							}
 							cout << "\n";
 						}
 						prints++;
 					}
 				}
-				
+
 			}
 			//If an index exists that's the same as hash
-			else if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "hash") {
-				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
-				auto rowIt = tablePtr->m_hash.find(val);
-				if (rowIt != tablePtr->m_hash.end()) {
+			else if (colName == m_indexedName && m_indexType == "hash") {
+				TableEntry val = convert(m_colTypes[numCol], value);
+				auto rowIt = m_hash.find(val);
+				if (rowIt != m_hash.end()) {
 					for (auto k : rowIt->second) {
 						if (!q) {
 							for (auto colIt : colNames) {
-								cout << tablePtr->m_table[k][colIt.second] << " ";
+								cout << m_table[k][colIt.second] << " ";
 							}
 							cout << "\n";
 						}
@@ -757,24 +774,33 @@ void DataBase::print() {
 				}
 			}
 			else
-				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), Equal(numCol,
-					convert(tablePtr->m_colTypes[numCol], value)), colNames);
+				prints = printIf(m_table.begin(), m_table.end(), Equal(numCol,
+					convert(m_colTypes[numCol], value)), colNames, q);
 		}
 
 		else {
 			//If an index exists that's the same name as column
-			if (colName == tablePtr->m_indexedName && tablePtr->m_indexType == "bst") {
-				TableEntry val = convert(tablePtr->m_colTypes[numCol], value);
-				auto beginIt = tablePtr->m_bst.upper_bound(val);
-				prints = printRange(beginIt, tablePtr->m_bst.end(), colNames, tablePtr);
+			if (colName == m_indexedName && m_indexType == "bst") {
+				TableEntry val = convert(m_colTypes[numCol], value);
+				auto beginIt = m_bst.upper_bound(val);
+				prints = printRange(beginIt, m_bst.end(), colNames, q);
 			}
 			else
-				prints = printIf(tablePtr->m_table.begin(), tablePtr->m_table.end(), GreaterThan(numCol,
-					convert(tablePtr->m_colTypes[numCol], value)), colNames);
+				prints = printIf(m_table.begin(), m_table.end(), GreaterThan(numCol,
+					convert(m_colTypes[numCol], value)), colNames, q);
 		}
 
-		cout << "Printed " << prints << " matching rows from " << table << "\n";
+		cout << "Printed " << prints << " matching rows from " << m_name << "\n";
 	}
+}
+void DataBase::print() {
+	string table;
+	cin >> table;
+	cin >> table;
+
+	Table* tablePtr = tableCheck(table);
+
+	tablePtr->printTable(q);
 
 }
 

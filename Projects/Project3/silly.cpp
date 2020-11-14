@@ -21,7 +21,7 @@ private:
 	vector<EntryType> m_colTypes;
 
 	//Column names
-	vector<string> m_colNames;
+	unordered_map<string, size_t> m_colNames;
 
 	//Actual data in table
 	vector<vector<TableEntry>> m_table;
@@ -52,7 +52,7 @@ public:
 	Table(string t_name, int t_colNum) : m_name{ t_name }, 
 		m_indexedName{ "" }, m_indexedNum{ 0 }, m_indexType{ "" } {
 		m_colTypes.resize(t_colNum);
-		m_colNames.resize(t_colNum);
+		m_colNames.reserve(t_colNum * 2);
 	};
 
 };
@@ -247,11 +247,11 @@ Table* DataBase::tableCheck(string t_table) {
 
 size_t DataBase::colCheck(string t_col, Table* t_tablePtr) {
 	// Checks if the column exists
-	auto colIt = find(t_tablePtr->m_colNames.begin(), t_tablePtr->m_colNames.end(), t_col);
+	auto colIt = t_tablePtr->m_colNames.find(t_col);
 
 	//If not null then calcuate and push corresponding index
 	if (colIt != t_tablePtr->m_colNames.end())
-		return (colIt - t_tablePtr->m_colNames.begin());
+		return colIt->second;
 	else
 		throw string{ "3" + t_col + " " + t_tablePtr->m_name };
 }
@@ -315,15 +315,18 @@ void DataBase::addTable() {
 			assert(false);
 	}
 	
-	for (size_t i = 0; i < table->m_colNames.size(); ++i) {
+	//Populate the column names of the table
+	vector<string> tempPrintVec(numCol);
+	for (size_t i = 0; i < size_t(numCol); ++i) {
 		cin >> name;
-		table->m_colNames[i] = name;
+		table->m_colNames[name] = i;
+		tempPrintVec[i] = name;
 	}
 
 	m_dataBase[table->m_name] = table;
 
 	cout << "New table " << table->m_name << " with column(s) ";
-	for (auto name : table->m_colNames)
+	for (auto name : tempPrintVec)
 		cout << name << " ";
 	cout << "created\n";
 
@@ -484,20 +487,10 @@ void DataBase::generateIndex() {
 	cin >> colName;
 
 	//Checks if the table is in the database
-	auto tableCheck = m_dataBase.find(table);
-	if (tableCheck == m_dataBase.end())
-		throw "2" + table;
-
-	Table* tablePtr = tableCheck->second;
+	Table* tablePtr = DataBase::tableCheck(table);
 
 	//Checks if the column exists
-	auto colIt = find(tablePtr->m_colNames.begin(), tablePtr->m_colNames.end(), colName);
-
-	//If not null then calcuate and push corresponding index
-	if (colIt != tablePtr->m_colNames.end())
-		numCol = colIt - tablePtr->m_colNames.begin();
-	else
-		throw string{ "3" + colName + " " + table };
+	numCol = colCheck(colName, tablePtr);
 
 	updateIndex(colName, type, numCol, tablePtr);
 
@@ -506,13 +499,13 @@ void DataBase::generateIndex() {
 }
 
 void DataBase::join() {
-	string table1 = "";
+/*	string table1 = "";
 	string table2 = "";
 	string compCol1 = "";
 	string compCol2 = "";
 	string garbage = "";
-	int numCol1 = 0;
-	int numCol2 = 0;
+	size_t numCol1 = 0;
+	size_t numCol2 = 0;
 	int numCols = 0;
 
 	cin >> table1;
@@ -550,22 +543,27 @@ void DataBase::join() {
 		cin >> temp;
 		cin >> garbage;
 		numTable = stoi(garbage);
-		vector<string>::iterator colIt;
 		
 		//Find iterator
 		if (numTable == 1) {
-			colIt = find(tablePtr1->m_colNames.begin(), tablePtr1->m_colNames.end(), temp);
+			auto colIt = find(tablePtr1->m_colNames.begin(), tablePtr1->m_colNames.end(), temp);
+			//If not null then calcuate and push corresponding index
+			if (colIt != tablePtr1->m_colNames.end())
+				colNames.push_back(pair<string, int>{temp, colIt - tablePtr1->m_colNames.begin()});
+			else
+				throw string{ "3" + temp + " " + tablePtr1->m_name };
 		}
-		else
-			colIt = find(tablePtr2->m_colNames.begin(), tablePtr2->m_colNames.end(), temp);
-
-		//If not null then calcuate and push corresponding index
-		if (colIt != tablePtr1->m_colNames.end())
-			colNames.push_back(pair<int, int>{numTable, colIt - tablePtr->m_colNames.begin()});
-		else
-			throw string{ "3" + temp + " " + table };
+		else {
+			auto colIt = find(tablePtr2->m_colNames.begin(), tablePtr2->m_colNames.end(), temp);
+			//If not null then calcuate and push corresponding index
+			if (colIt != tablePtr1->m_colNames.end())
+				colNames.push_back(pair<int, int>{numTable, colIt - tablePtr2->m_colNames.begin()});
+			else
+				throw string{ "3" + temp + " " + tablePtr1->m_name };
+		}
+			
 	}
-	
+	*/
 }
 
 void DataBase::print() {
@@ -587,14 +585,8 @@ void DataBase::print() {
 	for (int i = 0; i < numCols; ++i) {
 		cin >> temp;
 
-		//Find iterator
-		auto colIt = find(tablePtr->m_colNames.begin(), tablePtr->m_colNames.end(), temp);
-
-		//If not null then calcuate and push corresponding index
-		if (colIt != tablePtr->m_colNames.end())
-			colNames.push_back(pair<string, int>{temp, colIt - tablePtr->m_colNames.begin()});
-		else
-			throw string{ "3" + temp + " " + table };
+		//Check if column exists and if so puch back colNum
+		colNames.push_back(pair<string, int>{temp, colCheck(temp, tablePtr)});
 	}
 
 	//Find index of corresponding cols
@@ -632,13 +624,7 @@ void DataBase::print() {
 		cin >> value;
 
 		//Checks if the column exists
-		auto colIt = find(tablePtr->m_colNames.begin(), tablePtr->m_colNames.end(), colName);
-
-		//If not null then calcuate and push corresponding index
-		if (colIt != tablePtr->m_colNames.end())
-			numCol = colIt - tablePtr->m_colNames.begin();
-		else
-			throw string{ "3" + colName + " " + table };
+		numCol = colCheck(colName, tablePtr);
 
 		int prints = 0;
 		if (op == "<") {

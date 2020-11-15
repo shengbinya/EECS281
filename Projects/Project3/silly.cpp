@@ -368,41 +368,25 @@ void Table::insertTable() {
 	for (auto i : m_table)
 		i.reserve(m_colNames.size());
 
-	for (size_t i = currRowNum; i < numRows + currRowNum; ++i) {
-		for (size_t j = 0; j < m_colNames.size(); ++j) {
-			string temp;
-			cin >> temp;
-			
-			//String
-			if (m_colTypes[j] == EntryType::String) {
-				m_table[i].emplace_back(temp);
+	//If no BST or Hash Table
+	if (m_indexedName.empty()) {
+		for (size_t i = currRowNum; i < numRows + currRowNum; ++i) {
+			for (size_t j = 0; j < m_colNames.size(); ++j) {
+				string temp;
+				cin >> temp;
+				m_table[i].emplace_back(convert(m_colTypes[j], temp));
 			}
-
-			//Double
-			else if (m_colTypes[j] == EntryType::Double) {
-				double temp1;
-				temp1 = stod(temp);
-				m_table[i].emplace_back(temp1);
-			}
-
-			//Int
-			else if (m_colTypes[j] == EntryType::Int) {
-				int temp1;
-				temp1 = stoi(temp);
-				m_table[i].emplace_back(temp1);
-			}
-
-			//Boolean
-			else {
-				if (temp == "true")
-					m_table[i].emplace_back(true);
-				else
-					m_table[i].emplace_back(false);
-			}
-			
 		}
-		//If BST or Hash Table
-		if (!m_indexedName.empty()) {
+	}
+	//Update the BST or Hash Table
+	else {
+		for (size_t i = currRowNum; i < numRows + currRowNum; ++i) {
+			for (size_t j = 0; j < m_colNames.size(); ++j) {
+				string temp;
+				cin >> temp;
+				m_table[i].emplace_back(convert(m_colTypes[j], temp));
+
+			}
 			//Add element to binary search tree
 			if (m_indexType == "bst") {
 				m_bst[m_table[i][m_indexedNum]].push_back(i);
@@ -413,6 +397,7 @@ void Table::insertTable() {
 			}
 		}
 	}
+
 
 	cout << "Added " << numRows << " rows to " << m_name << " from position "
 		<< currRowNum << " to " << currRowNum + numRows - 1 << "\n";
@@ -581,8 +566,9 @@ void DataBase::insert() {
 		}
 		throw "2" + table;
 	}
-		
+
 	Table* tablePtr = tableCheck->second;
+
 	tablePtr->insertTable();
 }
 
@@ -723,14 +709,13 @@ void DataBase::join() {
 	string temp = "";
 	colNames.reserve(numCols);
 
-	
 	//Extract and store column information from cmd line
 	for (int i = 0; i < numCols; ++i) {
 		int numTable = 0;
 		cin >> temp;
 		cin >> garbage;
 		numTable = stoi(garbage);
-
+		
 		//Create vector of tables and corresponding column number
 		if (numTable == 1) {
 			colCheck(temp, tablePtr1);
@@ -739,15 +724,14 @@ void DataBase::join() {
 		else {
 			colCheck(temp, tablePtr2);
 			colNames.push_back(pair<int, string>{2, temp});
-		}
+		}	
 	}
-	if(!q){
+	if (!q) {
 		for (auto i : colNames) {
 			cout << i.second << " ";
 		}
 		cout << "\n";
 	}
-	
 
 	int printed = 0;
 
@@ -759,9 +743,8 @@ void DataBase::join() {
 			//If we have found a matching row in table 2
 			auto it = tablePtr2->m_bst.find(i[numCol1]);
 			if (it != tablePtr2->m_bst.end()) {
-				if (!q) {
-					for (auto k : it->second) {
-					
+				for (auto k : it->second) {
+					if (!q) {
 						//Loop through column names to print and print them out
 						for (auto j : colNames) {
 							if (j.first == 1)
@@ -770,12 +753,8 @@ void DataBase::join() {
 								cout << tablePtr2->m_table[k][tablePtr2->m_colNames[j.second]] << " ";
 						}
 						cout << "\n";
-						printed++;
 					}
-					
-				}
-				else {
-					printed += (int)it->second.size();
+					printed++;
 				}
 			}
 		}
@@ -789,9 +768,8 @@ void DataBase::join() {
 			//If we have found a matching row in table 2
 			auto it = tablePtr2->m_hash.find(i[numCol1]);
 			if (it != tablePtr2->m_hash.end()) {
-				if (!q) {
-					for (auto k : it->second) {
-
+				for (auto k : it->second) {
+					if (!q) {
 						//Loop through column names to print and print them out
 						for (auto j : colNames) {
 							if (j.first == 1)
@@ -800,14 +778,9 @@ void DataBase::join() {
 								cout << tablePtr2->m_table[k][tablePtr2->m_colNames[j.second]] << " ";
 						}
 						cout << "\n";
-						printed++;
 					}
-					
+					printed++;
 				}
-				else {
-					printed += (int) it->second.size();
-				}
-			
 			}
 		}
 	}
@@ -822,9 +795,8 @@ void DataBase::join() {
 			//If we have found a matching row in table 2
 			auto it = hash.find(i[numCol1]);
 			if (it != hash.end()) {
-				if (!q) {
-					for (auto k : it->second) {
-
+				for (auto k : it->second) {
+					if (!q) {
 						//Loop through column names to print and print them out
 						for (auto j : colNames) {
 							if (j.first == 1)
@@ -833,11 +805,9 @@ void DataBase::join() {
 								cout << tablePtr2->m_table[k][tablePtr2->m_colNames[j.second]] << " ";
 						}
 						cout << "\n";
-						printed++;
 					}
+					printed++;
 				}
-				else
-					printed += (int) it->second.size();
 			}
 		}
 		
@@ -920,7 +890,7 @@ int main(int argc, char** argv) {
 				size_t space = e.find(" ");
 				if (!alreadyPrinted) {
 					cout << "Error: " << e.substr(1, space) <<
-						"does not name a column in " << e.substr(space + 1, space - 1) << "\n";
+						"does not name a column in " << e.substr(space + 1, e.size() - space-1) << "\n";
 					alreadyPrinted = true;
 				}
 			}

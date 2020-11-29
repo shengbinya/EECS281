@@ -12,6 +12,7 @@ Samples-Windows/
 **/*.o
 add_executables_gitignore*
 Miscellaneous/
+**/P4-Samples-Windows-VisualStudio/*
 
 ##Ignore Visual Studio Code
 .vscode/*
@@ -332,3 +333,10 @@ Projects/Project2/testPQ
 Labs/Lab1/Files/lab1
 Labs/Lab3/string
 Labs/Lab3/strlib
+Exams/Midterm/Practice Written Starter Files/F18E1 - Q26 (Minimal Sorting)/find
+Exams/Midterm/test
+Labs/Lab7/hash
+Labs/Lab7/hash.exe
+Labs/Lab9/cycle
+Projects/Project3/silly
+Projects/Project4/amongus

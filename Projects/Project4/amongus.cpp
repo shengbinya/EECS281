@@ -45,12 +45,17 @@ int getOptions(int argc, char** argv) {
 
 int main(int argc, char** argv) {
 	
+	std::ios_base::sync_with_stdio(false);
+	cout << std::setprecision(2); //Always show 2 decimal places
+	cout << std::fixed; //Disable scientific notation for large numbers
+
+
 	int choice = getOptions(argc, argv);
 
 	//MST Option
 	if (choice == 1) {
 		MST mst;
-		mst.read();
+		mst.run();
 		mst.print();
 	}
 }

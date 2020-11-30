@@ -1,9 +1,12 @@
 // Project Identifier: 9B734EC0C043C5A836EA0EBE4BEFEA164490B2C7
+#pragma once
 #include "PathFinder.hpp"
 
 class FASTTSP : public PathFinder{
 
 private:
+	friend class OPTTSP;
+
 	vector<pair<int, double>> m_path;
 	vector<Point> m_vertices;
 

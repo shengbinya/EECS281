@@ -14,21 +14,25 @@ struct PointLoc {
 
 class MST : public PathFinder {
 
-public:
+private:
 	vector<PointLoc> m_vertices;
+	vector<double> m_minEdges;
+	vector<int> m_preVertex;
+	vector<bool> m_visited;
+
+public:
 
 	//Default Constructor
 	MST() {}
 
 	//Finds distance between two points
-	double findDistance(const size_t, const size_t);
+	double findDistance(const size_t, const size_t) override;
 
 	//Read function
 	void read() override;
 	
 	//Executes the MST Algorithm
-	void run();
+	void run() override;
 
-	//Prints MST Output
-	void print();
+	void print() override;
 };

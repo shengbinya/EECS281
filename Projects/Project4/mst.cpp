@@ -116,6 +116,7 @@ void MST::run() {
 	cout << edgeTotal << "\n";
 }
 
+
 void MST::print() {
 	//Skip initial squence
 	for (size_t i = 1; i < m_preVertex.size(); ++i) {

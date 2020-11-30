@@ -1,5 +1,6 @@
 // Project Identifier: 9B734EC0C043C5A836EA0EBE4BEFEA164490B2C7
 #include "MST.hpp"
+#include "FASTTSP.hpp"
 #include <string.h>
 
 using namespace std;
@@ -58,5 +59,12 @@ int main(int argc, char** argv) {
 		mst.read();
 		mst.run();
 		mst.print();
+	}
+	//FASTTSP Option
+	else if (choice == 2) {
+		FASTTSP speedy;
+		speedy.read();
+		speedy.run();
+		speedy.print();
 	}
 }

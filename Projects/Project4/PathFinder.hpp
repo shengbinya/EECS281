@@ -26,14 +26,12 @@ class PathFinder {
 
 public:
 	
-	//Variable Declarations
-	vector<Point> m_vertexes;
-	vector<double> m_minEdges;
-	vector<int> m_preVertex;
-	vector<bool> m_visited;
+	virtual void read() = 0;
 
-	//Default Constructor
-	PathFinder() {}
+	virtual void print() = 0;
 
-	virtual void read();
+	virtual void run() = 0;
+
+	virtual double findDistance(const size_t, const size_t) = 0;
+
 };

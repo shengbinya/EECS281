@@ -3,13 +3,71 @@
 
 using namespace std;
 
+void MST::read() {
+	
+	//Initialize Stuff
+	bool lab = false;
+	bool decontam = false;
+	bool ship = false;
+	string x = "";
+	string y = "";
+	int xi = 0;
+	int yi = 0;
+	string curr = "";
+
+	cin >> curr;
+	int size = stoi(curr);
+
+	//Resize all vectors
+	m_vertices.resize(size);
+	m_minEdges.resize(size, std::numeric_limits<double>::infinity());
+	m_preVertex.resize(size);
+	m_visited.resize(size);
+
+	//Read in information
+	for (int i = 0; i < size; i++) {
+
+		PointLoc::Location loc = PointLoc::Location::ship;
+		cin >> x;
+		cin >> y;
+		xi = stoi(x);
+		yi = stoi(y);
+
+		//Lab Check
+		if (xi < 0 && yi < 0) {
+			loc = PointLoc::Location::lab;
+
+			if (!lab)
+				lab = true;
+		}
+
+		//Decontamination Check
+		if ((xi <= 0 && yi == 0) || (xi == 0 && yi <= 0)) {
+			loc = PointLoc::Location::decontamination;
+			if (!decontam)
+				decontam = true;
+		}
+
+		//Ship Check
+		if (!ship && loc == PointLoc::Location::ship)
+			ship = true;
+
+		m_vertices[i] = PointLoc{ xi, yi, loc };
+	}
+
+	if (ship && lab && !decontam) {
+		cerr << "Cannot construct MST\n";
+		exit(1);
+	}
+}
+
 double MST::findDistance(const size_t t_i, const size_t t_j) {
-	Point* i = &m_vertices[t_i];
-	Point* j = &m_vertices[t_j];
+	PointLoc* i = &m_vertices[t_i];
+	PointLoc* j = &m_vertices[t_j];
 
 	//If not reachable send infinity
-	if ((i->loc == Point::Location::lab && j->loc == Point::Location::ship) ||
-		(i->loc == Point::Location::ship && j->loc == Point::Location::lab))
+	if ((i->loc == PointLoc::Location::lab && j->loc == PointLoc::Location::ship) ||
+		(i->loc == PointLoc::Location::ship && j->loc == PointLoc::Location::lab))
 		return std::numeric_limits<double>::infinity();
 	else {
 		double xdiff = i->x - j->x;

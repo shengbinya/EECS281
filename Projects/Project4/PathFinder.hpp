@@ -16,12 +16,9 @@
 using namespace std;
 
 struct Point {
-	//Enumerated Location Type
-	enum Location { lab, decontamination, ship };
-
+	
 	int x;
 	int y;
-	Location loc;
 	
 };
 
@@ -30,12 +27,13 @@ class PathFinder {
 public:
 	
 	//Variable Declarations
-	vector<Point> m_vertices;
+	vector<Point> m_vertexes;
 	vector<double> m_minEdges;
 	vector<int> m_preVertex;
 	vector<bool> m_visited;
 
 	//Default Constructor
-	PathFinder();
+	PathFinder() {}
 
+	virtual void read();
 };

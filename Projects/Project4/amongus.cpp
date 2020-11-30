@@ -55,6 +55,7 @@ int main(int argc, char** argv) {
 	//MST Option
 	if (choice == 1) {
 		MST mst;
+		mst.read();
 		mst.run();
 		mst.print();
 	}

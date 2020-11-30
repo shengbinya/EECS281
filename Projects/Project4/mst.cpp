@@ -11,8 +11,11 @@ double MST::findDistance(const size_t t_i, const size_t t_j) {
 	if ((i->loc == Point::Location::lab && j->loc == Point::Location::ship) ||
 		(i->loc == Point::Location::ship && j->loc == Point::Location::lab))
 		return std::numeric_limits<double>::infinity();
-	else
-		return sqrt((i->x - j->x) * (i->x - j->x) + (i->y - j->y) * (i->y - j->y));
+	else {
+		double xdiff = i->x - j->x;
+		double ydiff = i->y - j->y;
+		return sqrt(xdiff * xdiff + ydiff * ydiff);
+	}
 }
 
 void MST::run() {

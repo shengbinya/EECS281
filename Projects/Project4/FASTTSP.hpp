@@ -23,4 +23,7 @@ public:
 	void run() override;
 
 	void print() override;
+
+	bool doesIntersect(const size_t t_l11, const size_t t_l12,
+		const size_t t_l21, const size_t t_l22);
 };

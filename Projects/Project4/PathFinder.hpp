@@ -19,6 +19,22 @@ struct Point {
 	
 	int x;
 	int y;
+
+	//Subtraction 
+	Point operator-(Point &right) {
+		return Point{ this->x - right.x, this->y - right.y };
+	}
+
+	//Cross Product
+	int operator*(Point& right) {
+		return (this->x * right.y) - (this->y * right.x);
+	}
+
+	Point& operator*(int in) {
+		this->x *= in;
+		this->y *= in;
+		return *this;
+	}
 	
 };
 

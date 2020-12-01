@@ -9,7 +9,6 @@ private:
 	vector<double> m_minEdges;
 	vector<int> m_path;
 	vector<int> m_bestPath;
-	vector<int> m_preVertex;
 	vector<bool> m_visited;
 	double m_bestTotal = std::numeric_limits<double>::infinity();
 	

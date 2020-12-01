@@ -1,0 +1,21 @@
+// This file is posted here so that you can easily copy/paste the code.
+// It's unsafe to copy/paste from PDF files, due to hidden characters.
+
+
+// Project Identifier: 9B734EC0C043C5A836EA0EBE4BEFEA164490B2C7
+
+
+template <typename T>
+void genPerms(vector<T> &path, size_t permLength) {
+  if (permLength == path.size()) {
+    // Do something with the path
+    return;
+  } // if
+  if (!promising(path, permLength))
+    return;
+  for (size_t i = permLength; i < path.size(); ++i) {
+    swap(path[permLength], path[i]);
+    genPerms(path, permLength + 1);
+    swap(path[permLength], path[i]);
+  } // for
+} // genPerms()

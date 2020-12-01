@@ -89,8 +89,9 @@ void FASTTSP::run() {
 		m_path.insert(m_path.begin() + minIndex + 1, pair<int, double>{i, newDistR});
 		totalDist += newDistL + newDistR;
 	}
-	
-	//Opt-2 Algorithm
+
+	/*
+	//2-Opt Algorithm
 	//Check for intersection at beginning
 	size_t end = m_path.size() - 1;
 	if (doesIntersect(m_path[1].first, m_path[2].first, m_path[m_path.size()-1].first, m_path[0].first)) {
@@ -106,7 +107,7 @@ void FASTTSP::run() {
 		m_path[1].second = newDistL;
 			
 	}
-	/*
+	
 	for (size_t i = 0; i < m_path.size() - 1; ++i) {
 		for (size_t j = i + 2; j < m_path.size()-1; ++j) {
 			if (doesIntersect(m_path[i].first, m_path[i + 1].first, m_path[j].first, m_path[j + 1].first)) {

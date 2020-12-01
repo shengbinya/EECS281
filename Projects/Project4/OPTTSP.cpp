@@ -8,19 +8,19 @@ void OPTTSP::read() {
 	//Resize MST Stuff
 	m_distanceMat.resize(m_vertices.size());
 	m_minEdges.resize(m_vertices.size(), std::numeric_limits<double>::infinity());
-	m_path.resize(m_vertices.size());
+	m_pathOpt.resize(m_vertices.size());
+	m_path.reserve(m_vertices.size());
 	m_visited.resize(m_vertices.size());
 
 	//Create Distane Matrix to save time
 	//[row][col]
 	for (size_t i = 0; i < m_vertices.size(); ++i) {
-		m_path[i] = (int)i;
+		m_pathOpt[i] = (int)i;
 		m_distanceMat[i].resize(m_vertices.size());
 		for (size_t j = 0; j < m_vertices.size(); ++j) {
 			m_distanceMat[i][j] = findDistance(i, j);
 		}
 	}
-	m_vertices.clear();
 
 }
 
@@ -33,11 +33,11 @@ bool OPTTSP::promising(size_t permLength, double runningTotal) {
 	size_t currSmallest = permLength;
 	double edgeTotal = 0;
 	//Iterate over each point
-	for (size_t i = permLength; i < m_path.size(); i++) {
+	for (size_t i = permLength; i < m_pathOpt.size(); i++) {
 		int nextSmallest = -1;
 
 		//Check connection between each point and all other points
-		for (size_t j = permLength; j < m_path.size(); j++) {
+		for (size_t j = permLength; j < m_pathOpt.size(); j++) {
 
 			//If not visited find the distance
 			if (!m_visited[j]) {
@@ -45,7 +45,7 @@ bool OPTTSP::promising(size_t permLength, double runningTotal) {
 				if (nextSmallest == -1)
 					nextSmallest = (int)j;
 
-				double dist = m_distanceMat[m_path[currSmallest]][m_path[j]];
+				double dist = m_distanceMat[m_pathOpt[currSmallest]][m_pathOpt[j]];
 
 				//If found distance is smaller than the current distance
 				if (dist < m_minEdges[j]) {
@@ -70,14 +70,14 @@ bool OPTTSP::promising(size_t permLength, double runningTotal) {
 	double beginBest = std::numeric_limits<double>::infinity();
 	double endBest = std::numeric_limits<double>::infinity();
 	int begin = 0;
-	int end = m_path[permLength-1];
+	int end = m_pathOpt[permLength-1];
 
-	for (size_t i = permLength; i < m_path.size(); ++i) {
+	for (size_t i = permLength; i < m_pathOpt.size(); ++i) {
 		//Check if have better beginning index
-		if (m_distanceMat[begin][m_path[i]] < beginBest)
-			beginBest = m_distanceMat[begin][m_path[i]];
-		if (m_distanceMat[end][m_path[i]] < endBest)
-			endBest = m_distanceMat[end][m_path[i]];
+		if (m_distanceMat[begin][m_pathOpt[i]] < beginBest)
+			beginBest = m_distanceMat[begin][m_pathOpt[i]];
+		if (m_distanceMat[end][m_pathOpt[i]] < endBest)
+			endBest = m_distanceMat[end][m_pathOpt[i]];
 	}
 
 	//Check if not better than current best
@@ -90,26 +90,32 @@ bool OPTTSP::promising(size_t permLength, double runningTotal) {
 
 void OPTTSP::genPerms( size_t permLength, double runningTotal) {
     //If we've reached the end of perm check if it's best perm yet
-    if (permLength == m_path.size()) {
-        if (runningTotal + m_distanceMat[0][m_path[permLength - 1]] < m_bestTotal) {
+    if (permLength == m_pathOpt.size()) {
+        if (runningTotal + m_distanceMat[0][m_pathOpt[permLength - 1]] < m_bestTotal) {
             //Need to add in edge between starting and ending point
-            m_bestTotal = runningTotal + m_distanceMat[0][m_path[permLength-1]];
-            m_bestPath = m_path;
+            m_bestTotal = runningTotal + m_distanceMat[0][m_pathOpt[permLength-1]];
+            m_bestPath = m_pathOpt;
         }
         return;
     } // if
     //If it isn't looking good then just return
     if (!promising(permLength, runningTotal))
         return;
-    for (size_t i = permLength; i < m_path.size(); ++i) {
-        swap(m_path[permLength], m_path[i]);
-        genPerms( permLength + 1, runningTotal+m_distanceMat[m_path[permLength-1]][m_path[permLength]]);
-        swap(m_path[permLength], m_path[i]);
+    for (size_t i = permLength; i < m_pathOpt.size(); ++i) {
+        swap(m_pathOpt[permLength], m_pathOpt[i]);
+        genPerms( permLength + 1, runningTotal+m_distanceMat[m_pathOpt[permLength-1]][m_pathOpt[permLength]]);
+        swap(m_pathOpt[permLength], m_pathOpt[i]);
     } // for
 } // genPerms()
 
 void OPTTSP::run() {
     
+	FASTTSP::run();
+	//Clear stuff from FASTTSP
+	m_vertices.clear();
+	m_path.clear();
+
+	m_bestTotal = totalDist;
     //We start at root and current total is 0
     genPerms(1, 0);
 	

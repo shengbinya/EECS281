@@ -38,7 +38,7 @@ void FASTTSP::run() {
 	double dist = findDistance(0, 1);
 	m_path.push_back(pair<int, double>{ 0, dist });
 	m_path.push_back(pair<int, double>{ 1, dist });
-	double totalDist = 2*dist;
+	totalDist = 2*dist;
 
 	//Add points to cycle in order of insertion
 	for (size_t i = 2; i < m_vertices.size(); ++i) {
@@ -68,15 +68,13 @@ void FASTTSP::run() {
 		m_path.insert(m_path.begin()+minIndex + 1, pair<int, double>{i, newDistR});
 		totalDist += newDistL + newDistR;
 	}
-
-	cout << totalDist << "\n";
+	
 }
 
 void FASTTSP::print() {
-	double checkSum = 0;
+	cout << totalDist << "\n";
 	for (auto i : m_path) {
 		cout << i.first << " ";
-		checkSum += i.second;
 	}
 	cout << "\n";
 }

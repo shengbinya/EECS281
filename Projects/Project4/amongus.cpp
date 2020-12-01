@@ -29,7 +29,7 @@ int getOptions(int argc, char** argv) {
 			else if (strcmp(optarg, "OPTTSP") == 0)
 				choice = 3;
 			else {
-				cout << "Invalid Argument: " << optarg << "\n";
+				cout << "Error: Invalid mode\n";
 				exit(1);
 			}
 			break;
@@ -40,8 +40,20 @@ int getOptions(int argc, char** argv) {
 				<< "Usage: \'./amongus\n\t[--mode | -m]\n"
 				<< "\t[--help | -h]\n";
 			exit(1);
+		
+		default:
+			cout << "Error: Invalid command line option\n";
+			exit(1);
 		}
+
+		
 	}
+
+	if (choice == 0) {
+		cout << "Error: No mode specified\n";
+		exit(1);
+	}
+	
 	return choice;
 }
 
@@ -74,4 +86,5 @@ int main(int argc, char** argv) {
 		optimal.run();
 		optimal.print();
 	}
+	
 }

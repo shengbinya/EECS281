@@ -9,6 +9,7 @@ private:
 
 	vector<pair<int, double>> m_path;
 	vector<Point> m_vertices;
+	double totalDist;
 
 public:
 

@@ -7,7 +7,7 @@ class OPTTSP : public FASTTSP {
 private:
 	vector<vector<double>> m_distanceMat;
 	vector<double> m_minEdges;
-	vector<int> m_path;
+	vector<int> m_pathOpt;
 	vector<int> m_bestPath;
 	vector<bool> m_visited;
 	double m_bestTotal = std::numeric_limits<double>::infinity();

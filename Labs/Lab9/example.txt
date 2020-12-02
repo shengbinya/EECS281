@@ -1,0 +1,12 @@
+# expected solution: 7
+10
+o...oo.ooo.ooooo.
+.ooo.oo..oo..oooo
+...o.o.ooo.....oo
+oo.ooo..oooo..o..
+o....o....ooooo.o
+ooo....oooo....oo
+....ooooo...ooo.o
+ooo.oo.oooo.o.ooo
+.ooo....oo......o
+...oooooo...oo.oo

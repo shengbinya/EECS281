@@ -16,10 +16,11 @@ int number_of_islands(std::vector<std::vector<char>>& grid) {
     deque<pair<int, int>> search;
     int numIslands = 0;
 
-    for (int i = 0; i < grid.size(); ++i) {
-        for (int j = 0; j < grid[i].size(); ++i) {
+    for (size_t i = 0; i < grid.size(); ++i) {
+        for (size_t j = 0; j < grid[i].size(); ++j) {
             if (grid[i][j] == 'o') {
                 //Initialize the stack
+                grid[i][j] = '.';
                 search.push_front(pair<int, int>{ i,j });
                 ++numIslands;
 
@@ -28,24 +29,31 @@ int number_of_islands(std::vector<std::vector<char>>& grid) {
                     
                     //Pull off the front and investigate
                     pair<int, int> curr = search.front();
-                    grid[curr.first][curr.second] = '.';
                     search.pop_front();
                     
                     //Check point above current point
-                    if (curr.first != 0 && grid[curr.first - 1][curr.second] == 'o')
-                        search.push_front(pair<int, int>{curr.first-1, curr.second});
+                    if (curr.first != 0 && grid[curr.first - 1][curr.second] == 'o') {
+                        grid[curr.first - 1][curr.second] = '.';
+                        search.push_front(pair<int, int>{curr.first - 1, curr.second});
+                    }
 
                     //Check point below current point
-                    if (curr.first != grid.size() && grid[curr.first + 1][curr.second] == 'o')
-                        search.push_front(pair<int, int>{curr.first+1, curr.second});
-
+                    if (curr.first != (int)grid.size() - 1 && grid[curr.first + 1][curr.second] == 'o') {
+                        grid[curr.first + 1][curr.second] = '.';
+                        search.push_front(pair<int, int>{curr.first + 1, curr.second});
+                    }
                     //Check point to right of current
-                    if (curr.second != grid[i].size() && grid[curr.first][curr.second+1] == 'o')
-                        search.push_front(pair<int, int>{curr.first, curr.second+1});
-
+                    if (curr.second != (int)grid[i].size() - 1 && grid[curr.first][curr.second + 1] == 'o') {
+                        grid[curr.first][curr.second + 1] = '.';
+                        search.push_front(pair<int, int>{curr.first, curr.second + 1});
+                    }
+                        
                     //Check point to left of current
-                    if (curr.second != 0 && grid[curr.first][curr.second - 1] == 'o')
+                    if (curr.second != 0 && grid[curr.first][curr.second - 1] == 'o') {
+                        grid[curr.first][curr.second - 1] = '.';
                         search.push_front(pair<int, int>{curr.first, curr.second - 1});
+                    }
+                        
 
                 }
             }
